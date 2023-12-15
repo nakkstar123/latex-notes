@@ -1,0 +1,290 @@
+\documentclass[fleqn]{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath, amssymb}
+
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\setlength{\mathindent}{1cm}
+
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\Ha{\ensuremath{\mathbb{H}}}
+\newcommand\J{\ensuremath{\mathbb{J}}}
+\newcommand\K{\ensuremath{\mathbb{K}}}
+\newcommand\cont{\Rightarrow\!\Leftarrow}
+\newcommand\tf{\therefore}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#2}
+\newcommand{\hmwkDueDate}{January 25, 2022}
+\newcommand{\hmwkClass}{Math 131AH}
+\newcommand{\hmwkClassTime}{131AH}
+\newcommand{\hmwkClassInstructor}{Professor Marek Biskup}
+\newcommand{\hmwkAuthorName}{\textbf{Nakul Khambhati}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+\begin{proof}
+        We need to use induction to prove that \(\forall n \geq 1: \sum\limits_{k = 1}^{n}k^3  = \Big(\sum\limits_{k = 1}^{n}k\Big)^2 \)\\
+        Let's call this predicate \(P(n)\). First we show \(P(1)\). For \(n =1, \texttt{LHS} = \texttt{RHS} = 1\).\\
+        Assume \(P(n)\), check \(P(n+1)\). \(\texttt{LHS} = \sum\limits_{k=1}^{n+1}k^3 = \sum\limits_{k=1}^{n}k^3 + (n+1)^3\). By \(P(n)\), this equals \(\Big(\sum\limits_{k = 1}^{n}k\Big)^2 + (n+1)^3\).
+        Now, we use the formula for the sum of the first \(n\) integers: \(\sum\limits_{k=1}^{n}k = \dfrac{n(n+1)}{2}\). This simplifies the \texttt{LHS} to 
+        \(\dfrac{n^2(n+1)^2}{4} + (n+1)^3 = \dfrac{(n+1)^2(n^2 + 4n + 4)}{4} = \left( \dfrac{(n+1)(n+2)}{2} \right)^2 = \left( \sum\limits_{k=1}^{n+1}k \right)^2 = \texttt{RHS}\).
+        Then, by the principle of mathematical induction \(P(n)\) is \texttt{TRUE} \(\forall n\geq1\)
+\end{proof}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Using Problem 1, we can express \(\sum\limits_{k=1}^n k^3\) as a polynomial of degree \(4\). 
+    The hope here is to express \(\sum\limits_{k=1}^n k^4\) as a polynomial of degree \(5\). 
+    Before solving this question, let's see if we can find an alternate way to directly prove Problem 1. 
+    Then, we can generalize this method. \\
+
+    Consider the polynomial \((x+1)^4 = x^4 + 4x^3 + 6x^2 + 4x + 1\)
+    \begin{align*}
+        &\Rightarrow (x+1)^4 - x^4 = 4x^3 + 6x^2 + 4x + 1 \\
+        &\Rightarrow \sum\limits_{x = 1}^{n}(x+1)^4 - x^4 = \sum\limits_{x = 1}^{n}(4x^3 + 6x^2 + 4x + 1)  \\
+        &\Rightarrow (n+1)^4 - 1 = \sum\limits_{x = 1}^{n}(4x^3) + \sum\limits_{x = 1}^{n}(6x^2) + \sum\limits_{x = 1}^{n}(4x) + \sum\limits_{x = 1}^{n}(1)
+    \end{align*}
+
+    Here the last implication follows from the telescoping sum on the \texttt{RHS} and distribution of the sum on the \texttt{RHS}.
+    Recall, we have closed formulae for the sum of consecutive squares and consecutive integers so we can rearrange the sum to get an expression for \(\sum\limits_{x=1}^n x^3\) as required. We will use the same method to deduce a polynomial expression for \(\sum\limits_{k =1}^n k^4\).\\
+
+    Now consider the polynomial \((x+1)^5 = x^5 + 5x^4 + 10x^3 + 10x^2 + 5x + 1\)
+    \begin{align*}
+        &\Rightarrow (x+1)^5 - x^5 = 5x^4 + 10x^3 + 10x^2 + 5x + 1 \\
+        &\Rightarrow \sum\limits_{x = 1}^{n}(x+1)^5 - x^5 = \sum\limits_{x = 1}^{n}(5x^4 + 10x^3 + 10x^2 + 5x + 1)  \\
+        &\Rightarrow (n+1)^5 - 1 = \sum\limits_{x = 1}^{n}(5x^4) + \sum\limits_{x = 1}^{n}(10x^3) + \sum\limits_{x = 1}^{n}(10x^2) + \sum\limits_{x = 1}^{n}(5x) + \sum\limits_{x = 1}^{n}(1) \\
+        &\Rightarrow (n+1)^5 - 1 = 5\sum\limits_{x = 1}^{n}x^4 + 10\left( \dfrac{n^2(n+1)^2}{4} \right) + 10\left( \dfrac{n(n+1)(2n+1)}{6} \right) + 5\left( \dfrac{n(n+1)}{2} \right) + n \\
+        &\Rightarrow \sum\limits_{x=1}^n x^4 = \dfrac{n(n+1)(2n+1)(3n^2+3n -1)}{30}
+    \end{align*}
+
+    Again, we can prove this using induction. 
+    
+    \begin{proof}
+        Let \(P(n)\) denote the predicate we wish to prove. 
+        \(P(1): \texttt{LHS} = 1, \texttt{RHS} = \dfrac{1\times 2\times 3\times 5}{30} = 1\). 
+        Assume \(P(n)\), check \(P(n+1)\). As before, the \texttt{LHS} reduces to \(\dfrac{n(n+1)(2n+1)(3n^2+3n -1)}{30} + (n+1)^4 \\ = 
+        (n+1)\left( \dfrac{n(2n+1)(3n^2+3n -1)+ 30(n+1)^3}{30} \right) = \dfrac{(n+1)(n+2)(2n+3)(3n^2 + 9n + 5)}{30} = \texttt{RHS}\)
+    \end{proof}
+    Then, by the principle of mathematical induction \(P(n)\) is \texttt{TRUE} \(\forall n\geq1\)
+    
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    We are given \(P(n) : \sum\limits_{k=1}^n k  = \dfrac{1}{2}
+    (n+\frac{1}{2})^2\). Let's assume \(P(n)\) and try to prove \(P(n+1)\). 
+    \(\verb|LHS| = \sum\limits_{k=1}^n k + (n+1) = \dfrac{1}{2}(n+\frac{1}{2})^2 + (n+1)
+    = \dfrac{1}{2}(n+\frac{3}{2})^2 = \verb|RHS|\). Therefore, \(P(n) \Rightarrow P(n+1)\). 
+    However, this does not imply that \(P(n)\) is \verb|TRUE| for all \(n \in \N\) as the base case
+    \(P_0\) is clearly false. In fact, one can see that \(P(n)\) is \verb|FALSE| for all \(n \in \N\) as the \verb|LHS|
+    is always an integer while the \verb|RHS| always has a fractional component.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    We define \(\J:=\left\{ n + \dfrac{m}{m+1} : n, m \in \N \right\}\) and \(S:\J \to \J\) as \(S\left( n+ \dfrac{m}{m+1} \right)
+    = n + \dfrac{m+1}{m+2} \).\\
+    Let us first verify that \((\J, 0, S)\) satsify (P1)-(P4).
+    \begin{enumerate}
+        \item Let \(n = 0, m = 0\). Therefore, \(0 \in \J\).
+        \item \(S\) is clearly defined over all of \(\J\).
+        \item \(n + \dfrac{m+1}{m+2} \geq \dfrac{m+1}{m+2} \geq \dfrac{1}{2}\) so \(0 \notin Ran(S)\).
+        \item Assume \(a + \dfrac{b+1}{b+2} = c + \dfrac{d+1}{d+2}\). Denote \verb|LHS| as \(\alpha\) and \verb|RHS| as \(\beta\).
+        We have \(a < \alpha < a+1\), \(c < \beta < c+1\) and \(\alpha = \beta\) with \(a,c \in \N\). Every rational has a unique 
+        representation as a natural number and a proper fraction. Therefore, \(a = c\) and \(a+1 = c+1\). As a result \(a + \dfrac{b}{b+1} = c + \dfrac{d}{d+1}\) 
+        so \(S\) is injective.
+    \end{enumerate}
+    We now show that (P5) fails by giving a subset \(A\subset \J: 0 \in A \land S(A)\in A \land (A \neq \J)\).
+    Let \(A = Ran(S)\cup\left\{ 0 \right\}\). Then, by construction, \(0 \in A\). Since \(S(\J)\subset A\), it is
+    clear that \(S(A)\subset A\). However, \(1 \in \J\) but \(1 \notin A\) so \(A \neq \J\).\\
+
+    Now, consider \(\K \subset \J, \K = \left\{ \dfrac{m}{m+1} : m \in \N \right\}\). In other words, \(\K\) is the 
+    subset obtained when \(n\) is fixed at \(0\). \(S\) is defined like above \(S\left( \dfrac{m}{m+1}\right) =  \dfrac{m+1}{m+2} \).
+    Again, (P1) holds as \(0 \in \K\) by setting \(m = 0\). (P2) to (P4) hold as they hold in \(\J\) and the properties are preserved under taking subsets.
+    Finally, (P5) holds here as it holds for \(\N\). 
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Recall that we have defined \(m+n\) for \(m,n \in \N\) recursively as \(m+0 = m\) and \(\forall n \in \N: m+S(n) = S(m+n)\).
+    We are asked to show that \(\forall k,m,n \in \N: n + (m+k) = (n+m)+k\). We will prove this via induction on \(k\). Fix \(n, m \in \N\). Then \(P(0): n + (m+0) = n + m = (n+m) + 0 \) 
+    by the definition of addition with \(0\). Assume \(P(k)\). We need to show \(P(S(k)): n + (m + S(k)) = (n+m) + S(k)\). We start from the \verb|LHS|: \(n+(m+S(k)) \stackrel{def}{=} n + S(m+k) \stackrel{def}{=} S(n+(m+k))
+    \stackrel{P(k)}{=} S((n+m)+k) \stackrel{def}{=} (n+m) + S(k)\). Therefore \(P(k) \Rightarrow P(S(k))\). By (P5) this is true for all \(k \in \N\).
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    We can solve this by constantly dividing by powers of \(6\) and noting the quotients.
+    \begin{align*}
+        10000_{10} &= 7776 + 1296 + 4\cdot 216 + 36 + 4\cdot 6 + 4 \\
+            &= 6^5 + 6^4 + 4\cdot 6^3 + 6^2 + 4\cdot 6 + 4\\
+            &= 114144_{6}
+    \end{align*}
+    Therefore, \(10000_{10} = 114144_{6}\).
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    We define the ordering relation \(\leq\) as \(m \leq n \iff \exists k\in \N : n = m+k\).
+    \begin{enumerate}
+        \item Let \(n \in \N\). We can always write \(n = 0 + n\) so \(0 \leq n\).
+        \item Let \(n \in \N\). Consider \(S(n) = S(n + 0) \stackrel{def}{=} n + S(0)\). Therefore, \(n \leq S(n)\).
+        \item Let \(m,n \in \N\) and assume \(m \leq n\). Then, \(\exists k\in \N\) such that \(n = m + k\). Then, \(S(n) = S(m+k) \stackrel{comm}{=} S(k+m) \stackrel{def}{=} k + S(m) \stackrel{comm}{=} S(m) + k\). 
+        Therefore \(S(m) \leq S(n)\).
+    \end{enumerate}
+
+    Now, we recursively define \(n\cdot m\) as \(0\cdot m = 0\) and \(\forall n \in \N: S(n)\cdot m = n\cdot m + m\).\\
+    We are required to prove that \(\forall m,n,r \in \N: m \leq n \Rightarrow r\cdot m \leq r\cdot n\). Assume that \(m \leq n\) so that 
+    \(\exists k \in \N : n = m + k\). Let \(r \in \N\). Then, by distributivity, \(r\cdot n = r\cdot (m+k) = r\cdot m + r \cdot k\). Therefore, \(r\cdot m \leq r\cdot n\). 
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Denote \([0,n):= \left\{ k \in \N:k < n \right\}\). Let \(m,n \in \N\), \(h : [0,n) \to [0,m)\).
+    \begin{enumerate}
+        \item Fix \(n \in \N\). We will prove the result by induction on \(m\). \(P(0): h:[0,n) \to [0,0)\) is injective \(\Rightarrow\) \(n \leq m\).
+        Since we cannot define such a function, the statement is vaccuously true. Assume \(P(m)\). Let \(h: [0,n) \to [0,m+1)\) be an injection. 
+        If \(h([0,n))\subset [0,m)\) then we can redefine \(h\) as an injection \([0,n)\to[0,m)\). Then, \(n \leq m \leq m+1\) and we are done. 
+        Otherwise, \(\exists\) exactly one \(j \in [0,n): h(j) = m\). We can then reconstruct the map and create a new function \(\tilde{h}:[0,n-1)\to [0,m)\) which 
+        is still an injection. Here we define \(n-1\) as \(S(n-1) = n\). Then, \(n-1 \leq m\) so \(n \leq m+1\). Therefore, by (P5), the statement is true for all \(m \in \N\).
+        \item Fix \(n \in \N\). Once again, we induct on \(m\). \(P(0)\) is vaccuously true like before. Assume \(P(m)\). Consider \(h : [0,n)\to [0,m+1)\) a surjection. Then, 
+        \(\exists k \in [0,n)\) such that \(h(k) = m\). We can remove \(k\) from a domain and reconstruct the function \(\tilde{h}\) in a way such that \(\tilde{h}: [0,n-1) \to [0, m)\)
+        is surjective. Then, by the inductive hypothesis, \(m \leq n-1\) so \(S(m) \leq n\). By (P5), this holds for all \(m \in \N\).
+        \item This follows for the previous parts. If \(h\) is bijective, then it is injective (so \(n \leq m\)) and surjective (so \(m \leq n\)).
+        Then \(\exists k: m = n + k, \exists l: n = m + l\). By associativity, \(n = n + (k+l)\). Therefore, \(k + l = 0 \Rightarrow k = 0, l =0\). So, \(m = n\).
+        
+    \end{enumerate}
+\end{homeworkProblem}
+
+\end{document}

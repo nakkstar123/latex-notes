@@ -1,0 +1,333 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath, amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\Ha{\ensuremath{\mathbb{H}}}
+\newcommand\cont{\Rightarrow\!\Leftarrow}
+\newcommand\tf{\therefore}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#1}
+\newcommand{\hmwkDueDate}{January 18, 2022}
+\newcommand{\hmwkClass}{Math 131AH}
+\newcommand{\hmwkClassTime}{131AH}
+\newcommand{\hmwkClassInstructor}{Professor Marek Biskup}
+\newcommand{\hmwkAuthorName}{\textbf{Nakul Khambhati}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+We will construct the truth tables by evaluating intermediate expressions. For conciseness, we will abbreviate \texttt{TRUE} as \(1\) and \texttt{FALSE} as \(0\).
+\begin{enumerate}
+    \item \((P \lor Q) \land \lnot (P \land Q)\)
+    \begin{table}[h]
+        \qquad
+        \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        $P$ & $Q$ & $\lnot (P \land Q)$ & $P \lor Q$ &  \((P \lor Q) \land \lnot (P \land Q)\) \\ \hline
+        0 & 0 & 1             & 0      & 0 \\ \hline
+        0 & 1 & 1             & 1      & 1 \\ \hline
+        1 & 0 & 1             & 1      & 1 \\ \hline
+        1 & 1 & 0             & 1      & 0 \\ \hline
+        \end{tabular}
+    \end{table}
+    \item $P \Rightarrow (Q \Rightarrow \lnot P)$
+    \begin{table}[h]
+        \qquad
+        \begin{tabular}{|c|c|c|c|}
+        \hline
+        $P$ & $Q$ & $Q \Rightarrow \lnot P$ & $P \Rightarrow (Q \Rightarrow \lnot P)$ \\ \hline
+        0          & 0          & 1            & 1            \\ \hline
+        0          & 1          & 1            & 1            \\ \hline
+        1          & 0          & 1            & 1            \\ \hline
+        1          & 1          & 0            & 0            \\ \hline
+        \end{tabular}
+        \end{table}
+\end{enumerate}
+
+We can verify this by checking the truth table of $(P \land \lnot Q) \lor (P \land Q)$
+
+\begin{table}[h]
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    $P$ & $Q$ & $P \land \lnot Q$ & $P \land Q$ &  $(P \land \lnot Q) \lor (P \land Q)$ \\ \hline
+    0 & 0 & 0             & 0      & 0 \\ \hline
+    0 & 1 & 0             & 0      & 0 \\ \hline
+    1 & 0 & 1             & 0      & 1 \\ \hline
+    1 & 1 & 0             & 1      & 1 \\ \hline
+    \end{tabular}
+\end{table}
+
+Since $P$ and $(P \land \lnot Q) \lor (P \land Q)$ have the same truth values, we conclude that $P \iff (P \land \lnot Q) \lor (P \land Q)$ and the expression is a \texttt{TAUTOLOGY}.
+ 
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    First, we define the proposition $m | n$ as $ \exists k \in \Z: n = km$. We now transcribe the english sentences to propositional logic:
+    \begin{enumerate}
+        \item $\forall n \in \N: 3|n \implies (7|n \implies 2|n)$
+        \item $(\exists n \in \N: 6|n \land 4|n)\land(\exists m \in \N :  6|m \land \lnot (4|m))$
+        \item ($\forall n \in \N: (6|n \implies 5|n)\implies 20|n) \land (\exists m\in \N: 6|m \land \lnot(5|m))$
+        \item $\exists n \in \N : 3|n \land 7|n \land \lnot (2|n)$
+        \item $(\forall n \in \N: \lnot (6|n) \lor \lnot(4|n))\lor (\forall m \in \N \lnot (6|m)\lor (4|m))$
+        \item $(\exists n \in \N:(6|n \implies 5|n) \land \lnot (20|n) )\lor (\forall m\in \N: \lnot(6|m) \lor 5|m)$
+    \end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    We are working within the universal set $\R$ of real numbers.
+    \begin{enumerate}
+        \item $\forall A\subset \R (\exists x \in A: (\forall y\in A: y = x \iff y^2 = 1))$
+        \item \(\forall A \subset \R (\exists x \in A: (\forall y \in A:(y\neq x \Rightarrow y < x)))\)
+        \item $\forall x \in \R \; \exists A \subset \R: A \neq \O \land x \notin A$
+    \end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    We are asked to consider the relation \(A\subset B := (\forall x \in A: x \in B)\)
+    \begin{enumerate}
+        \item[(reflexive)] It is clear that \(\forall x \in A: x\in A\) so \(A\subset A\).
+        \item[(antisymmetric)] Let \(A\subset B\) and \(B\subset A\). Then \(\forall x \in A: x \in B\) and \(\forall y\in B: y\in A\) so \(\forall x \in C: x \in A \iff x \in B\), therefore \(A=B\).  
+        \item[(transitive)] Let \(A\subset B\) and \(B\subset D\). Let \(x\in A\). Therefore, \(x\in B\), so \(x\in D\). Since $x$ was arbitrarily chosen, we have \(\forall x \in A: x \in D\) so \(A\subset D\).
+    \end{enumerate}
+
+    This proves that the relation is a partial order. 
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+   
+
+\begin{enumerate}
+    \item[(a)] We are asked to show that \(\bigcup\limits_{\alpha\in I}A_{\alpha}^c = (\bigcap\limits_{\alpha \in I}A_{\alpha})^c\).
+    \begin{proof}
+        \(x \ \in \bigcup\limits_{\alpha\in I}A_{\alpha}^c \iff \exists i\in I: x \in Y\setminus A_i \iff \exists i \in I: (x\in Y \land x\notin A_i) \iff x\in Y \land x\notin \bigcap\limits_{\alpha \in I}A_{\alpha}\\ \iff x \in (\bigcap\limits_{\alpha \in I}A_{\alpha})^c\) i.e. \(x \in Y \setminus \bigcap\limits_{\alpha\in I}A_{\alpha}\). Since \(x\in \texttt{LHS} \iff x \in \texttt{RHS}\), we say that \texttt{LHS = RHS}. 
+
+        Alternatively, we can describe both sets using propositional logic:
+
+        \texttt{LHS} = \(\left\{ x\in Y: (\exists \alpha \in I: x \notin A_{\alpha}) \right\}\)
+
+        \texttt{RHS} = \(\left\{ x \in Y: \lnot (\forall \alpha \in I: x \in A_{\alpha}) \right\} = \left\{ x\in Y : (\exists \alpha\in I:x\notin A_{\alpha} ) \right\}\)
+
+        Clearly, \texttt{LHS = RHS}.
+    \end{proof}
+    \item[(b)] We are asked to show that \(\bigcap\limits_{\alpha\in I}A_{\alpha}^c = (\bigcup\limits_{\alpha \in I}A_{\alpha})^c\).
+    \begin{proof}
+            \(x \ \in \bigcap\limits_{\alpha\in I}A_{\alpha}^c  \iff \forall i\in I: x \in Y\setminus A_i \iff \forall i\in I: x\in Y \land x\notin A_i \\\iff x\in Y \land x\notin \bigcup\limits_{\alpha\in I}A_{\alpha}\iff  x \in (\bigcup\limits_{\alpha\in I}A_{\alpha})^c\). Since \(x\in \texttt{LHS} \iff x \in \texttt{RHS}\), we say that \texttt{LHS = RHS}. 
+
+            Again, we can also describe both sets using propositional logic:
+
+            \texttt{LHS} = \(\left\{ x\in Y: (\forall \alpha \in I: x \notin A_{\alpha}) \right\}\)
+
+            \texttt{RHS} = \(\left\{ x \in Y: \lnot (\exists \alpha \in I: x \in A_{\alpha}) \right\} = \left\{ x\in Y : (\forall \alpha\in I:x\notin A_{\alpha} ) \right\}\)
+
+            Therefore, \texttt{LHS = RHS}.
+
+         
+    \end{proof}
+
+
+\end{enumerate}
+
+
+
+   
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    We define \([x]:= \left\{ y\in A: x \sim y \right\}\) and we have to prove that \(\forall x,y \in A: [x] = [y] \lor [x]\cap[y] = \O\).
+    \begin{proof}
+        Assume that \([x]\cap [y] \neq \O\) i.e. \(\exists z\in A: z\in [x] \land z \in [y]\). Then, by definition, \(x \sim z\) and \(y \sim z\). 
+        By symmetry, \(z\sim y\) and by transitivity, \(x\sim y\). Then \(x \in [y]\). Let \(w\in [x]\) i.e. \(x\sim w\). Again, by symmetry and transitivity, we can show \(y \sim w\) so \(w\in [y]\). This implies that \([x]\subset [y]\). 
+        Similarly, we can argue that \([y]\subset [x]\) so \([x] = [y]\). We have shown that if \([x]\) and \([y]\) are not disjoint then \([x]=[y]\). So, we have proved the claim that \([x] = [y] \lor [x]\cap[y] = \O\). Since \(x,y \in A\) were 
+        arbitrarily chosen, this holds \(\forall x,y \in A\).
+    \end{proof}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+    \begin{proof}
+        It is clear that \(x = x' \land y = y' \implies \left\{x, \left\{ x,y \right\} \right\} = \left\{x', \left\{ x',y' \right\} \right\} \iff (x,y) = (x', y')\).
+
+    Now assume that \((x,y) = (x', y') \iff \left\{x, \left\{ x,y \right\} \right\} = \left\{x', \left\{ x',y' \right\} \right\}\). 
+    Then, by size considerations, \(x = x' \land \left\{ x,y \right\} = \left\{ x',y' \right\}\) so \(y = y'\).
+    \end{proof}
+    
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    \begin{enumerate}
+        \item \(f^{-1}(\bigcup\limits_{\alpha \in I}Y_{\alpha}) = \left\{ x \in X: f(x) \in \bigcup\limits_{\alpha \in I}Y_{\alpha} \right\} = \left\{ x \in X: (\exists \alpha \in I: f(x) \in Y_{\alpha}) \right\}\)
+        
+        \(\bigcup\limits_{\alpha \in I}f^{-1}(Y_{\alpha}) = \left\{ x \in X: (\exists \alpha \in I: f(x) \in Y_{\alpha}) \right\}\)
+
+        Since the two have identical expressions, \( f^{-1}(\bigcup\limits_{\alpha \in I}Y_{\alpha}) = \bigcup\limits_{\alpha \in I}f^{-1}(Y_{\alpha}) \)
+        \item \(f^{-1}(\bigcap\limits_{\alpha \in I}Y_{\alpha}) = \left\{ x \in X: f(x) \in \bigcap\limits_{\alpha \in I}Y_{\alpha} \right\} = \left\{ x \in X: (\forall \alpha \in I: f(x) \in Y_{\alpha}) \right\}\)
+        
+        \(\bigcap\limits_{\alpha \in I}f^{-1}(Y_{\alpha}) = \left\{ x \in X: (\forall \alpha \in I: f(x) \in Y_{\alpha}) \right\}\)
+
+        Since the two have identical expressions, \( f^{-1}(\bigcap\limits_{\alpha \in I}Y_{\alpha}) = \bigcap\limits_{\alpha \in I}f^{-1}(Y_{\alpha}) \)
+    \end{enumerate}
+\end{homeworkProblem}
+
+\pagebreak
+
+%
+% Non sequential homework problems
+%
+
+% % Jump to problem 18
+% \begin{homeworkProblem}[18]
+%     Evaluate \(\sum_{k=1}^{5} k^2\) and \(\sum_{k=1}^{5} (k - 1)^2\).
+% \end{homeworkProblem}
+
+% % Continue counting to 19
+% \begin{homeworkProblem}
+%     Find the derivative of \(f(x) = x^4 + 3x^2 - 2\)
+% \end{homeworkProblem}
+
+% % Go back to where we left off
+% \begin{homeworkProblem}[6]
+%     Evaluate the integrals
+%     \(\int_0^1 (1 - x^2) \dx\)
+%     and
+%     \(\int_1^{\infty} \frac{1}{x^2} \dx\).
+% \end{homeworkProblem}
+
+
+
+\end{document}

@@ -1,0 +1,168 @@
+\documentclass[12pt]{amsart} %% AMS artstyle at 12pt size,loads amsmath
+%\includeonly{}
+\addtolength{\headheight}{1.15pt}
+\addtolength{\textwidth}{2cm}
+\addtolength{\oddsidemargin}{-1cm}
+\addtolength{\evensidemargin}{-1cm}
+\pagestyle{plain}
+\usepackage{amsmath}
+\usepackage{amscd}
+\usepackage{amsthm}
+\usepackage{amssymb}
+%\usepackage{showkeys}
+\usepackage{amsmath}
+\usepackage{amscd}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathabx}
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
+\def\R{\mathbb{R}}
+\def\D{\mathbb{D}}
+\def\C{\mathbb{C}}
+\def\la{\lambda}
+\def\for{\quad \text{for} \quad} 
+\def\foral{\quad \text{for all} \quad}
+\def\ra{\rightarrow}
+\def\lr{\leftrightarrow}
+\def\eps{\epsilon}
+\def\:{\colon}
+\def\sub{\subseteq}
+\newcommand{\dist} {\operatorname{dist}}
+\renewcommand{\Re} {\text{Re}}
+\renewcommand{\Im} {\text{Im}}
+\begin{document}
+\thispagestyle{empty}
+\pagestyle{empty}
+\noindent 
+\textsl{Math 245A  \hfill Nakul Khambhati}
+
+\bigskip\bigskip
+\centerline {\textbf{Homework 4} (due: Fr, Oct.~27) }
+
+ 
+\bigskip
+\noindent
+\textbf{Problem 4*:} 
+
+
+a) We assume that $\mu$ is a measure on the $\sigma$-algebra $\mathcal{L}$ and $\mu((0,1]^n)= c_0 < \infty$. Since $\mu$ is translation invariant it suffices to show that $$\mu((0,1/k]^n) =c_0 \lambda((0, 1/k]^n) = c_0 (1/k)^n.$$  We will do this by writing $(0,1]^n$ as a finite disjoint union of $k^n$ translated versions of  $(0,1/k]^n$ and then conclude by finite additivity and invariance under translation. \\
+Observe that $$(0,1]^n = \bigsqcup_{i_1,\ldots,i_n \in  \{0,\ldots,k-1\}^n}\left( \frac{i_1}{k}, \frac{i_1 +1}{k} \right] \times \cdots \times \left( \frac{i_n}{k}, \frac{i_n +1}{k}\right].$$ Then, by finite additivity and translation invariance of $\mu$ we have that 
+\begin{align*}
+	\mu((0,1]^n) &=\mu \left( \bigsqcup_{i_1,\ldots,i_n \in  \{0,\ldots,k-1\}^n}\left( \frac{i_1}{k}, \frac{i_1 +1}{k} \right] \times \cdots \times \left( \frac{i_n}{k}, \frac{i_n +1}{k}\right] \right)\\
+		     &=  \sum_{i_1,\ldots,i_n \in  \{0,\ldots,k-1\}^n} \mu\left(\left( \frac{i_1}{k}, \frac{i_1 +1}{k} \right] \times \cdots \times \left( \frac{i_n}{k}, \frac{i_n +1}{k}\right]\right) \\
+		     &=  \sum_{i_1,\ldots,i_n \in  \{0,\ldots,k-1\}^n} \mu\left((0,1/k]^n\right)\\
+		     &= k^n \mu((0,1/k]^n).
+\end{align*}
+Rearranging then gives us that $\mu((0,1/k]^n) = \mu((0,1]^n)(1/k)^n = c_0(1/k)^n$ as required. 
+
+
+\smallskip
+b) Without loss of generality, it suffices to consider arbitrary rectangles with one corner at the origin because $\mu$ is translation invariant. Let $R$ have rational coefficients so $$R = \left(0, \frac{p_1}{q_1}\right] \times \cdots \times \left(0, \frac{p_n}{q_n}\right]$$ where  $p_i, q_i \in \N$. Then, as above, we can express $R$ as a disjoint union of  $p_1\cdots p_n$ translated versions of  $(0, 1/q_1\cdots q_n]$. Then by finite additivity and part a) we get that  $$\mu(R) = c_0\frac{p_1\cdots p_n}{q_1 \cdots q_n} = c_0 \lambda(R).$$
+
+\smallskip
+c) Let $R = (0, x_1] \times \cdots \times [0, x_n)$ where  $x_i \in \R$. By density of rationals, there exist (non-decreasing) sequence of rationals $\{q_{im}\}_{m \in \N} \to x_i$ for each $i \in [n]$. Then, $$R = \bigcup_{m \in \N} (0, q_{1m}] \times \cdots \times (0, q_{nm}]$$ and by continuity from below since the union is of nested sets (by construction) we get 
+\begin{align*}
+	\mu(R) &= \lim_{m \to \infty} \mu\left( (0, q_{1m}] \times \cdots \times (0, q_{nm}] \right) \\
+	       &=  \lim_{m \to \infty} c_0 \lambda\left( (0, q_{1m}] \times \cdots \times (0, q_{nm}] \right) 	\\
+	       &= c_0 \lambda\left( (0, x_1] \times \cdots \times (0, x_n] \right) \\
+	       &= c_0\lambda(R)
+\end{align*}
+
+
+\smallskip
+d) The set of $h$-rectangles is a $\pi$-system that generates the Borel $\sigma$-algebra on $\R^n$ so by HW 2 Problem 3, equality of a measure on $h$-rectangles from part c) implies equality of the meausre on the entire Borel $\sigma$-algebra. 
+
+\smallskip
+e) Let $L \in \mathcal{L}$ so we can write $L = B \cup C$ where  $B$ is a Borel set and  $C$ is a subset of a Borel null set $D$. Then  $\mu(B) \le \mu(E) \le \mu(B) + \mu(D) = \mu(B)$ which implies that $\mu(E) = \mu(B) = c_0 \lambda(B) = c_0 \lambda(E).$
+
+\smallskip
+f) If $\mu((0,1]^n) = \mu([0,1]^n)=1$, then $c_0 = 1$ so $\mu=\la$ as they are equal on all sets. 
+
+
+
+
+
+
+
+
+
+
+\bigskip
+\noindent
+\textbf{Problem 5*:}\smallskip 
+a) If the map is non-invertible then by by HW 3 Problem 4b the image has measure zero and is therefore Lebesgue measurable. If it is invertible, then $T^{-1}$ exists, is linear and therefore measurable.  $T^{-1}$ then preimages measurable sets to measurable sets or in other words,  $T$ images measurable sets to measurable sets which is what we had to show.  
+
+\smallskip 
+b)  $\mu_T$ is well-defined for each measurable set $M$ by part a). It is also translation invariant as $$
+\mu(t+M) = \lambda\left( T(M) + T(t) \right) = \lambda(T(M)) = \mu(M)
+$$ and by Problem $4$ it must be a scalar multiple of the Lebesgue measure i.e.  $\mu_T(M) = \Delta_T \lambda(M)$. 
+  
+\smallskip  c) If $\mathrm{det}(T) = 0$ then the linear map has a non-trivial kernel which in turn means that the image of  $T$ is a subspace of a hyperplane of dimension  $n-1$ which has measure zero by HW 3 Problem 4b. Therefore,  $\mu_T(M) = 0$ for all $M \subset \R^n$ and $\Delta_T = 0$.   
+  
+\smallskip  d) By definition, $\mu_{S\circ T}(M) = \lambda(T(S(M))) = \Delta_T (\lambda(S(M))) = \Delta_T \cdot \Delta_S (M)$ where the last two equalities follow from part b). 
+
+ 
+
+
+  
+
+\bigskip
+\noindent
+\textbf{Problem 6*:}
+\smallskip  a) Let $$Q = \{\left( x_1, \ldots, x_n \right) | x_1,\ldots,x_n \in (0,1]\} \subset \R.$$ Then the image under $L$ is  $$L(Q) =  \{\left( x_1+x_2, \ldots, x_n \right) | x_1,\ldots,x_n \in (0,1]\}.$$ Next, let $$A = \{\left( a_1, \ldots, a_n \right) \in L(Q) : a_1 \le  1\} = \{(a_1, \ldots, a_n) \in Q: a_2 < a_1\}$$ and finally let $$B = \{\left( b_1,\ldots,b_n \right) \in L(Q): b_1 > 1\}.$$ Notice that $$B - e_1 = \{\left( b_1, \ldots, b_n \right) \in Q: b_2 \ge b_1\} $$ so $A \sqcup B = Q.$
+
+\smallskip
+b) We can reduce any linear transformation to a matrix by considering its action on the standard basis $B = \{e_1, \ldots, e_n\}.$ Type 1 operations permute the columns/rows of a matrix. By combining Type 1,2,3 operations, we can reduce $M$ to a matrix  $M^{(1)}$ such that  $M^{(1)}_{11} \neq 0$ and $M^{(1)}_{1i} = 0$ for  $1 \le  i \le 1$. Proceed inductively to obtain $M_n$ which is lower triangular. We can add a multiple of columns to make $M_n'$ which is diagonal and therefore Type 2. By reversing these operations (each is invertible) we can obtain $M$ from $M_n'$ as required. 
+
+\smallskip
+c) We have already proved this for $T$ non-invertible. Let $T = S_1 \times \cdots \times S_n$ be a product of elementary transformations as in the previous question. By 5d) $\mu_T(M) = \prod_{i = 1}^n \Delta_{S_i}\lambda(M)$ for any measurable $M$. It is clear that each elementary operation has  $\Delta_S = |\det(S)|$. Since the product of determinants is the determinant of their product 
+$$\Delta_T \lambda(M) = \prod_{i=1}^n |\det(S_i)|\lambda(M) = |\det(T)|\lambda(M).$$ 
+
+
+
+\bigskip
+\noindent
+\textbf{Problem 7*:} Assume that $M \subset \R^n$ is measurable so there exists a collection of open rectangles $\{R_n\}_{n \in \N}$ that covers $M$ such that  $\sum_{n \in \N}\lambda(R_n) < \lambda^*(M) + \epsilon$. Set $U = \bigcup_{n \in \N}R_n$ which is open and $M \subset U$. Then $M\Delta U = U \backslash M$ so $\mu\left(M \Delta U\right) < \epsilon$.   
+
+Conversely, assume $M$ is a set such that the condition is met. We need to show it satisfies the Caratheodory criteria. Let $T \subset \R^n$ be arbitrary. Then
+
+\begin{align*}
+	\lambda^*\left( T \cap M \right) + \lambda^*\left( T \cap M^c \right) &\le \lambda^*\left( T \cap (M \cap A) \right) + \lambda^*\left( T \cap (M^c \cap A) \right) \\
+	&+ \lambda^*\left( T \cap (M \cap A^c) \right) + \lambda^*\left( T \cap (M^c \cap A^c) \right) 	
+\end{align*}
+where $A \subset \R^n$ is an arbitrary an open set. Let $\epsilon>0$ and choose $A$ such that its symmetric difference with  $M$ is at most  $\epsilon/2$. We call the expression on the right hand side above RHS. It follows that: 
+
+$$RHS \le \epsilon + \lambda^*(T \cap (M \cap A)) + \lambda^*(T \cap (M^c \cap A^c)) \le  \epsilon + \lambda^*(T \cap A) +  \lambda^*(T \cap A^c) = \epsilon+ \lambda(T).$$ Taking $\epsilon \to 0$ we get the desired inequality. 
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\vfill 
+ 
+\end{document}

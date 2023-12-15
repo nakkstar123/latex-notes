@@ -1,0 +1,257 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\Ha{\ensuremath{\mathbb{H}}}
+\newcommand\cont{\Rightarrow\!\Leftarrow}
+
+\usetikzlibrary{automata,positioning}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[]{Lemma}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#2}
+\newcommand{\hmwkDueDate}{January 26, 2022}
+\newcommand{\hmwkClass}{Math 210B}
+\newcommand{\hmwkClassTime}{210B}
+\newcommand{\hmwkClassInstructor}{Professor Alexander Merkurjev}
+\newcommand{\hmwkAuthorName}{\textbf{Nakul Khambhati}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+    \begin{proof}
+        Let \(f: R \to S\) be a surjective ring homomorphism, $I\subset S$ an ideal. In the previous HW, we saw that $f^{-1}(I) \subset R$ is an ideal that contains $\ker(f)$.
+        In particular this yields a bijection between the set of ideals in \(R\) containing \(ker(f)\) and the set of ideals in \(S\). Let \(f\) be the canonical projection onto
+        the quotient ring \(f: R \to R/I\). This is a surjection with \(ker(f) = I\). By the above result, this yields a bijection between ideals of \(R/I\) and ideals of \(R\) containing
+        \(I\).
+    \end{proof}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    
+\begin{proof}
+Let \(X = R\) as a set. Consider the identity map \(id: X \to R\). In the previous homework, we saw that this extends to a well-defined ring homomorphism \(f: \Z[X]\to R\). By construction, this is surjective. 
+We can simply quotient \(\Z[X]\) with the ideal \(ker(f)\) which is isomorphic to \(R\) by the First Isomorphism Theorem.
+\end{proof}
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    \begin{proof}
+        We know that the coproduct exists in the category of rings as we can take the tensor product 
+        over \(\Z\) i.e. the tensor product as \(\Z\)-modules which are equivalent to abelian groups, with induced 
+        ring structure.
+    \end{proof}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    \begin{proof}
+        Let \(P\subset R\) be prime ideal such that \(A/P\)
+        is a domain i.e. \(xy = 0 \Rightarrow x = 0 \lor y = 0\)
+        in \(R/P\). Now, we are given that every element in \(R\) is 
+        idempotent. So let \(x \in R, x \notin P\) such that \(\overline{x}\neq \overline{0}\).
+        Then, \(x^2 = x\) so \(x(x-1) = 0\). Therefore, \(\overline{x}\overline{(x-1)} = 0 \in R/P\). 
+        Therefore, \(\overline{x-1} = \overline{0}\), so \(\overline{x} = \overline{1}\). Therefore,
+        every nonzero in \(R/P\) is invertible so it is a field. Therefore, \(P\) is maximal in \(R\).
+    \end{proof}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+    Let \(X\) be the set of prime ideals in \(R\). It is non-empty by Zorn's lemma. This set can be partially ordered
+    via inclusion. Let \(C \subset X\) be a chain of ideals. I claim that \(Q = \bigcap\limits_{I \in C}I\) is a prime ideal. 
+    It is clearly an ideal since the intersection of ideals is always an ideal. Assume, by contradiction, it is not prime. Then, 
+    there exists \(xy \in Q: x \notin Q \land y \notin Q\). But, if \(xy \in Q\) then \(xy \in I\) for all prime ideals in \(C\). 
+    Since \(x,y \notin Q\), we can find \(P_1, P_2\) such that \(x \notin P_1, y\notin P_2\). Since the ideals are ordered by inclusion,
+    assume \(x,y \notin P_1\). But then \(xy \notin P_1\) since it is prime. This is a contradiction as \(xy \in Q\). Therefore, \(Q\)
+    is a prime ideal. Clearly, \(Q\) is a lower bound for the chain \(C\). Since every chain has a lower bound, \(X\) has a minimal element. 
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Consider \(R \subset \Q\) of all fractions \(\dfrac{a}{b}\) where \(b\) is odd. Let \(P \subset R\) be a prime ideal. Recall that \(\Z \subset R\). Therefore, since \(P\) 
+    is closed under external multiplication. Then, we always have \(2 \in P\). As a result, we can describe the spectrum as the set of all ideals generated by primes with even
+    numerators. 
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+    To construct this bijection, it suffices to show that any prime ideal \(P \subset A\times B\)
+    is either of the form \(P = P_A \times B\) for \(P_A \subset A\) prime or \(P = A \times P_B\) for \(P_B \subset B\)
+    prime. It is clear that prime ideals in \(A \times B\) must be of the form \(P_A \times P_B\). Then, 
+    \((A\times B)/P \cong A/P_A \times B/P_B\). This is a domain since we quotiented by a prime ideal. Also, \((0,1)(1,0) = (0,0)\) 
+    so one of the two must be zero in the quotient summand rings. So, either \(A/P_A\) or \(B/P_B\) is \(0\). So either \(A = P_A\) or 
+    \(B = P_B\).
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+    The bijection is \(f: V(I)\to Spec(R/I)\) given by \(f(P) = P/I\). By the correspondence theorem, 
+    we know that there is a bijection between ideals of \(R\) containing \(I\) and ideals of \(R/I\). 
+    We need to show that if an ideal is prime in \(R\) and contains \(I\) then it is prime in \(R/I\).
+    Let \(I \subset P \subset R\) be prime. Consider \(\overline{xy}\in P/I\). Assume that \(\overline{x}\notin P/I\).
+    Then, \(x \notin P\). Therefore \(y \in P\) since \(P\) is prime and \(xy \in P\). So, \(\overline{y}\in P/I\) so it is prime. 
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    \begin{enumerate}
+        \item We define \(\sim\) on \(R\times S\) as follows: \((r_1, s_1)\sim (r_2, s_2)\) if \(\exists s \in S\) such that 
+        \(s(r_1s_2 - r_2s_1) = 0\). This is clearly reflexive since \(s(r_1r_2 - r_2r_1) = s(0) = 0\) for all \(s \in S\). 
+        Assume that \((r_1, s_1)\sim (r_2, s_2)\) i.e. \(\exists s\in S: s(r_1s_2 - r_2s_1) = 0\). Then \((-s)(r_2s_1 - r_1s_2) = 0\). 
+        Therefore, \((r_2, s_2)\sim (r_1, s_1)\) and \(\sim\) is transitive. Assume \((r_1, s_1)\sim (r_2,s_2)\) and 
+        \((r_2,s_2)\sim (r_3, s_3)\). Then \(\exists s,s' \in S\) such that \(s(r_1s_2 - r_2s_1) = 0, s'(r_2s_3 - r_3s_2) = 0\).
+        \(sr_1s_2 = sr_2s_1\) and \(s'r_2s_3 = s'r_3s_2\). We need to show \(r_1s_3 - r_3s_1\) multiplied by some element in \(S\) gives us \(0\).
+        This proves transitivity.
+        \item Assume \(\dfrac{r_1}{s_1} \sim \dfrac{r_1'}{s_1'}\) and \(\dfrac{r_2}{s_2} \sim \dfrac{r_2'}{s_2'}\). Then \(m(r_1s_1' - r_1's_1) = n(r_2s_2' - r_2's_2) =0\).
+        We want to show that \(\dfrac{r_1s_2+ r_2s_1}{s_1s_2} \sim \dfrac{r_1's_2'+ r_2's_1'}{s_1's_2'}\). That is \(l((r_1s_2 + r_2s_1)(s_1's_2') - (r_1's_2'+r_2's_1')(s_1s_2) = 0)\) for some \(l \in S\). 
+        We can rearrange \(m,n,s_1,s_2,s_1',s_2'\) to create \(l\) so that this holds. Multiplication is checked in a similar way. This is a commutative ring with \(0 = \dfrac{0}{1}\) and \(1 = \dfrac{1}{1}\).
+        \item  It is clear that \(f(0) = 0\) and \(f(1) = 1\) from above. Let \(r,q \in R\). Then, \(f(rq) = \dfrac{rq}{1} = \dfrac{r}{1}\cdot \dfrac{q}{1} = f(r)f(q)\). Similarly, \(f(r+q) = \dfrac{r+q}{1} = 
+        \dfrac{r}{1}+\dfrac{q}{1} = f(r)+f(q)\). Therefore, \(f\) is a ring homomorphism.
+    \end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    We define \(h\left( \dfrac{r}{s} \right) = g(s)^{-1}g(r)\). Then, clearly, \(h(f(r)) = h\left( \dfrac{r}{1} \right) = g(1)^{-1}g(r) = g(r)\). To show this
+    is a ring homomorphism, we observe that \(h\left( \dfrac{r_1}{s_1} + \dfrac{r_2}{s_2} \right) = h\left( \dfrac{r_1s_2 + r_2s_1}{s_1s_2} \right)= g(s_1s_2)^{-1}g(r_1s_2 + r_2s_1) = g(s_1)^{-1}g(r_1) + g(s_2)^{-1}g(r_1) 
+    = h\left( \dfrac{r_1}{s_1} \right) + \left( \dfrac{r_2}{s_2} \right)\). Similarly, \(h\left( \dfrac{r_1r_2}{s_1s_2} \right) = g(s_1)^{-1}g(s_2)^{-1}r_1r_2 = h\left( \dfrac{r_1}{s_1} \right) h\left( \dfrac{r_2}{s_2} \right)\).
+    We have shown a homomorphism and given an explicit formula for it. The uniqueness follows from this and the fact that \(S\) is a multiplicative subset. 
+\end{homeworkProblem}
+
+\end{document}

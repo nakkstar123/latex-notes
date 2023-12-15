@@ -1,0 +1,220 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\Ha{\ensuremath{\mathbb{H}}}
+\newcommand\cont{\Rightarrow\!\Leftarrow}
+
+
+% macros for 245A
+\newcommand\A{\mathcal{A}}
+\newcommand\F{\mathcal{F}}
+
+\usetikzlibrary{automata,positioning}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[]{Lemma}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#1}
+\newcommand{\hmwkDueDate}{October 6, 2023}
+\newcommand{\hmwkClass}{Math 245A - Real Analysis}
+\newcommand{\hmwkClassTime}{245A}
+\newcommand{\hmwkClassInstructor}{Professor Mario Bonk}
+\newcommand{\hmwkAuthorName}{\textbf{Nakul Khambhati}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+
+
+\begin{homeworkProblem}
+    We proceed by verifying the 3 conditions for $\A$ to be an algebra:
+	\begin{enumerate}
+		\item $\O \in \F \subset \A$. This is sufficient to show $X \in \A$ once we show it is closed under taking complement.
+		\item Let $A \in \A$ so we can write $A = A_1 \cup \cdots \cup A_m$ where $A_i \in \F$. Then by condition (iii) for each $i \in [m]$ there exists  $n_i \in \N$ and pairwise disjoint $A_{i1},\ldots, A_{in_i} \in \F$ such that $A_i^c = A_{i1} \cup \ldots \cup A_{in_i}$. So, $A^c = A_1^c \cap \cdots \cap A_m^c  = \bigcup_{j_1 \in [n_1], \ldots, j_m \in [n_m]} (A_{1j_1} \cap \cdots \cap A_{mj_m}) \in \A$ since we are taking a disjoint union of elements in $\F$ and the family is closed under finite intersection.
+		\item Let  $A,B \in \A$. It suffices to show that $A \cap B \in \A$ as then $A\cup B = \left( A^c \cap B^c \right)^c$ and we have already checked that $\A$ is closed under taking complement. By assumption, we can write $A = A_1 \cup \ldots \cup A_n$ and $B = B_1 \cup \ldots \cup B_m$ where $A_i, B_j \in \F$. Then $A \cap B = \bigcup_{i,j = 1}^n \left( A_i \cap B_j \right) \in \A$ since $\F$ is closed under intersections so we have expressed  $A \cap B$ as a finite disjoint union of sets in $\F$. 
+	\end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	\begin{enumerate}
+		\item[(a)] First we verify the conditions for $\A$ to be an algebra on  $X$. 
+		 \begin{enumerate}
+			 \item[1.] By considering $I = \O$ and $I = [n]$ we see that  $ \O = \bigcup_{i \in \O} M_i \in \A$ and $ X = \bigcup_{i \in [n]} M_i \in \A$.
+			 \item[2.] Let $M \in \A$ so we can write $M = \bigcup_{i \in I} M_i $ for some $I \subset [n]$. Since the $\{M_i\}_{i \in [n]}$ form a partition of  $X$, we can write $M^c = (\bigcup_{i \in I} M_i)^c = \bigcup_{i \in I^c} M_i \in \A$. 
+			 \item[3.] Let $M_1 = \bigcup_{i \in  I_1}M_i, M_2 = \bigcup_{i \in I_2}M_i$ be elements of $\A$. Then, $M_1 \cup M_2 = \bigcup_{i \in  I_1\cup I_2} M_i \in \A$.   
+		\end{enumerate}
+		Elements of $\A$ are in bijection with subsets of  $[n]$ so there are $2^n$ elements in the algebra. Yes, every finite algebra is a $\sigma$-algebra since countable unions and finite unions are the same.
+	\item[(b)] \textit{Need to explicitly construct this set somehow by partitioning based on disjoint parts. Just need to formalize this construction.}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	\begin{enumerate}
+		\item[(a)] We are given that $\A$ is an algebra on  $X$. First assume that it is a $\sigma$-algebra and  $A_n \nearrow$. We know that a  $\sigma$-algebra is closed under countable unions so  $\bigcup_{n \in \N} A_n \in \A$. Conversely assume that the property holds and we need to show that $\A$ is closed under countable unions. Let  $\{B_n\}_{n \in \N}$ be an arbitrary collection of elements in $\A$. Define  $A_n = \bigcup_{i \in  [n]} B_i$ so it is the union of the first $n$ elements in the collection. Since $\A$ is an algebra, each  $B_i \in \A$ by closure under finite unions. Clearly  $A_n \subset A_{n+1}$ so $A_n \nearrow$. But also note that for all  $n$ we have  $\bigcup_{i \in  [n]} A_i = A_n = \bigcup_{i \in  [n]} B_i$ so in particular $\bigcup_{n \in \N} B_n = \bigcup_{n \in \N} A_n \in \A$ by the property we assumed and so we are done. 
+		\item[(b)] We need to show that $\mu$ has countable additivity assuming it has finite additivity and the property stated. Let $\{B_n\}_{n\in\N} \in \A$ be a collection of pairwise disjoint sets. We define $A_n = \bigcup_{i \in [n]}B_i$ as above so that $A_n \nearrow$. Then $\mu\left( \bigcup_{n \in  \N}B_n  \right) = \mu\left( \bigcup_{n \in  \N}A_n  \right) = \lim_{N \to \infty} \mu\left(A_n  \right)$. But from finite additivity, we can write $\mu\left( A_n \right) = \sum_{i=1}^{n} \mu\left( B_i \right)$ so the term above simplifies to $\sum_{n=1}^{\infty} \mu\left( B_n \right)$. 
+	\end{enumerate}
+	
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	\begin{enumerate}
+		\item[(a)] Note that $x \in  A$ if and only if for all $n \in \N$, there exists some  $m \geq n$ such that  $x \in A_m$. This is because if $x \in A$ i.e. it is in infinitely many $A_m$ then it is also in infinitely many  $A_m$ if we exclude a finite number of sets (say the first $n$ sets). On the other hand, if it is not in infinitely many  $A_n$ there is an $N$ such that for all for all $n > N$,  $ x \notin A_n$ and so the right hand side becomes false. Finally, we can write $\forall n \in \N, \exists m \geq n: x \in  A_m \iff x \in \bigcap_{n \in \N} \bigcup_{m\geq n} A_m$. $A$ is a countable intersection of a countable union of sets in  $\A$ and is therefore in  $\A$.
+		\item[(b)] Let $B_n$ denote $\bigcup_{m\geq n}A_m$. Then $A = \bigcap_{n \in \N}B_n$ and $B_n \searrow$. Also  $\mu\left( B_1 \right)  = \mu\left( \bigcup_{n \in \N}A_n \right) \leq \sum\limits_{n=1}^{\infty}\mu\left( A_n \right) < \infty$ so we can apply continuity from above to get $\mu(A) = \lim_{n \to  \infty} \mu\left( B_n \right)$. Then, by countable subadditivity, $\mu(B_n) \leq \sum_{m=n}^{\infty} \mu\left( A_m \right)$ which goes to $0$ as  $n\to \infty$ because $\sum\limits_{n=1}^{\infty}\mu\left( A_n \right) < \infty$. 
+	\end{enumerate}
+	\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+	\begin{enumerate}
+		\item[(a)] Pick $A_1$ to be a set such that there are infinitely many sets in $\A$ that intersect with  $A_1^c$. Such an $A_1$ always exists because  $\A$ has infinite elements. Next, choose $A_2$ from $\{A_1^c \cap B : B \in \A\}$ such that there are infinitely many sets in $\A$ that intersect with both $A_1^c$ and  $A_2^c$. This way, $A_1$ and  $A_2$ are disjoint. We can repeat this process indefinitely. Formally, assume we have picked  $A_1, A_2, \ldots, A_{n-1}$ that are disjoint and there are infinite sets in $\A$ that intersect with all $A_i^c$. Then, once again, we can pick $A_n$ disjoint from the others such that infinitely many sets in  $\A$ intersect it. This gives us an infinite series of disjoint sets in  $\A$.  
+		\item[(b)] Call this disjoint family $\F = \{A_i\}_{i \in \N}$. Now consider the collection $\mathcal{G}$ of all sets that can be obtained by taking (disjoint) unions of sets in this family. Each element in $\mathcal{G}$ is also in $\A$ since it is closed under countable unions. Since the  $A_i$ are disjoint, this collection $\mathcal{G}$ is in bijection with subsets of  $\N$ which we know is uncountable by Cantor's diagonal argument. Since $\mathcal{G} \subset \A$, we also get that $\A$ is uncountable.  
+	\end{enumerate}
+	
+\end{homeworkProblem}
+
+
+
+\end{document}

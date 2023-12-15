@@ -1,0 +1,221 @@
+\documentclass[12pt]{amsart} %% AMS artstyle at 12pt size,loads amsmath
+%\includeonly{}
+\addtolength{\headheight}{1.15pt}
+\addtolength{\textwidth}{2cm}
+\addtolength{\oddsidemargin}{-1cm}
+\addtolength{\evensidemargin}{-1cm}
+\pagestyle{plain}
+\usepackage{amsmath}
+\usepackage{amscd}
+\usepackage{amsthm}
+\usepackage{amssymb}
+%\usepackage{showkeys}
+\usepackage{amsmath}
+\usepackage{amscd}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathabx}
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
+\def\R{\mathbb{R}}
+\def\D{\mathbb{D}}
+\def\C{\mathcal{C}}
+\def\la{\lambda}
+\def\for{\quad \text{for} \quad} 
+\def\foral{\quad \text{for all} \quad}
+\def\ra{\rightarrow}
+\def\lr{\leftrightarrow}
+\def\eps{\epsilon}
+\def\:{\colon}
+\def\sub{\subseteq}
+\def\O{\mathcal{O}}
+\def\B{\mathcal{B}}
+\def\A{\mathcal{A}}
+\def\H{\mathcal{H}}
+\newcommand{\dist} {\operatorname{dist}}
+\renewcommand{\Re} {\text{Re}}
+\renewcommand{\Im} {\text{Im}}
+\begin{document}
+\thispagestyle{empty}
+\pagestyle{empty}
+\noindent 
+\textsl{Nakul Khambhati  \hfill Math 245A}
+
+\bigskip\bigskip
+\centerline {\textbf{Homework 5} (due: Mon, Nov.~13) }
+
+ 
+
+
+
+\bigskip
+\noindent
+\textbf{Problem 1*:}  
+a) We check the 3 conditions for $\O_Y$ to be a topology on  $Y \subset X$. 
+\begin{enumerate}
+	\item Since $\O$ is a topology on $X$ we have that $\emptyset, X \in \O$ so $Y = X \cap Y  \in \O_Y $ and $ \emptyset = \emptyset \cap Y \in  \O_Y$. 
+	\item We show that $\O_Y$ is closed under finite intersections. Let $U_1, \ldots, U_n \in \O_Y$ i.e. there exist $V_1, \ldots, V_n \in \O$ such that for all $i \in [n]$ we have
+		$U_i = V_i \cap Y.$ Then $$\bigcap_{i = 1}^n U_i =  \bigcap_{i = 1}^n (V_i \cap Y) = \left(\bigcap_{i = 1}^n V_i\right) \cap Y \in \O_Y$$ where the last inclusion follows since $\O$ is a topology so it is closed under finite intersections. 
+	\item Finally we show that $\O_Y$ is closed under arbitrary unions. Again let $\{U_i\}_{i \in I}$ be a family of sets in $\O_Y$ where $I$ is an arbitrary index set. Then, there exist
+		$\{V_i\}_{i \in I}$ such that $U_i = V_i \cap Y$ for all $i \in I$. Then $$\bigcup_{i \in I} U_i = \bigcup_{i \in I} \left( V_i \cap Y \right) \left( \bigcup_{i \in I}
+		V_i\right) \cap Y \in \O_Y $$ where the last inclusion follows since $\O$ is a topology so it is closed under arbitrary unions. 
+	\end{enumerate}
+\smallskip 
+b) First we show that $\mathcal{A} := \{B \cap Y : B \in \B_X\} $ is a $\sigma$-algebra containing $\O_Y$. Then it follows that $\B_Y = \sigma(\O_Y) \subset \mathcal{A}$. After that, we will show $\mathcal{A} \subset \B_Y$ and so we would be able to conclude that $\mathcal{A} = \B_Y$ as required. We now check that $\mathcal{A}$ is a $\sigma$-algebra on $Y$.
+\begin{enumerate}
+	\item Taking $B = X$ and  $B = \emptyset$ give us $Y,\emptyset \in \A$. Clearly $X$ and  $\emptyset$ are in  $\B_X$ as it is a $\sigma$-algebra on $X$.  
+	\item Let $A \in \A$ so $A = B \cap Y$ for some $B \in \B_X$. We need to ensure that the complement of $A$ \emph{in $Y$} stays in $\A$. We write $Y \backslash A = B^c \cap Y \in \A$
+		as $B^c \in \B_X$ since $B_X$ is a  $\sigma$-algebra so it is closed under taking complement.
+	\item Finally, let $\{A_n\}_{n \in \N}$ be a collection of sets in $\A$ so we can write  $A_n = B_n \cap Y$ for $B_n \in \B_X$. Then $$\bigcup_{n \in \N} A_n = \bigcup_{n \in \N}
+		\left( B_n \cap Y \right)  = \left( \bigcup_{n \in \N} B_n  \right) \cap Y \in \A $$ since $\B_X$ is closed under countable union. 
+\end{enumerate}
+We verify that $\O_Y \subset \A$ but this is clear as $\O_X \subset \B_X$ implies that $$\O_Y := \{U \cap Y: U \in \O_X\} \subset \{B \cap Y : B \in \B_X\} = \A.$$ 
+To show $\A \subset \B_Y$ consider the subset $\C \subset \B_X$ of borel sets in $X$ whose intersection with $Y$ is in  $\A$ i.e.  $\C = \{B \in \B_X : B \cap Y \in \B_Y\}$. If we show that $\C = \B_X$ then we are done as it follows that for all  $B \in \B_X$, $B \cap Y \in \B_Y$ i.e. $\A \subset \B_Y$. We use the standard trick where we show that $\C$ is a $\sigma$-algebra containing $\O_X$ and then conclude that $\B_X = \sigma(X) \subset \C$. 
+\begin{enumerate}
+	\item Clearly $X$ and  $\emptyset$ are in $\C$ as  $X \cap Y = Y \in \B_Y$ and 
+		$\emptyset \cap Y = \emptyset \in \B_Y$. 
+	\item Assume that $A \in \C$ so $A \cap Y \in \B_Y$. Then $A^c \cap Y = Y \backslash A \in \B_Y$ so $A^c \in \C$. 
+	\item Let $\{A_n\}_{n \in \N} \in \C$ so each $A_n \cap Y \in \B_Y$ so $\bigcup_{n \in \N} \left( A_n \cap Y \right)  = \left( \bigcup_{n \in \N} A_n  \right) \cap Y \in \B_Y$ so $\bigcup_{n \in \N} A_n \in \C$. 
+\end{enumerate}
+This shows that $\C$ is a  $\sigma$-algebra. It clearly contains $\O_X$ since for any  $U \in \O_X$, $U \cap Y \in \O_Y \subset \B_Y$. The result follows. 
+
+\smallskip 
+c) We assume that $Y\sub X$ is a Borel set in $X$ (i.e., $Y\in   \mathcal{B}_X$). Assume that $A \in \B_Y$ so $A = B \cap Y$ for  $B \in B_X$ by part b). But also $Y \in \B_X$ so $A \in 
+\B_X$ since $\B_X$ is closed under intersection. On the other hand, assume that $A \subset Y$ is borel in $X$ i.e.  $A \in \B_X$. But $A = A \cap Y$ and so again by part b)  $A \in \B_Y$. 
+
+
+ \bigskip
+\noindent
+\textbf{Problem 2*:}  a) Assume that $B \subset \overline{\R}$ is Borel i.e. $B \in \B_{\overline{\R}}$. Recall that $\R = \bigcup_{m \in \N} \bigcup_{n \in \N}\left( -m,n \right) \in \O_{\overline{\R}} \subset \B_{\overline{\R}}$. So, by Problem 1, borel sets in $\R$ are precisely the borel sets in  $\overline{\R}$ that are subsets of $\R$ ($*$). But since $B \in \B_{\overline{\R}}$ by assumption and we showed that $\R \in \B_{\overline{\R}}$, by closure under intersection, $B \cap \R \in \B_{\overline{\R}}$. Then, by ($*$), it follows that $B \cap \R \in \B_{\overline{\R}}$.
+
+For the other direction, we will use the following statement: Any subset $I$ of $\{-\infty,+\infty\}$ is Borel in $\overline{\R}$ ($**$). Clearly it suffices to show that both $\{-\infty\}$ and $\{+\infty\}$ are Borel. This is because $$\{+\infty\} = \bigcap_{n \in \N}(n, \infty]$$ and $$\{-\infty\} = \left(  \bigcup_{n \in \N} (-n, \infty] \right)^c.$$ Now assume that $B \subset \overline{\R}$ and $B \cap \R \in \B_{\overline{R}}$. Then again by ($*$) $B \cap \R \in \B_{\overline{\R}}$. We are not yet done as it may be that $B \neq B \cap \R$. In particular, we need to handle the case where  $B = (B \cap \R) \cup I$ where  $I \subset \{-\infty, +\infty\}$. It suffices to only handle this case as $\overline{\R} = \R \cup \{-\infty, +\infty\}$. But we just showed that $B \cap \R \in \B_{\overline{\R}}$ and by $\left( ** \right)$ $I \in \B_{\overline{\R}}$ so by closure under union $B \in \B_{\overline{\R}}$ which is what we had to show. 
+ 
+
+\smallskip
+b) First, define $\overline{\H} := \{(a,\infty]: a \in \R\}$. Let $B \in \B_{\overline{\R}}$. We want to show that $B \in \sigma\left( \overline{\H} \right)$. As in part a) we can write $B = (B \cap \R) \cup I$ where $I$ is some subset of $\{-\infty, +\infty\}$. First, we show that $I \in \sigma\left( \overline{\H} \right)$. Again, it suffices to show that both $\{-\infty\}$ and $\{+\infty\}$ are in $\sigma\left( \overline{\H} \right)$ which follow because  because $$\{+\infty\} = \bigcap_{n \in \N}(n, \infty]$$ and $$\{-\infty\} = \left(  \bigcup_{n \in \N} (-n, \infty] \right)^c$$ as in the proof of part a). 
+
+By part a) $B \cap \R \in \B_{\R}$. Recall that $\B_{\R} = \sigma\left( \H \right)$ where $\H = \{(a, \infty) : a \in \R\}$. I claim that $\sigma(\H) \subset \sigma(\overline{\H})$. It then follows that $B \cap \R \in \sigma(\overline{\H})$. To prove the claim, it suffices to show that $\H \subset \sigma\left( \overline{\H} \right)$. Let $\left( a, \infty \right) \in \H$. We can write $(a, \infty) = (a, \infty] \backslash \{\infty\}$. Then $(a, \infty] \in \overline{\H} \subset \sigma\left( \overline{\H} \right)$ and we just showed that $\{\infty\} \in \sigma\left( \overline{\H} \right)  $ above. By closure under differences, it follows that $(a, \infty) \in \sigma(\overline{\H})$. 
+
+We have shown that $B \cap \R \in \sigma(\overline{\H})$ and $I \in \sigma\left( \overline{\H} \right) $ so $B \in \sigma(\overline{\H})$ by closure under union which is what we wanted to show. 
+
+\bigskip
+\noindent
+\textbf{Problem 4*:} We proceed by separately considering the two cases where $l(J) = l(I)$ and  $l(J) > l(I)$.
+
+First assume that  $I$ and  $J$ are  $C$-intervals at the same level i.e.  $l(I) = l(J) = n$. By induction on $n$ we will prove something stronger in this case i.e. either  $J = I$ or  $J \cap 2I = \emptyset$. For  $n = 0$ this is trivial and for  $n = 1$, either both intervals are the same or one is  $[0, 1/3]$ while the other is  $[2/3, 1]$. Then $2[0,1/3] = [-1/6, 1/2]$ which is disjoint from  $[2/3,1]$. Assume that this is true for $n$ and we will show it's true for  $n+1$. Let  $l(J) = l(I) = n+1$. By the recursive construction of $C$-intervals, there exist  $C$-intervals  $I', J'$ of level  $n$ such that  $I$ ``stems'' from  $I'$ and  $J$ ``stems'' from  $J'$. Here, we use the phrase ``stem'' to abbreviate the condition in Problem 3. Observe that $I \subset I'$ and $J \subset J'$ and so if $I' \neq J'$ then by the inductive assumption  $J' \cap 2I' = \emptyset$ and so $J \cap 2I = \emptyset$. On the other hand, if $I' = J'$ then either  $I = J$ or wlog  $I = [a, a + 1/3(b-a)]$ and  $J = [b - 1/3(b-a), b]$ for some $a,b \in [0,1], a < b$. But in this case, $2I = [a-1/6, a+ 1/2(b-a)]$ which is disjoint from  $J$ as  $$\sup(I)= a+1/2(b-a) < b - 1/3(b-a) = \inf(J).$$ To see this, note that upon rearranging, this inequality is equivalent to $a < b$. This is spelled out in the calculation below: 
+\begin{align*}
+	a+1/2(b-a) &< b - 1/3(b-a) \\
+	\iff 0 &< (b-a) - 1/3(b-a) - 1/2(b-a) \\
+	\iff 0 &< 1/6(b-a) \\
+	\iff a &< b
+\end{align*}
+This finally gives us $J \cap 2I = \emptyset$ as required. 
+
+Next, we move on to the case that  $l(J) > l(I)$. We will reduce this to the previous case. Define $k:= l(J) - l(I) \geq 1$. Again define $J^{(1)}$ as we did $J'$ above as the  $C$-interval at level $l(J) - 1$ that  $J$ stems from.  The different notation will be clear soon. Now, recursively define $J^{(m+1)}$ as the  $C$-interval of level  $l(J) - (m+1)$ that $J^{(m)}$ in level $l(J) - m$ stems from. Of course, this only makes sense for  $m < l(J)$. Note that by this construction we get that $J \subset J^{(m)} \subset  J^{(m+1)}$. We are interested in $J^{(k)}$ which is in level  $l(J) - k = l(I)$. Since  $l(J^{(k)}) = l(I)$ this reduces to the previous case. So either $J^{(k)} = I$ and then $J \subset J^{(k)} = I$ or $J^{(k)} \cap 2I = \emptyset$ and so  $J \cap 2I = \emptyset$. 
+
+
+
+
+\smallskip
+b) We need to show that  $\mathcal{A} $ is an algebra on $C$. We prove the 3 conditions:
+\begin{enumerate}
+	\item Set $m=0$ then  $C \cap \emptyset = \emptyset \in \A$. Set $m=1$ and  $I_1 = [0,1]$ then  $C \cap I_1 = C \in \A$ since  $C \subset I_1$.
+	\item Let $A = C \cap \left( I_1 \cup \ldots \cup I_m \right) \in \A$. Note that by construction $C = \bigcap_{n \in \N}K_n$ as defined in Problem 3 so $C \subset K_n$ for each $n \in \N$. Define $$k := \sup \{l(I_i): i \in [m]\} < \infty.$$ In particular, we write $$C = C \cap K_k = C \cap \left( J_1 \cup \ldots \cup J_{2^k} \right)$$ where the $J_i$,  $i \in [2^k]$ are the disjoint  $C$-intervals at level  $k$. We construct a set $B$, which we claim is $A^c$, as follows: $$B = C \cap \left( \bigcup\{J_i : \forall j \in [m],  J_i \cap  I_j = \emptyset\} \right) .$$ Clearly, $A^c \in \A$. It remains to show that $B = A^c$ i.e.  $A\cup B = C$ and  $A\cap B = \emptyset$. Write $B = C \cap \left( J_{i_1} \cup \ldots \cup J_{i_s} \right)$. It is clear by construction that for  $i \in [2^k]$ either $J_i \in I_j$ for some $j \in [m]$ or it is in none of them and then $J_i = J_{i_{r}}$ for some $r \in [s]$. These two cases are disjoint and exhaustive. In the first case, $J_i \in A$ and in the second case, by part b) and the fact that $l(J_i) \ge l(I_j)$, it must be that $J_i$ is disjoint from all $I_j$ so  $J_i \in B$. Since these cases are disjoint and exhaustive, so are $A$ and  $B$, which is just another way of saying that $B = A^c$ (where the complement is taken inside  $C$).  
+
+
+
+\item Let $A, B \in \A$. We need to show their union is in $\A$. We write $A = C \cap
+	\left( I_1 \cup \ldots\cup I_m \right)$ and $B = C \cap \left( I_{m+1} \cup \ldots \cup I_{m+n} \right)$. We consider all pairs $\left( i, j \right) \in [m+n]\times [m+n]$ where $l(I_j) \ge l(I_i)$. Create an index sets $N \subset [m+n]$ as follows: By a) this either means that $I_j \subset I_i$ or they are disjoint. In case $I_j \subset I_i$, only add $i$ to the index set otherwise add both  $i$ and  $j$. Then $$A \cup B = C \cap \left( \bigcup_{k \in N} I_k \right).$$ It is clear that the RHS is contained within the LHS. The other inclusion follows from our construction: each $i \in [m+n]$ is either in $N$ or  $I_i$ is contained in some  $I_j$ where  $j \in N$. Further each of the $C$-intervals on the RHS are disjoint by construction. 
+\end{enumerate}
+
+\smallskip
+c) If $A\in \mathcal{A}$ is represented as in , we set 
+$$\nu(A)\coloneq\sum_{k=1}^m 2^{-\ell(I_k)}. $$
+Using the hint, to show that $\nu$ is well-defined we first show that we can assume wlog that all 
+$C$-intervals $I_k$ in have the same level. The proof idea is that instead of an interval we can consider the ``children'' at some common level. This is because as you go down one level, you double the number of intervals. This effect is exactly counteracted by the exponential in the premeasure. Let's formalize this notion now. 
+
+Let $I^{(m)}$ be a  $C$-interval at level  $m$. Then there are  $2^{n-m}$  $C$-intervals of level  $n$ (assuming that $m \le n$) that are contained within $I^{(m)}$. This is because each  $C$-interval has two ``children'' in the next level that ``stem'' from it as defined in Problem 3. We call this set $$\C_n(I^{(m)}) =\{ I^{(n1)}, \ldots, I^{(n2^{n-m})} \}.$$ I claim that $\nu\left(C \cap I^{(m)} \right) = \sum_{J \in \C_n(I^{(m)})} \nu\left( C \cap J \right)$. This implies that, for the purpose of the set function $\nu$, we can wlog replace any interval $I^{(m)}$ at level $m$ with its children $\C_n\left( I^{(m)} \right) $ at some higher level $n \ge  m$. This is because $$\sum_{J \in \C_n(I^{(m)})} \nu\left(C \cap J \right) = \sum_{J \in \C_n(I^{(m)})} 2^{-n} = 2^{n-m} \cdot 2^{-n} = 2^{-m} = \nu(C \cap I).$$  
+
+Let $A = C\cap \left( I_1 \cup \ldots \cup I_m \right) \in \A$. Again, define $$k := \sup \{l(I_i): i \in [m]\} < \infty.$$ By the previous claim, 
+\begin{align*}
+	\nu(A) := \sum_{j=1}^{m} 2^{-l(I_j)} = \sum_{j=1}^{m} \nu(C \cap I_j) &= \sum_{j=1}^{m} \sum_{J \in \C_k(I_j)} \nu(C \cap J) \\
+									      &= \nu\left( C \cap \left( \bigcup_{j \in [m]} \bigcup\{J \in \C_k\left( I_j \right) \}   \right)  \right)  	
+\end{align*}
+
+
+This gives us a canonical representation of $A$ in terms of its children at the highest level. More explicitly, let  $C \cap \left( J_1 \cup \ldots\cup J_n  \right)$ be another representation of $A$. Then  $$\nu(A) = \nu\left( C \cap \left( \bigcup_{i \in [n]} \bigcup\{J \in \C_k\left( J_i \right) \}   \right)  \right).$$ But we are done as $J$ is in the double union of the children of $I_j$ iff it is a child of some  $I_j$ iff it is a child of some  $J_i$ iff it is in the double union of the children of  $J_i$. So in both cases,  $\nu(A)$ evaluates to the same thing and therefore is independent of its representation i.e. it is well-defined.
+
+\smallskip
+d) It is clear that $\nu: \A \to [0,\infty]$ as $2^{-n}$ is positive for all $n \in \N$. Further, $\nu(\emptyset) = 0$ by the convention adopted in part c) that $m=0$ corresponds to the empty union so  $\nu(\emptyset) = \sum_{k=1}^{0} 2^{-l(I_k)} = 0$ since it is just an empty sum. 
+
+It remains to show that $\nu$ is countably additive. We tackle this in two steps. First we show, using compactness, that if $\bigcup_{n \in \N}{A_n} \in \A$ for $A_n \in \A$ then it must be the case that the $A_n$ are eventually empty i.e. it is just a finite union of nonempty terms in the algebra. Then we easily show that finite additivity holds for $\nu$.
+
+\begin{enumerate}
+	\item Let $\bigcup_{n \in \N} A_n \in \A$ for $A_n \in \A$ writing 		$A_n = C \cap \left( I_{n,1} \cup \ldots \cup I_{n,m_n} \right)$. Since it is in the algebra we can write $$\bigcup_{n \in \N} A_n = C \cap \left( \bigcup_{n \in \N}\bigcup_{k=1}^{m_n} I_{n,k} \right) = C \cap \left( J_1 \cup \ldots\cup J_l \right).$$ Note that this set (call it $K$) is compact as $C$ is compact and each of the  $J_i$ are compact. Assume, for the sake of contradiction, that there are infinitely many non-empty $C$-intervals  $I_{n,k}$ and consider the sequence formed by their centers $\{c_{n,k}\}_{k \in [m_n], n \in \N}$. By (sequential) compactness of $K$, these centers have a convergent subsequence, call the limit point $x \in K$. But since $I_{n,k}$ are disjoint and cover $K$,  $x$ is in exactly one of them say  $x \in I_{n^*,k^*}$. Then it must be that $x = c_{n^*, k*}$. Let  $r$ be the radius of  $I_{n^*, k^*}$ then by  $c_{n,k} \to x$ there must exist some other $c_{n^{**}, k^{**}}$ within a distance of $r$ from  $c_{n^*, k^*}$ but this contradicts the assumption that $I_{n^*, k^*} \cap I_{n^{**}, k^{**}} = \emptyset$ as it contains $c_{n^{**}, k^{**}}$.
+	\item This shows that the union is actually finite i.e. $\bigcup_{n \in \N}A_n =  \bigcup_{n = 1}^N A_n $ for some $N \in \N$. Now it suffices to show that $\nu$ is finitely additive for $N=2$ and the general case follows from induction. Let $A = C\cap \left( I_1 \cup \ldots\cup I_m \right)$ and $B = C \cap \left( J_1 \cup \ldots\cup J_n\right) $. By part c) wlog we can assume that all intervals are on the same level, say $k$. Then  $$\nu(A) + \nu(B) = \sum_{i=1}^{m} 2^{-k} + \sum_{j=1}^{n} 2^{-k}  = \sum_{i=1}^{m+n} 2^{-k} = \nu(A \cup B).$$
+\end{enumerate}
+
+\smallskip
+e) Consider the measure $\mu$ on $\sigma(\A)$ obtained from Caratheodory's Extension Theorem applied to the premeasure $\nu$ on $\A$.  Then, by the theorem,  $\mu$ extends $\nu$ on $\A$ as required and it is a probability measure as  $$\mu\left( C \right) = \nu(C) = \nu\left(  C \cap [0,1] \right) = 2^0 = 1.$$ Uniqueness follows from finiteness of the measure. It only remains to show that this is a Borel measure. Note that $\B_{\R}$  is generated by closed rectangles so, by reasoning similar to the proof of Problem 2b) $\B_{C}$ is generated by intersection of closed intervals with  $C$. Let $I$ be an arbitrary closed interval. Define the family $\C_n$ of $C$-intervals $J$ of level $n$ such that $J$ contains $I$. Then $$C \cap I = C \cap \bigcup_{n \in \N} \C_n $$ which is a countable union of elements in $\A$ so it is in  $\sigma(\A)$. Therefore for each borel set $B \in \B_{\R}$, $C \cap B \in \B_{C}$ so it is a Borel measure. 
+
+
+\bigskip
+\noindent
+\textbf{Problem 5*:}  Let $C\sub [0,1]$ be the Cantor set (see Problem~3). 
+
+\smallskip
+a) Let $x \in \R$. Then $(-\infty, x]$ is Borel because it is closed. Further $C$ is compact as shown in Problem 3 so it is closed and therefore Borel. Then  $C \cap (-\infty, x]$ is Borel in $\R$. Then by Problem 1b) $C \cap (-\infty, x]$ is a Borel subset of $C$. 
+
+\smallskip
+b) $f(-1) = \mu\left( C \cap (-\infty, -1] \right) = \mu(\emptyset) = 0$ but $f(1) = 
+\mu\left( C \cap (-\infty, 1] \right) = \mu(C) = 1$ so $f$ is not constant. Let $x \le  y$. Then $C \cap (-\infty, x] \subset C \cap (-\infty, y]$ so by monotonicity of $\mu$, $f(x) = \mu\left( C \cap (-\infty, x]  \right) \le \mu\left(  C \cap (-\infty, y] \right) = f(y)$. Therefore $f$ is non-decreasing. 
+
+To show that $f$ is continuous, we use the midterm problem that says that a distribution function is continuous if and only if the measure has no atoms. Therefore, it suffices to show that  $\mu\left( \{x\} \right) = 0$ for all $x \in \R$. Let $x \in C = \bigcap_{n \in \N} K_n$. So for each $n \in \N, x \in K_n$ which means there exists a $C$-interval $I_ n$ at level $n$ containing $x$. Then  $$\mu\left( \{x\}  \right) \le  \mu \left( C \cap I_n \right)  = \nu\left( C \cap I_n \right) = 2^{-n}$$ where the first inequality follows from monotonicity, the next equality follows from the fact that $\mu$ extends $\nu$ on $\A$ and the final equality follows by definition. Since this holds for all  $n \in \N$ by taking $n \to  \infty$ we get $\mu\left( \{x\}  \right) = 0$ as required.
+
+Let $I = [a,b]$ and assume that $C \cap [a,b] = \emptyset$. Then $$f(b) = \mu(C \cap (-\infty, b] = \mu(C \cap (-\infty, a] + \mu(C \cap (a,b]) = f(a) + \mu(\emptyset) = f(a)$$ where the second equality follows from finite additivity of $\mu$. By since $f$ is non-decreasing,  $f(a) = f(b)$ implies that  $f$ is constant on  $[a,b]$ as required.
+
+A rough picture of the graph of $f$ is attached below.   
+
+ 
+ 
+
+
+ 
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\vfill 
+ 
+\end{document}

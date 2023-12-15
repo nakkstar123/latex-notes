@@ -1,0 +1,188 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath, amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\Ha{\ensuremath{\mathbb{H}}}
+\newcommand\cont{\Rightarrow\!\Leftarrow}
+\newcommand\tf{\therefore}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Challenge\ \#1}
+\newcommand{\hmwkDueDate}{January 18, 2022}
+\newcommand{\hmwkClass}{CS 281}
+\newcommand{\hmwkClassTime}{131AH}
+\newcommand{\hmwkClassInstructor}{Professor Alexander Sherstov}
+\newcommand{\hmwkAuthorName}{\textbf{Nakul Khambhati}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    % \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+    While constructing the polynomial to compute \(\texttt{MOD}_{m}\),
+    we raise the polynomial to the \(m\)-th degree so that every non-zero element
+    evaluates to \(1\). If \(m\) was not a prime number, this would not work for all non-zero elements. 
+    It would only work for the ones that are relatively prime to \(m\).
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    We can prove that there is no polynomial-size circuit of constant depth that computes the majority function on \(n\) bits by proving the following proposition: \\
+     \textit{\(\exists\) a poly-size const depth circuit that computes \texttt{MAJORITY} \(\implies\) \(\exists\) exists a poly-size const depth circuit that computes \texttt{PARITY}} \\
+     Then the result follows by contraposition and Razborov-Smolensky. 
+     \begin{proof}
+        Assume that \(C\) is a poly-size const depth circuit that computes \texttt{MAJORITY}. Consider the problem 
+        of determining whether \(\# x = k\) where \(\#x\) denotes the number of \(1\)'s in \(x\) and \(0\leq k \leq n\). We will now construct another circuit \(C'\) that is built out of \(C\) to solve this problem. \\
+
+        We can use \(C\) to decide \(\#x\geq k\). This part is easier to explain by introducing some numbers. Assume \(n = 5, x = 11010\) such that \(\#x = 3\). 
+        Suppose we want to check whether \(\#x\geq 4\) i.e. the case \(k = 4\). We can simply append \(00\) to \(x\) and compute \(C(x00) = 1 \iff \#x \geq 4\) since \(|x00| =7\). 
+        This way, we can compute any \(\#x\leq k\) by appending a suitable number of \(1\)'s and \(0\)'s. \\
+        Similarly, we can compute \(\#x \leq k\). For example, let's decide \(\#x \leq 2\). It can be verified that \(C(x) = 0 \iff \#x \leq 2 \).\\
+        Then we can construct \(C'\) as \(\#x = k \iff \#x \leq k \land \#x \geq k\). Since \(C'\) depends on \(k\), let's denote it \(C_{k}'\)\\
+
+        Now, we can easily compute \(\texttt{PARITY} = \bigvee\limits_{k \text{ odd}} C_k'\) since \texttt{PARITY} returns \texttt{TRUE} if and only if there is an odd number of \(1\)'s in \(x\). This only increase the depth by a constant factor and the size remains polynomial so we have proved the proposition.
+     \end{proof}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    
+\end{homeworkProblem}
+
+
+\end{document}

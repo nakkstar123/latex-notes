@@ -1,0 +1,270 @@
+\documentclass[fleqn]{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath, amssymb}
+
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\setlength{\mathindent}{1cm}
+
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\Ha{\ensuremath{\mathbb{H}}}
+\newcommand\J{\ensuremath{\mathbb{J}}}
+\newcommand\K{\ensuremath{\mathbb{K}}}
+\newcommand\cont{\Rightarrow\!\Leftarrow}
+\newcommand\tf{\therefore}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#4}
+\newcommand{\hmwkDueDate}{February 8, 2023}
+\newcommand{\hmwkClass}{Math 131AH}
+\newcommand{\hmwkClassTime}{131AH}
+\newcommand{\hmwkClassInstructor}{Professor Marek Biskup}
+\newcommand{\hmwkAuthorName}{\textbf{Nakul Khambhati}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+% New commands added by Nakul for 131AH
+\newcommand{\ps}{\mathcal{P}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+
+    Let \(F\) be a non-empty set, \(E = \ps(F)\). We have already seen that
+    this is a poset via \(\subset\). We are asked to show that every \(A \subset \ps(F)\) i.e.
+    every collection of subsets of \(F\) admits an infimum and supremum. First, we consider nonempty collections. \\
+
+    Let \(A \neq \O\). We show that \(\sup(A) = \bigcup A\). By definition, \(\forall X \in A: X \subset \bigcup A\).
+    Now, let \(B\) be another upper bound for \(A\). Then, \(\forall X \in A: X \subset B \Rightarrow \bigcup A \subset B\).
+    This shows that \(\bigcup A\) is the least upper bound for \(A\) i.e. \(\bigcup A= \sup(A)\).\\
+
+    Next, we show \(\inf(A) = \bigcap A\). By definition, \(\forall X \in A: \bigcap A \subset X\) so it is a lower bound.
+    Let \(C\) be another lower bound for \(A\) i.e. \(\forall X \in A: C \subset A \Rightarrow C \subset \bigcap A\). So,
+    \(\bigcap A\) is the greatest lower bound i.e. \(\inf(A) = \bigcap A\).\\
+
+    Finally, we consider \(A = \O\). To prove that \(\sup(\O) = \O\) it suffices to show that \(\O\) is an upper bound. 
+    It will definitely be the smallest one as it is the minimal element of this poset. Similarly, to show \(\inf(\O) = F\) it
+    suffices to show that \(F\) is a lower bound. To show that \(\sup(\O) = \O\), we require: \(\forall X \in \O: X \subset \O\). Since \(\O\) is
+    the emptyset, there exists no such \(X\) that can be compared. As a result, the statement is vacuously true. Similarly, \(\forall X \in \O: F \subset X\)
+    is vacuously true so \(\inf(\O) = F\).
+
+\end{homeworkProblem}
+
+
+\begin{homeworkProblem}
+    We define \(m|n: = (\exists k \in \N' : n = mk)\). We need to prove that this a partial order. 
+    \begin{enumerate}
+        \item \(\forall m: m = 1m\) which implies that \(m|m\)
+        \item Let \(m|n\) and \(n|m\). Then, \(\exists k,l \in \N': m = kn, n = lm\). Therefore, \(n = lkn\). Since \(n \neq 0, 1 = lk\).
+        In \(\N'\) this implies that \(l = k = 1\). Therefore, \(m = n\).
+        \item Let \(m|n\) and \(n|k\). So, \(n = c_1m\), \(k = c_2n\) for some \(c_1, c_2 \in \N'\). Therefore, 
+        \(k = c_1c_1m\) so \(m|k\).
+    \end{enumerate} 
+    Therefore this is a partial order. Now we show that \(\inf(A)\) exists and \(\sup(A)\) exists if \(A\) is bounded.
+
+    Let \(A \subset \N'\) such that \(A \neq \O\). It is clear that this set has a lower bound of \(1\) since \(\forall m \in \N': m = 1m \) so \(1|m\). For each \(a \in A\) we can consider its prime factorization into some 
+    form \(a = p_1^{k_1}\cdots p_n^{k_n}\). We can do this for all elements in \(A\) and then for each prime \(p_i\) listed, we look at the powers \(k_i\) that it corresponds to for various \(a \in A\). This gives us a set of
+    naturals indexed by \(A \subset \N\). Therefore, we can consider the minimal element (ordered by \(\leq\)) of each such set, call it \(m_i\). If all primes listed are \(p_1, \ldots, p_s\) then \(\inf(A) = p_1^{m_1}\cdots p_s^{m_s}\). This is because,
+    by construction, each \(p_i^{m_i}\) divides all \(a \in A\). Also, if some \(l\) divides all \(a \in A\). Then, it must divide each of the prime factors \(p_i^{m_i}\) listed earlier. In other words, \(l|p_i^{m_i}\) for each \(i\) so
+    \(l | p_1^{m_1}\cdots p_s^{m_s}\). This concludes our proof as we have shown a greatest lower bound.
+    \\
+
+    
+    Similarly, let \(A\subset \N'\) be a bounded subset. Then, we denote \(u = \prod\limits_{x\in A} x\). Since \(A\) is bounded, this is a finite product and we can
+    write \(u = x_1x_2\cdots x_n\). This is an upper bound on \(A\) as \(\forall x \in A: x | u\). Therefore, we can now consider the set \(U\) of upper bounds (ordered by \(|\)) on \(A\) which is nonempty. This is a subset of \(\N\) and therefore
+    has a minimal element when ordered by \(\leq\). Let's call this \(\min(U)\). We claim that \(\sup(A) = \min(U)\) when \(A\) is ordered by \(|\). We will prove this by contradiction. This is because \(\sup(A)\) must lie in \(U\). Therefore, 
+    if it is not the minimal element of \(U\), there is an element that is a upper bound on \(A\), call it \(u_0\) such that \(u_0 \leq\) \(\sup(A)\). This would in turn imply that \(u_0|\sup(A)\) which would contradict its minimality. 
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    \(\Rightarrow\) Assume that \(A\) is Dedekind infinite. Let \(f: A \to A\) be an injective map such that \(\exists a \in A: a \notin Im(f)\). We can then construct a map \(i: \N \to A\)
+    by recursive construction which is injective. This proves that \(A\) is unbounded as \(\N\) can be identified as a subset of \(A\). For the construction, we first set \(i(0) = a\). We then
+    set \(i(n) = f(i(n-1))\). We just need to verify that this is injective. Fix \(n \in \N\). We will show inductively that \(\forall m \neq n\) or WLOG \(\forall m < n : i(m) \neq i(n)\). The base case
+    is true since \(i(0) = x \notin Im(f), i(n) \in Im(f)\). For the inductive step, we use the fact that \(f\) is injective. Assume \(f(m+1) = f(n)\) for \(m + 1 < n\). But then \(f(i(m)) = f(i(n-1))\) so \(i(m) = i(n-1)\) which
+    contradicts the the inductive hypothesis. This proves that \(i\) is injective and \(A\) is unbounded.\\
+    
+    \(\Leftarrow\) Assume that \(A\) is unbounded. We first show that we can construct \(f: \N \to A\) injective. Since \(A\) is unbounded, it is nonempty so choose \(a \in A\). Then, set \(f(0) = a\). We can 
+    recursively construct the map by choosing for \(f(n)\) some element in \(A\) that hasn't been chosen before i.e. \(f(n) \notin \left\{ f(0), f(1), \ldots f(n-1) \right\}\). This is permitted by the axiom of 
+    choice and since \(A\) is unbounded. This map, by construction, is injective. We can easily modify this map to get another map \(b: A \to A\) where \(b\) is injective but not surjective. We construct \(b\) by simply 
+    shifting the values in the image of \(f\). Explicitly, \(b(f(0)) = f(1)\) and \(b(f(n)) = b(f(n+1))\). This map is injective since \(f\) is and is not surjective since \(f(0) \notin Im(b)\).
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Let \(A, B \subset \Q\) such that \(\sup(A), \sup(B)\) exist and \(A \subset B\).
+    Since \(\sup(B)\) exists, \(\forall b \in B: b \leq \sup(B)\). In particular, 
+    \(\forall a \in A: a \leq \sup(B)\). Therefore, \(\sup(B)\) is an upper bound for \(A\) as well. 
+    By definition of \(\sup(A)\), this must mean that \(\sup(A) \leq \sup(B)\)\\
+
+    Under these conditions, we can consider \(\sup(A\cup B)\). We show that this exists. 
+    We know that \(\sup(A)\) is an upper bound for \(A\) and \(\sup(B)\) is an upper bound
+    for \(B\). Therefore, \(\forall x \in A\cup B: x \leq \sup(A) \lor x \leq \sup(B) \Rightarrow 
+    x \leq \max\left\{ \sup(A), \sup(B) \right\}\). Clearly, \(\max\left\{ \sup(A), \sup(B) \right\}\) is an upper bound for \(A\cup B\)
+    
+    Now, let \(u\) be another upper bound on \(A\cup B\). Then, \(\forall x \in A\cup B: x \leq u\). Since \(A \subset A\cup B\),
+    \(\sup(A) \leq u\). This follows from the previous part: if \(A \subset B\), then \(\sup(A) \leq \sup(B) \leq \text{any upper bound on B}\).
+    Similarly, \(B \subset A\cup B \Rightarrow \sup(B) \leq u\). Therefore, \(\max\left\{ \sup(A), \sup(B) \right\} \leq u\). This proves that 
+    \(\sup(A \cup B) = \max\left\{ \sup(A), \sup(B) \right\}\).
+
+    % From the previous part,
+    % since \(A \subset A\cup B\), \(\sup(A)\leq \)
+\end{homeworkProblem}
+
+
+\begin{homeworkProblem}
+    Consider \(A + B:= \left\{ a + b, a \in A \land b \in B \right\}\). Assume that \(\sup(A)\) and \(\sup(B)\) exist. Let \(a \in A, b \in B\). 
+    Then \(a \leq \sup(A), b \leq \sup(B)\) so \(a + b \leq \sup(A) + \sup(B)\). So, \(\sup(A) + \sup(B)\) is an upper bound on \(A+B\). Now, let
+    \(u\) be another upper bound on \(A+B\). So, \(\forall a,b: a + b \leq u\). Then we can write \(u \geq l + k\) where \(l,k\) are upper bounds on \(A\) and \(B\) respectively. Then, \(l+k\) is an
+    upper bound on \(A+B\). Therefore, \(\sup(A) + \sup(B) \leq l + k \leq u\).  By transitivity, \(\sup(A) + \sup(B) \leq u\) so \(\sup(A+B) = \sup(A) + \sup(B)\).
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Let \(A\) have a lower bound \(l\) i.e. \(\forall a \in A: l \leq a\). 
+    Now consider the set \(-A = \left\{ -a: a \in A \right\}\). Then, 
+    \(\forall (-a) \in -A: -a \leq -l\). Therefore, \(-l\) is an upper bound on the set \(-A\). 
+    By the completeness of \(\R\), \(\sup(-A)\) exists. This means that for any upper bound \(u\)
+    of \(-A\), \(\sup(-A) \leq u\). Therefore, for any lower bound \(l\) of \(A\), 
+    \( l \leq -\sup(-A)\). Therefore, \(\inf(A) = -\sup(-A)\).
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    We need to show that we cannot define an order on \(\C\). First note that \(0 \neq i\) Assume that in some ordering we have \(0 < i\). Then since \(i\)
+    is positive, multiplication by \(i\) preserves the ordering relation: \(0 < i^2 \Rightarrow 0 < -1\) which is a contradiction. Instead,
+    assume that \(i < 0\). Then \(i^2 > 0 \Rightarrow -1 > 0\) which is again a contradiction. Therefore, it is impossible to make \(C\) an ordered field. 
+    As the hint suggests, this is because \(-1\) is a square and by our axioms of of an ordered field, a square must always be positive.
+\end{homeworkProblem}
+
+\end{document}

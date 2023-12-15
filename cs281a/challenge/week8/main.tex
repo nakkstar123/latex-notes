@@ -1,0 +1,197 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath, amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\Ha{\ensuremath{\mathbb{H}}}
+\newcommand\cont{\Rightarrow\!\Leftarrow}
+\newcommand\tf{\therefore}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Challenge\ \#8}
+\newcommand{\hmwkDueDate}{January 18, 2022}
+\newcommand{\hmwkClass}{CS 281}
+\newcommand{\hmwkClassTime}{131AH}
+\newcommand{\hmwkClassInstructor}{Professor Alexander Sherstov}
+\newcommand{\hmwkAuthorName}{\textbf{Nakul Khambhati}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    % \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}[20]
+    For this question, I have a good idea of how to simulate a fair coin however, I'm not sure how to evaluate the expected running time 
+    as my description of the method is somewhat vague. We are given a coin that outputs \(1\) with probability \(p\) so it outputs \(0\) with
+    probability \(1-p\). We can flip the coin a few times (this is where I'm not sure how many flips are needed) and list all the outcomes in succession. 
+    Let's say after \(10\) trials, we get \(1001011011\). (It is reasonable to expect that \(p = 0.6\) here.) We can simulate a fair coin as follows:
+    \begin{enumerate}
+        \item Pair up the outcomes as follows: \(10\;01\;01\;10\;11\).
+        \item Notice that the pair \(11\) has probability \(p^2\) of occuring and \(00\) has probability \((1-p)^2\) however both \(10\) and \(01\) have
+        probability \(p(1-p)\).
+        \item We can then delete all pairs \(11\) and \(00\) from the list of outcomes and upon counting, since \(01\) and \(10\) have equal probability of occuring,
+        we should get an equal number of these patterns. 
+    \end{enumerate}
+    Thus, we have proved that we can simulate a fair coin by flipping a biased coin a lot of times, pairing outcomes, deleting \(11\) and \(00\), and setting heads \(=10\), 
+    tails \(=01\).
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    We want to be able to create an event with arbitrary probability which we write as \(p = 0.b_1b_2b_3\cdots\).
+    We are only allowed to use a fair coin to simulate this event. First, I will provide some motivation for my method. 
+    It is easy to simulate an event that occurs with probability \(\dfrac{1}{2^k}\). For example, flipping a coin twice, the outcome \(11\) has probability \(\dfrac{1}{4}\).
+    The expected number of flips here to obtain a positive outcome is \(2\). However, we can short-circuit the flipping process in some cases to reduce this value. For example, 
+    if the first flip reveals \(0\) then it is impossible to get \(11\) with the next flip so we can abort the process. This brings down the expected number of flips to \(\dfrac{3}{2}\).\\
+
+    Now, I will explain my method for simulating an event with arbitrary probability. Let \(p = 0.b_2b_2b_3\cdots\). Flip a coin
+    until it shows \(1\). Let's say it takes \(n\) flips for the first \(1\). Output \(b_n\). In words, output the bit indexed by 
+    the number of flips it takes for the first positive outcome. It may not yet be clear that the probability of outputting \(1\) here is
+    exactly \(p\).\\
+
+    To see this, note that the probability that the process stops after \(n\) flips is exactly \((\frac{1}{2})^n\) so the probability of outputting \(1\)
+    is 
+    \begin{align*}
+        &\mathbb{P}[(n=1 \land b_1 = 1) \lor (n=2 \land b_2 = 1) \lor (n=3 \land b_3 = 1) \lor \cdots] \\
+        &=\dfrac{1}{2}b_1 + \dfrac{1}{2^2}b_2 + \dfrac{1}{2^k}b_3 + \cdots \\
+        &= \sum\limits_{i=1}^{\infty}\dfrac{1}{2^i}b_i \quad (\text{binary expansion of } p)\\
+        &= p
+    \end{align*}
+    
+    In this way, we have constructed (using only a fair coin) an event that succeeds with probability \(p\) for any \(p \in (0,1)\). Moreover, 
+    we expect to see a positive outcome after \(2\) flips so the expected runtime of this is \(O(1)\).
+
+\end{homeworkProblem}
+
+
+\end{document}

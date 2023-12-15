@@ -1,0 +1,234 @@
+\documentclass[12pt]{amsart} %% AMS artstyle at 12pt size,loads amsmath
+%\includeonly{}
+\addtolength{\headheight}{1.15pt}
+\addtolength{\textwidth}{2cm}
+\addtolength{\oddsidemargin}{-1cm}
+\addtolength{\evensidemargin}{-1cm}
+\pagestyle{plain}
+\usepackage{amsmath}
+\usepackage{amscd}
+\usepackage{amsthm}
+\usepackage{amssymb}
+%\usepackage{showkeys}
+\usepackage{amsmath}
+\usepackage{amscd}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathabx}
+\usepackage{bbm}
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
+\def\R{\mathbb{R}}
+\def\D{\mathbb{D}}
+\def\C{\mathbb{C}}
+\def\B{\mathcal{B}}
+\def\A{\mathcal{A}}
+\def\1{\mathbbm{1}}
+\def\la{\lambda}
+\def\for{\quad \text{for} \quad} 
+\def\foral{\quad \text{for all} \quad}
+\def\ra{\rightarrow}
+\def\lr{\leftrightarrow}
+\def\eps{\epsilon}
+\def\:{\colon}
+\def\sub{\subseteq}
+\newcommand{\dist} {\operatorname{dist}}
+\renewcommand{\Re} {\text{Re}}
+\renewcommand{\Im} {\text{Im}}
+\begin{document}
+\thispagestyle{empty}
+\pagestyle{empty}
+\noindent 
+\textsl{Math 245A  \hfill Nakul Khambhati}
+
+\bigskip\bigskip
+\centerline {\textbf{Final Exam} (due by noon on Wednesday, December~13) }
+
+ 
+\smallskip \noindent
+(a) To prove that $\nu$ is a measure on $\B$, we will show that $\nu$ takes values in $[0,\infty]$, $\nu\left( \emptyset \right) = 0$ and $\nu$ is countably additive on $\B$.
+
+\begin{enumerate}
+	\item Let $B \in \B$. Then 
+		$$\nu(B) = \mu\left( T^{-1}(B) \right) \in [0,\infty]$$ 
+		as $T^{-1}(B) \in \A$ since $T$ is measurable and $\mu$ is a measure on $\A$ so it takes values in $[0,\infty].$
+	\item Since $T$ is a map, $T^{-1}\left( \emptyset \right) = \emptyset.$ From this it follows that $$\nu\left( \emptyset \right) = \mu\left( T^{-1} (\emptyset) \right)= 0$$ where the last equality follows because $\mu$ is a measure.
+	\item Let $\{B_n\}_{n \in \N}$ be a collections of pairwise disjoint sets in $\B$. First, note that
+	\begin{align*}
+		T^{-1}\left( \bigcup_{n \in \N} B_n \right)
+		&= \left\{x \in X: T(x) \in \bigcup_{n \in \N} B_n\right\} \\
+		&= \{x \in X: ( \exists n \in \N : T(x) \in B_n )\} \\
+		&= \{x \in X: ( \exists n \in \N : x \in T^{-1}(B_n) )\} \\
+		&= \left\{x \in X:  x \in \bigcup_{n \in \N} T^{-1}(B_n) \right\} \\
+		&= \bigcup_{n \in \N} T^{-1}(B_n).
+	\end{align*}
+	Further, $\{T^{-1}(B_n)\}_{n \in \N}$ is a collection of pairwise disjoint sets. To see why, assume for the sake of contradiction that $\exists x \in X$ and $\exists i,j \in \N$ such that $x \in T^{-1}(B_i) \cap T^{-1}(B_j).$ But then $T(x) \in B_i \cap B_j$ which contradicts the pairwise disjointness of $\{B_n\}_{n \in \N}.$ Now, we proceed with the proof.  
+	\begin{align*}
+		\nu\left(\bigcup_{n \in \N} B_n\right) 
+		&= \mu\left( T^{-1}\left( \bigcup_{n \in \N} B_n \right) \right) \\
+		&= \mu\left( \bigcup_{n \in \N} T^{-1} (B_n) \right) \\
+		&= \sum_{n=1}^{\infty} \mu\left( T^{-1}(B_n) \right)  \\
+		&= \sum_{n = 1}^{\infty} \nu(B_n)
+	\end{align*}
+	where the second last equality follows from the countable additivity of $\mu$ since each  $T^{-1}(B_n) \in \A$ by the measurability of $T$ and the sets are disjoint by the previous argument. 
+		
+\end{enumerate}
+
+\newpage
+
+\noindent
+(b) Let $C \subset [0,\infty]$ be Borel. Since $f$ is measurable, $B:=f^{-1}(C) \in \B$. Also, $T^{-1}(B) \in \A$ since $T$ is measurable. Therefore 
+$$\left( f \circ T \right)^{-1} (C) = T^{-1}(f^{-1}(C)) \in \A$$ which proves that $f\circ T$ is measurable on $\A$.
+
+To prove the desired equality, we will first prove it for characteristic functions, then simple functions and then non-negative measurable functions using the Monotone Convergence Theorem. Let $B \in \B$ and consider the characteristic function on $B$ which I will denote as $\1_B: Y \to \{0,1\} $. Note that $\1_B \circ T = \1_{T^{-1}(B)}$ which is also measurable for $T$ measurable. This is because $(\1_B \circ T)(x) = 1$ iff  $T(x) \in B$ iff $x \in T^{-1}(B)$ iff $(\1_{T^{-1}(B)})(x) = 1$. Now we show that the equality holds for $f = \1_B$. 
+$$\int \1_B d\nu = \nu(B) = \mu(T^{-1}(B)) = \int \1_{T^{-1}(B)} d\mu = \int (\1_B \circ T) d\mu.$$ 
+The last equality follows from the previous argument. Now, let $s: (Y, \B) \to [0,\infty)$ be a simple function. Then, it has a standard representation as 
+$$s = \sum_{i=1}^{n} \beta_i \1_{B_i}$$ where $\beta_i \ge 0$ and $B_i \in \B$ are pairwise disjoint for $i \in [n]$. By linearity of the integral and of the composite operator
+\begin{align*}
+	\int s d\nu &= \int \left(\sum_{i=1}^{n} \1_{B_i}\right) d\nu \\
+		      &= \sum_{i=1}^{n} \beta_i \int  \1_{B_i} d\nu \\
+		      &= \sum_{i=1}^{n} \beta_i \int ( \1_{B_i} \circ T) d\mu \\
+		      &= \int \sum_{i=1}^{n} \beta_i ( \1_{B_i} \circ T) d\mu \\
+		      &= \int \left(\sum_{i=1}^{n} \beta_i  \1_{B_i}\right) \circ T d\mu \\
+		      &= \int s \circ T d\mu.
+\end{align*}
+The third equality follows from the argument for characteristic functions. Now, let $f: (Y, \B) \to [0,\infty]$ be an arbitrary measurable function. From Theorem 6.9 of the lecture notes, there exist simple functions $s_n: (Y, \B) \to [0,\infty)$ for $n \in \N$ such that $s_n \nearrow f$. Then, by the Monotone Convergence Theorem (MCT) and the fact that composition preserves limits
+\begin{align*}
+	\int f d\nu &= \int \left(\lim_{n \to \infty}s_n\right) d\nu \\
+		    &= \lim_{n \to \infty} \int s_n d\nu \\
+		    &= \lim_{n \to \infty} \int s_n\circ T d\mu \\
+		    &= \int \lim_{n \to \infty} \left(s_n \circ T\right) d\mu \\
+		    &= \int \left( \lim_{n \to \infty} s_n \right) \circ T d\mu \\
+		    &= \int f\circ T d\mu
+\end{align*}
+as required. The second and fourth equality use MCT, the third equality follows from our previous argument for non-negative simple functions and the fifth equality uses that composition preserves limits. 
+ 
+\newpage
+ \noindent {\bf Problem 2:}  
+(a) I claim that the sufficient and necessary condition is that $$
+\lambda\left( \limsup\limits_{n \to \infty} A_n \right) = 0$$ where $$
+\limsup\limits_{n \to \infty}A_n := \bigcap_{n \in \N} \bigcup_{m \ge n} A_m.$$ This set is measurable as it is the intersection of unions of measurable sets. From now on, I will denote this set as $A^*$ for convenience so the condition is that $\lambda\left( A^* \right) = 0$. Intuitively, this is true because $A^*$ is the set of all  $x \in \R$ such that $x \in A_n$ for infinitely many $n \in \N$. I am not proving this as I will work with the original definition for the proof. 
+
+$\Rightarrow$ We prove that the condition is sufficient. Assume that $\lambda\left( A^* \right) = 0$. Let $x \in (A^*)^c$. Then $$x \in \bigcup_{n \in \N} \bigcap_{m \ge  n} A_m^c$$ by de Morgan's laws. So there exists some $n_0$ such that  $$x \in \bigcap_{m \ge  n_0} A_m^c$$ i.e. for all $m \ge n_0$ we have $x \notin A_m$. This means that  $$\exists n_0 \in \N \; \forall m \ge n_0 : \1_{A_m}(x) = 0$$ which proves that $$\lim_{n \to \infty} \1_{A_n}(x) = 0.$$ This is true for all $x \in (A^*)^c$ and $\lambda(A^*) = 0$ by assumption so $$\lim_{n \to \infty} \1_{A_n} = 0\quad a.e.$$ as required. Now we prove the other implication. 
+
+$\Leftarrow$ We prove that the condition is necessary. Assume that there exists a measurable set $N$ such that  $\lambda(N) = 0$ and $$\lim_{n \to \infty}  \1_{A_n} = 0$$ on $N^c$. Let  $x \in N^c$. Then $$\lim_{n \to \infty}  \1_{A_n}(x) = 0$$ so by the definition of a limit, there exists some $n_0 \in \N$ such that for all $m \ge  n_0$ $$
+\1_{A_m}(x) < 1/2.$$ But since each $\1_{A_m}$ is a characteristic function, it only takes values in $\{0,1\}$ so $\1_{A_m}(x) < 1/2 \Rightarrow \1_{A_m}(x) = 0$ which is the same as $x \notin A_m$. Therefore, $$\exists n_0 \in \N \; \forall m \ge n_0 : x \notin A_m.$$ The argument that follows is the reverse of what was provided earlier. This means that $$x \in \bigcap_{m \ge  n_0} A_m^c$$ so $$x \in \bigcap_{n \in \N} \bigcup_{m \ge n} A_m = (A^*)^c.$$ While $n_0$ depended on our choice for  $x$, the expression above is independent of our choice of  $x$ as long as  $x \in N^c$. Therefore, we have showed that $N^c \subset (A^*)^c$ so $A^* \subset N$. It follows from montonicity that $$\lambda(A^*) \le  \lambda(N) = 0$$ so $\lambda(A^*)=0$ as required.  
+
+
+\newpage \noindent
+(b) I claim it suffices to show that  $f$ takes values in  $\{0,1\}$ almost everywhere. This is because, by assumption, $f \in L^1$ so it is measurable. Therefore, $A := f^{-1}(\{1\})$ is measurable so we can write $f = \1_A$ almost everywhere. Also $\mu(A) = \int f d\lambda < \infty$ since $f \in L^1$.  
+
+To prove the statement, for $k \in \N$ consider the sets $$E_k := \{x: |f(x)| > 1/k, |f(x)-1| > 1/k\}.$$ This is a measurable set as $$E_k = |f|^{-1} (1/k, \infty) \cap |f-1|^{-1} (1/k, \infty)$$ where each of the sets is measurable since $f \in L^1$ so measurable and taking absolute value and adding constants keeps it measurable. By construction note that $|f(x) - 0| >  1/k$ and $|f(x) - 1| > 1/k$ for $x \in E_k$ so it follows that for any $A_n$,  $|f(x) - \1_{A_n}(x)| > 1/k$ for $x \in E_k$ as the characteristic function only takes values in $\{0,1\} $. Finally, note that $$E:=\bigcup_{k \in \N} E_k = \{x: |f(x)| > 0, |f(x)-1| > 0\} = \{x: f(x) \neq 0 \} \cap \{x: f(x) \neq 1\}$$ i.e. $f(x) \in \{0,1\}$ for $x \in E^c$. Now, we proceed with the proof. By monotonicity of the integral, for all $n \in \N$ 
+$$\int |f - \1_{A_n}|d\lambda \geq \int_{E_k} |f - \1_{A_n}|d\lambda > \int_{E_k} \frac{1}{k} d\lambda = \frac{\lambda(E_k)}{k}.$$ The first inequality follows because $|f-\1_{A_n}|\ge |f-\1_{A_n}|\1_{E_k}$ and the second inequality follows from our earlier argument. Since $\1_{A_n} \to f$ in $L^1$ the first term above goes to  $0$ as  $n \to  \infty$. Taking the limit, we therefore have 
+$$\frac{\lambda(E_k)}{k} \le \lim_{n \to \infty} \int |f - \1_{A_n}|d\lambda = 0$$ so $\lambda(E_k) = 0$ for all $k \in \N$. It follows from subadditivity that $$\lambda(E) \le  \sum_{k=1}^{\infty} \lambda(E_k) = 0$$ and recall that we showed $f(x) \in \{0,1\}$ for $x \in E^c$. Therefore, $f$ takes values in  $\{0,1\}$ almost everywhere and we are done by the argument in the start.  
+
+  
+\newpage 
+\noindent {\bf Problem 3:}(a) We first show that $f \in L^1$ implies that $|f|$ is finite almost everywhere. Define $$E_n := |f|^{-1}\left( [n, \infty] \right) $$ which is measurable since $f \in L^1 \Rightarrow f$ is measurable. It is clear that $|f(x)| \ge  n$ for $x \in E_n$ and that $$|f|^{-1}\{\infty\} = \bigcap_{n \in \N} E_n.$$ From monotonicity of the integral $$\int_{E_n} |f| d\mu \ge  \int_{E_n} n d\mu  = n\mu(E_n).$$ Then again, by monotonicity of the integral, $$
+\mu(E_N) \le  \frac{1}{n} \int_{E_n} |f| d\mu \le  \frac{1}{n} \int |f| d\mu.$$ Since $f \in L_1$, $\int |f| d\mu < \infty$ so $\mu(E_n) < \infty$ for each $n \in \N$ and $$
+\lim_{n \to \infty} \mu(E_n) = 0.$$ Also, by construction, $E_n \searrow \bigcap_{n \in \N} E_n$. By this and $\mu(E_1) < \infty$ we use continuity of the measure from above to conclude that $$
+\mu\left( \bigcap_{n \in \N} E_n \right) = \mu\left( |f|^{-1}\{\infty\} \right) = \lim_{n \to \infty} \mu(E_n) = 0.
+$$ It is clear that $|f(x)| < \infty$ on the complement of $|f|^{-1}\{\infty\}$ and since this set has measure zero, $|f(x)|$ is finite almost everywhere.
+
+Going back to our proof, we have shown that there exists some $N \in \A$ with $\mu(N) = 0$ and $|f(x)| < \infty$ for $x \in N^c$. Define $$A_n := \{x \in X: |f(x)| > n\}$$ and $f_n := |f|\1_{A_n}$. Note that $|f_n| \le  |f|$ for $n \in \N$ and by assumption $f \in L^1$ so it serves as a dominating function and Lebesgue's Dominated Convergence (LDC) applies. Finally since $|f(x)| < \infty$ on $N^c$ we have that for each  $x \in N^c$
+$$\exists n_0 \in \N: |f(x)| < n_0$$ and so for all $n \ge n_0, x \notin A_n$ or in other words $$\lim_{n \to \infty} \1_{A_n}(x) = 0$$ for $x \in N^c$ so $$
+\lim_{n \to \infty} f_n = 0$$ for $x \in N^c$. Define $g_n = f_n \1_{N^c}$ and then  $$\lim_{n \to \infty} g_n = 0$$ for all $x \in X$ by construction. Since $f_n = g_n$ almost everywhere, from HW 6 Problem 4 each $g_n$ is also measurable and $\int f_n d\mu  = \int g_n d\mu$  for all $n \in \N$. Then by LDC $$
+\lim_{n \to \infty} \int f_n d\mu = \int \lim_{n \to \infty} f_n = \int \lim_{n \to \infty} g_n = \int 0 d\mu = 0.$$ Summarizing what we have so far $$
+\lim_{n \to \infty} \int_{\{x: |f(x)| > n\}} |f| d\mu  = 0.$$ Now let $\epsilon > 0$. Using the definition of the limit, there exists some $n_1 \in \N$ such that for all $n \ge  n_1$ $$\int_{\{x: |f(x)| > n\}} |f| d\mu < \frac{\epsilon}{2}.$$ In particular, this is true for $n = n_1$. Now let  $A \in \A$ be such that $\mu(A) < \delta = \frac{\epsilon}{2n_1}$. We will bound $\int_A |f| d\mu$ from above. Note that we can split the integral into two by observing that $$|f| = |f|\1_{X} = |f|\1_{A_{n_1}} + |f|\1_{A_{n_1}^c}.$$ Therefore, 
+\begin{align*}
+\int_A |f| d\mu &= \int_A |f| \1_{A_{n_1}} d\mu	+ \int_A |f| \1_{A_{n_1}^c} d\mu \\
+		&= \int_{A\cap \{x: |f(x)| > n_1\} } |f| d\mu	+ \int_{A\cap \{x: |f(x)| \le n_1\} } |f| d\mu	\\
+		&\le  \int_{\{x: |f(x)| > n_1\}} f d\mu + \int_A N d\mu \\
+		&\le \frac{\epsilon}{2} + \delta n_1 \\
+		&< \epsilon. 
+\end{align*}
+The first inequality (third line) follows from the monotonicity of the integral and the fact that $|f| \le n_1$ on $A_{n_1}^c$ by definition, the second inequality is by our previous argument and $\int_A n_1 d\mu = \mu(A)n_1 = \delta n_1$ and the final inequality by our choice of $\delta$. Finally, from the triangle inequality for integrals, it follows that $$
+\left|\int_A f d\mu\right| \le  \int_A |f|d\mu.
+$$ Since $\epsilon>0$ was arbitrary and $A \in \A$ such that $\mu(A) < \delta$ was arbitrary, we have shown that for all $\epsilon > 0$, there exists a $\delta > 0$ such that for $A \in \A$ $$\mu(A) < \delta \Rightarrow \left|\int_A f d\mu\right| < \epsilon$$ as required. 
+
+\newpage
+\noindent
+(b) Since $f \in L^2(\mu)$ we know that $\|f\|_2 < \infty$ so we can apply Cauchy–Schwarz. Let $\epsilon > 0$ and let $A \in \A$ such that $$\mu(A) < \delta = \frac{\epsilon^2}{\left( \|f\|_2 + 1 \right)^2}$$ so we have picked $c = \frac{1}{\left( \|f\|_2 + 1 \right)^2} > 0.$ Then by triangle inequality for integrals and Cauchy-Schwarz$$
+ \left| \int _A f d\mu \right| \le  \int_A |f| d\mu = \int |f| \1_A d\mu \le \|f\|_2 \cdot \|\1_A\|_2.
+ $$ Note that $\1_A^2 = \1_A$ so $$\|\1_A\|_2 = \left(\int \1_A^2 d\mu \right)^{1/2} = \left(\int \1_A d\mu \right)^{1/2} = \mu(A)^{1/2} < \delta^{1/2}.$$ Therefore, $$
+ \left| \int _A f d\mu \right| < \|f\|_2 \delta^{1/2} = \frac{\|f\|_2}{\|f\|_2 + 1}\epsilon < \epsilon
+ $$ as required. 
+
+\newpage
+\noindent {\bf Problem 4:} As per the hint, we first deal with the case $\lambda(A)<\infty$, and consider the outer measure and covers by intervals. Assume, for the sake of contradiction, that for all nonempty closed intervals $I = [a,b]$,  $\lambda(A\cap I) \le 0.99 \lambda(I).$ 
+
+
+Since $A$ is measurable, we have that  $\lambda(A) = \lambda^*(A).$ From pg 64 of the lecture notes (specialized to $n=1$), we have the following characterization for the outer meausure: 
+
+$$\lambda^*(A) = \inf\left\{\sum_{k=1}^{\infty}\lambda(I_k): I_k \text{ is an interval and } A \subset \bigcup_{k \in \N} I_k\right\}.$$ By definition of the infimum, there exists a cover by intervals $I = \bigcup_{k \in \N}I_k$ of $A$ where $A \subset I$ such that  $$\sum_{k =1}^{\infty} \lambda(I_k) < \frac{1}{0.99} \lambda(A) < \infty.$$ Therefore $$
+0.99 \sum_{k=1}^{\infty}\lambda(I_k) < \lambda(A) = \lambda(A \cap I) \le \sum_{k=1}^{\infty} \lambda(A \cap I_k) \le 0.99 \sum_{k=1}^{\infty} \lambda(I_k)$$ where the second last inequality follows from countable subadditivity of $\lambda$ and the last inequality follows from the assumption that $\lambda(A \cap I_k) \le 0.99 \lambda(I_k)$ for all intervals $I_k$. This finally gives us $\sum_{k=1}^{\infty}\lambda(I_k) <  \sum_{k=1}^{\infty}\lambda(I_k)$ which is a contradiction because this expression is finite. Therefore, our assumption must have been false and there exists some nonempty interval $I = [a,b]$ such that $\lambda(A \cap I) > 0.99\lambda(I)$ if $\lambda(A) < \infty.$
+
+Now we extend the result to the general case. Let $A$ be measurable with $\lambda(A) > 0$ so it is nonempty and pick $M \in \N$ such that $A_M := A \cap [-M, M]$ is nonempty and $\lambda(A_M) > 0$. Then $\lambda(A_M) \le \lambda\left( [-M,M] \right) = 2M < \infty$ so from our argument for the finite case, there exists some nonempty interval $I = [a,b]$ such that  $\lambda(A_M \cap I)  > 0.99 \lambda(I)$ so $A_M \cap I$ is nonempty. Set  $J = I \cap [-M,M] \supset A_M \cap I$ so it is nonempty and it is an interval as the intersection of two intervals is also an interval (set of intervals are a $\pi$-system). Note that $A \cap J = A_M \cap I$ by construction. By monotonicity, $\lambda(J) \le \lambda(I)$ so $$\lambda(A \cap J) = \lambda(A_M \cap I) > 0.99\lambda(I) \ge  0.99 \lambda(J)$$ so $J$ is the required interval and we are done. 
+
+
+
+
+\newpage
+\noindent
+ \noindent {\bf Problem 5:} (a) We will prove the statement for $C = 1$ i.e.
+$$ \frac {|e^{-ihx}-1|}{|h|} \le |x|$$ 
+for all $x\in \R$ and all $h\in \R\setminus\{0\}$. As the hint suggests, we consider $|e^{-it} - 1| = |(\cos(t)-1)- i\sin(t)|$. For the sake of calculation, it helps to consider the square of this. We will use two trigonometric identities for this 
+ \begin{align}
+	1- \cos(t) = 2\sin^2 \left(  \frac{t}{2}
+ \right) 
+\end{align} 
+and 
+\begin{align}
+	\sin^2(t)\le t^2.
+\end{align}
+
+Equation (2) follows from the fact that $|\sin(t)| \le |t|$ for all $t \in \R$ and Equation (1) is true because $\cos(2\theta) = \cos^2(\theta) - \sin^2(\theta) = 1 - 2\sin^2(\theta)$ so the identity follows from rearranging and substituting $\theta = t/2.$ Now we compute 
+\begin{align*}
+	|e^{-it} - 1|^2 &= |(\cos(t)-1)- i\sin(t)|^2 = \left( \cos(t) - 1 \right)^2 + \sin^2(t) \\
+			&= 2 - 2\cos(t) = 4\sin^2\left( \frac{t}{2} \right) \le 4\left( \frac{t}{2} \right)^2 = t^2. 	
+\end{align*}
+From here, it follows that $$|e^{-it} - 1| \le  |t|$$ and substituting $t = hx$ for  $h \neq 0$ gives us  $$
+\frac{|e^{-ihx} - 1| }{|h|}\le  |x|
+$$ as required. 
+
+\newpage
+\noindent
+(b) First note that 
+\begin{align*}
+	\lim_{n \to \infty} n \left( e^{-ix/n} - 1 \right)
+	&= \lim_{h \to 0} \frac{ e^{-ixh} - 1  }{h} = \lim_{h \to 0}  \frac{ e^{-ix(0+h)} - e^{-ix\cdot 0}}{h} \\
+	&= \frac{d}{dy} e^{-ixy}|_{y = 0} = -ix e^{-ixy}|_{y=0} = -ix.	
+\end{align*}
+Defining $f_n := n (e^{-ix/n} - 1)$ we see from above that $\lim_{n \to \infty} f_n = -ix.$ Also each $|f_n| \le |x|$ from part a) for each $n \in \N$ (with $h = 1/n$ so  $h \neq 0$) so the  $f_n$ are dominated by $x$ and by assumption  $x \in L^1$ as $\int |x|d\mu(x) < \infty.$ Therefore, we can apply Lebesgue Dominated Convergence (LDC) to get 
+\begin{align*}
+	f'(u_0) &:= \lim_{h \to 0} \frac{\int e^{-i(u_0+h)x}d\mu(x) - \int e^{-ihx}d\mu(x) }{h}\\
+		&= \lim_{h \to 0} \frac{\int e^{-i(u_0+h)x} -  e^{-ihx}d\mu(x) }{h} \\
+		&= \lim_{h \to 0} \frac{\int e^{-iu_0x}(e^{-ihx} - 1)d\mu(x) }{h} \\
+		&= \lim_{h \to 0} \int  e^{-iu_0x} \frac{(e^{-ihx} - 1)}{h} d\mu(x) \\
+		&= \lim_{n \to \infty} \int e^{-iu_0x} n(e^{-ix/n} - 1) d\mu(x) \\
+		&=  \int e^{-iu_0x} \left(\lim_{n \to \infty}  n(e^{-ix/n} - 1)\right) d\mu(x) \\
+		&=  \int e^{-iu_0x}(-ix) d\mu(x) \\
+		&= -i \int xe^{-iu_0x} d\mu(x).
+\end{align*}
+The second, fourth and eighth equality follow from linearity of the integral, the sixth one from LDC and the seventh from the previous argument. This shows that $f$ is differentiable for arbitrary  $u_0 \in \R$ and the derivative is as required. 
+
+\newpage
+\noindent
+ (c) To show that $f'(u)$ is continuous we show that for any arbitrary sequence $\{u_n\} _{n \in \N}$ such that $u_n \to u_0$ we get $f'(u_n) \to f'(u_0)$ as $n \to \infty.$ Let $\{u_n\}_{n \in \N}$ be such that $u_n \to u_0$. Define  $g_n(x) = -ixe^{-iu_nx}$ for $n \in \N$. Then by the continuity of $g(u) = -ixe^{-ux}$  for fixed $x$ it follows that  $$\lim_{n \to \infty} g_n(x) = g_0(x)$$ as $u_n \to u_0$. In other words, the functions $g_n$ converge to  $g_0$ pointwise. Also note that $|g_n| = |x|$ so, as before, the functions $g_n$  are dominated by $x$ which has finite integral with respect to  $\mu$ by assumption. By LDC
+
+ \begin{align*}
+	 \lim_{n \to \infty} f'(u_n) &:= \lim_{n \to \infty} \int -ixe^{-iu_nx} d\mu(x) \\
+          &= \lim_{n \to \infty} \int g_n(x) d\mu(x) \\
+	  &= \int \lim_{n \to \infty} g_n(x) d\mu(x) \\
+	  &= \int g_0(x) d\mu(x) \\
+	  &= \int -ixe^{-iu_0x}d\mu(x) \\ 
+	  &= f'(u_0).
+ \end{align*}
+ The third equality follows from LDC, the fourth from the previous argument and the rest from definition. This shows the continuity of $f'(u)$ which proves that  $f$ is  $C^1$-smooth.  
+
+
+\vfill
+
+ 
+\end{document}

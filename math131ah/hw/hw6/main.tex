@@ -1,0 +1,259 @@
+\documentclass[fleqn]{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath, amssymb}
+\usepackage[makeroom]{cancel}
+
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\setlength{\mathindent}{1cm}
+
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\Ha{\ensuremath{\mathbb{H}}}
+\newcommand\J{\ensuremath{\mathbb{J}}}
+\newcommand\K{\ensuremath{\mathbb{K}}}
+\newcommand\cont{\Rightarrow\!\Leftarrow}
+\newcommand\tf{\therefore}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#6}
+\newcommand{\hmwkDueDate}{February 23, 2023}
+\newcommand{\hmwkClass}{Math 131AH}
+\newcommand{\hmwkClassTime}{131AH}
+\newcommand{\hmwkClassInstructor}{Professor Marek Biskup}
+\newcommand{\hmwkAuthorName}{\textbf{Nakul Khambhati}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+% New commands added by Nakul for 131AH
+\newcommand{\ps}{\mathcal{P}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+    We have an injection \(\R \to \mathcal{P}(\Q)\) which takes a real number to the Dedekind cut that it represents. 
+    We want to find an injection \(\mathcal{P}(\Q)\times \mathcal{P}(\Q) \to \R\). Recall that \(\mathcal{P}(\Q) \cong \mathcal{P}(\N)\) so it suffices to find an injection
+    \(\mathcal{P}(\N) \times \mathcal{P}(\N) \to \R\). Let \(S,T \subset \N\) and consider the map \((S,T)\mapsto R = \left\{ 2x: x \in S \right\} \cup \left\{ 2y+1: y \in T \right\}\). This is an injection
+    since we can recover the sets from an element \(R\) in the image by simply separating the even and odd elements and performing \(\frac{n}{2}\) and \(\frac{n-1}{2}\) respectively. 
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Assume that we have a surjection \(\R \to \left\{ 0,1 \right\}^{\R}\). Then we have a way to label \(\left\{ 0,1 \right\}^{\R}\) using reals i.e. 
+    we can label the set of functions \(f: \R \to \left\{ 0,1 \right\}\) using the reals. So, we can write \(f = f_x\) for some \(x \in \R\) where \(x\) is some
+    element in the preimage of \(f\) under the surjection assumed above. Now, consider the function \(h: \R \to \left\{ 0,1 \right\}\) which flips the diagonal i.e. 
+    \(h(x) = 1 - f_x(x)\). Explicitly, given some \(x \in \R\), first use the above surjection to map \(x\) to some function \(f_x : \R \to \left\{ 0,1 \right\}\). Then, evaluate
+    this function at \(x\) and finally flip the output. Now, since \(h \in \left\{ 0,1 \right\}^{\R}\), we can write \(h = f_y\) for some \(y \in \R\) by the assumed surjectivity. 
+    In particular, if we evaluate \(f_y\) at \(y\), we get that \(f_y(y) = 1 - f_y(y)\) which is a contradiction. Therefore, no such surjection can exist.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    A complex number \(z \in \C\) is said to be algebraic if it is the root of some integer polynomial. We can partition the set of algebraic numbers into sets that are indexed by the naturals
+    in a way that \(n\) represents the set of all algebraic numbers that solve a polynomial of degree \(n\). Each such set is countable as for each choice of \(a_i\) there are a countable number of choices (integers)
+    and there are \(n+1\) such coefficients to be chosen. We showed in lecture that the countable union of countable sets is countable. So, if we take the union of all these sets (each countable) which are indexed by the naturals (countable), we get
+    that the set of algebraic numbers is countable. \\
+
+    A subset of a countable set is countable so the set of all algebraic reals is also countable. In lecture, we proved that the set of all reals is uncountable. Since \(\R\) is a union of algebraic reals and non-algebraic reals, if \(\R\) is uncountable and the
+    set of algebraic reals is countable, it must be the case that the set of non-algebraic reals is uncountable. 
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    \begin{enumerate}
+        \item \(d_1(x,y) = (x-y)^2:\) (M1) is true since squares always positive and \((x-y)^2 = 0 \iff x-y = 0 \iff x = y\). (M2) is true as 
+        \((y-x)^2 = (y-x)(y-x) = (x-y)(x-y) = (x-y)^2\). Lastly, \((x-z)^2 + (z-y)^2 = x^2 + 2z^2 + y^2 - 2z(x + y)\). But, it is not true that this is always \(\geq (x-y)^2 = x^2 -2xy + y^2\) so (M3)
+        fails and it is not a metric.
+        \item \(d_2(x,y) = \sqrt{|x-y|}\). (M1) is true as \(\sqrt{x}\) is injective so \(|x-y| = 0 \iff x = y\). (M2) is true as \(|y-x| = |x-y|\). (M3) Here we use the fact that \(\sqrt{x+y} \leq \sqrt{x} + \sqrt{y}\) for \(x,y \geq 0\). This and the triangle
+        inequality for \(|x+y|\) imply that \(\sqrt{|x-y|} \leq \sqrt{|x-z| + |z-y|} \leq \sqrt{|x-z|} + \sqrt{|z-y|}\) so it is a metric space. 
+        \item \(d_3(x,y) = |x^2 - y^2|\). This clearly not a metric as \(x = -y \neq 0\) satisfies \(d_3(x,y) = 0\).
+        \item \(d_4(x,y) = |x-2y|\). Again, not a metric as \(x = 2y \neq 0\) satsifies \(d_4(x,y)=0\).
+        \item \(d_5(x,y) = \dfrac{|x-y|}{1+ |x-y|}\). (M1) and (M2) are clear since they hold for \(|x-y|\). (M3) \(d_5(x,z) + d_5(z,y) = \dfrac{|x-z|}{1 + |x-z|} + \dfrac{|z-y|}{1 + |z-y|} \geq \dfrac{|x-z|}{1 + |x-z| + |z-y|} + \dfrac{|z-y|}{1 + |x-z| + |z-y|}
+        = \dfrac{|x-z| + |z-y|}{1 + |x-z| + |z-y|} = 1 - \dfrac{1}{1 + |x-z| + |z-y|} \geq 1 - \dfrac{1}{1 + |x-y|} = d_5(x,y)\)
+    \end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    We define \(a_0 = 1 \land a_{n+1} = \dfrac{1}{1+a_n}\). Enumerating the first few terms, we get \((1, \frac{1}{2}, \frac{2}{3}, \frac{3}{5}, \frac{5}{8}, \ldots)\)
+    \begin{enumerate}
+        \item \(P_n: a_{2n+2} \leq a_{2n} \). \(P_0\) is true since \(a_2 = \frac{2}{3} < 1 = a_0\). Assume that \(P_n\) is true. We need to show that \(a_{2n+4} \leq a_{2n + 2}\). We use the above formula to expand this twice. 
+        \(a_{2n+4} = \dfrac{1}{1+ \dfrac{1}{1 + a_{2n+2}}} = \dfrac{1 + a_{2n+2}}{2 + a_{2n+2}} \leq \dfrac{1+a_{2n}}{2+ a_{2n}} = a_{2n+2}\) where the inequality follows from the inductive step. This proves \(P_{n+1}\). 
+        \item \(P_n: a_{2n+1} \leq a_{2n+3} \). \(P_0\) is true since \(a_1 = \frac{1}{2} < \frac{3}{5} = a_3\). Assume that \(P_n\) is true. We need to show that \(a_{2n+3} \leq a_{2n + 5}\). We use the above formula to expand this twice. 
+        \(a_{2n+5} = \dfrac{1}{1+ \dfrac{1}{1 + a_{2n+3}}} = \dfrac{1 + a_{2n+3}}{2 + a_{2n+3}} \geq \dfrac{1+a_{2n+1}}{2+ a_{2n+1}} = a_{2n+3}\) where the inequality follows from the inductive step. This proves \(P_{n+1}\). 
+        \item To-do.
+        % We will prove this inductively. Fix \(m \in \N\). Let \(P_n\) be the statement that \(a_{2m+1} \leq a_{2n}\). Then, \(P_0\) is true since \(a_0 = 1\) and the sequence is bounded from above by \(1\). Assuming \(P_n\) let's try 
+        % and prove \(P_{n+1}\). Since 
+        \item We need to show that the infimum of the even subsequence is an upper bound for the odd subsequence and that it is the smallest such upper bound. 
+        \(L\) is a lower bound on \(a_{2n}\) so \(\forall n \in \N: L \leq a_{2n}\). Assume that it is not an upper bound on the odd subsequence. Then, \(\exists m: L < a_{2m+1}\).
+        By the previous part, \(a_{2m+1} \leq a_{n}\) so this would be a larger lower bound which contradicts \(L\) being the infimum. This is a contradiction so \(L\) is an upper bound on 
+        the odd subsequence. Now consider some other upper bound on the odd subsequence \(u: a_{2n+1} \leq u\). We need to show that \(L \leq u\). To-do. 
+        \item We know that \(a_{2n}\) is increasing, \(a_{2n+1}\) is decreasing and \(\inf a_{2n} = \sup a_{2n+1}\). This provides the intuition that the even subsequence increases till it approaches \(L\) and the odd subsequence decreases till it approaches \(L\) so the limit must be \(L\). Here, we use a lemma that says that since the odd subsequence is increasing, bounded from above, it has a limit and the limit \(= \sup a_{2n+1}\). 
+        Similarly, the even subsequence is decreasing and bounded from below so it has a limit and limit \(= \inf a_{2n}\). From the previous part, these limits are equal so the limit exists and equals \(L\).
+        \item If such an \(L\) were to exist, it would solve \(L = \dfrac{1}{1+L}\). To see this, consider \(L - a_{n+1} = \dfrac{1}{1+L} - \dfrac{1}{1+a_n} = \dfrac{1+a_n - (1+L)}{(1+L)(1+a_n)} = \dfrac{a_n - L}{(1+L)(1+a_n)} \leq \dfrac{a_n - L}{\frac{3}{2}} = \dfrac{2}{3}(a_n - L)\) since \(L \geq \frac{1}{2}, a_n \geq 0\). Comparing absolute values,
+        we see that \(|L - a_{n+1}| \leq \dfrac{2}{3}|L - a_n|\) just like the question we solved in lecture so this is a valid limit as well.\\
+        We now solve \(L = \dfrac{1}{1+L} \Rightarrow L^2 + L - 1 = 0 \Rightarrow L = \dfrac{-1 + \sqrt{5}}{2}\).  
+    \end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Consider the metric \(d(x,y) = \Big|\dfrac{y}{1+|y|} - \dfrac{x}{1 + |x|}\Big| \). 
+    \begin{enumerate}
+        \item \(d(x,y) = 0 \iff (1+|x|)y - x(1+|y|) = 0 \iff x + x|y| = y + |x|y \iff x=y\). It is clearly symmetric and for the triangle inequality consider 
+        \(d(x,z) + d(z,y) = \Big|\dfrac{z}{1+|z|} - \dfrac{x}{1 + |x|}\Big| + \Big|\dfrac{y}{1+|y|} - \dfrac{z}{1 + |z|}\Big| \leq \Big|\dfrac{z}{1+|z|} - \dfrac{x}{1 + |x|} + \dfrac{y}{1+|y|} - \dfrac{z}{1 + |z|}\Big|
+        = \Big|\dfrac{y}{1+|y|} - \dfrac{x}{1 + |x|}\Big|\).
+        \item Consider the sequence \(x_n = n\). We need to show it is Cauchy with no limit in \(\R\).
+        Suppose \(k \in \N\) and construct \(n_0 = 2(k+1)\). Let \(m,n \geq n_0\). Then \(d(n,m) = \Big| \dfrac{m}{1+m} - \dfrac{n}{1+n} \Big| = \Big| \dfrac{m-n}{(1+n)(1+m)} \Big| \leq \Big| \dfrac{1}{n} + \dfrac{1}{m}\Big| = \dfrac{1}{k+1}\) so it is Cauchy. 
+        Now assume that it has a limit \(L\). Then \(d(n,L) < \dfrac{1}{k+1}\) for all \(n \geq n_0\) for some \(n_0 \in \N\). But this requires that \(\Big| \dfrac{L}{1+L} - \dfrac{n}{1+n} < \dfrac{1}{k+1}\Big|\) for all \(k \in \N\). In particular, if we choose
+        \(k = Ln + n + L\) then \(L(1+n) - n(1+L) < \dfrac{(1+L)(1+n)}{k+1} \Rightarrow (L-n)(k+1) < (1+L)(1+n)\) which contradicts our construction of \(k\).
+    \end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Based on tricks taught in my previous calculus classes, I'm going to guess that the limit is \(\frac{1}{2}\) and then attempt to prove it rigorously. 
+    Let \(k \in \N\), we need to show that we can get arbitrarily (\(< \dfrac{1}{k+1}\)) close to \(\frac{1}{2}\) for all terms of the sequence \(x_n: n \geq n_0\) for
+    some \(n_0 \in \N\). But this is clear since we can write \(|\sqrt{n^2 + n} - n - \frac{1}{2}| \leq |\sqrt{n^2 + n + \frac{1}{4}} - n - \frac{1}{2}| = |n+\frac{1}{2} - n - \frac{1}{2}| = 0\).
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Let \((a_n)\) be a Cauchy sequence and let \((a_{n_k})\) be a convergent subsequence. Let \(L = \lim\limits_{n \rightarrow \infty}a_{n_k}\). 
+    We want to show that \((a_n)\) also approaches \(L\). We know that for any \(\epsilon > 0\), there exists \(n_0\) such that for all \( n > n_0\)
+    \(|a_{n_k} - x| < \epsilon/2\). Also since \((a_n)\) is cauchy, there exists \(n_1\) such that \(\forall m,n > n_1: |a_m - a_n| < \epsilon/2\). Then
+    we can simply choose \(l > n_0\) such that \(n_l > n_1\) then \(|a_n - x| \leq |a_n - a_{n_l}| + |a_{n_l} - x| < \epsilon\) for all \(n > n_1\) which proves that \((a_n)\)
+    also converges to \(L\).
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Let \(x,y > 0 \land x < 1\). Assume that \(\forall n \in \N: x^n \geq y\). Not that \(x^n = y\) for all \(n \in \N\) is only possible if both are \(0\) or both are \(1\) which is ruled out
+    by our assumptions. Therefore, \(\forall n \in \N: x^n > y \Rightarrow \dfrac{y}{x^n} < 1\) for all \(n\). Also, by the assumptions, both \(y\) and \(x^n\) are positive so 
+    \(\dfrac{y}{x^n}\) is positive. This contradicts the Archimedian principle so we must have that \(\exists n \in \N: x^n < y\).
+\end{homeworkProblem}
+
+\end{document}

@@ -1,0 +1,180 @@
+\documentclass[12pt]{amsart} %% AMS artstyle at 12pt size,loads amsmath
+%\includeonly{}
+\addtolength{\headheight}{1.15pt}
+\addtolength{\textwidth}{2cm}
+\addtolength{\oddsidemargin}{-1cm}
+\addtolength{\evensidemargin}{-1cm}
+\pagestyle{plain}
+\usepackage{amsmath}
+\usepackage{amscd}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{bbold}
+%\usepackage{showkeys}
+\usepackage{amsmath}
+\usepackage{amscd}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathabx}
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
+\def\R{\mathbb{R}}
+\def\D{\mathbb{D}}
+\def\C{\mathbb{C}}
+\def\P{\mathcal{P}}
+\def\1{\mathbb{1}}
+\def\la{\lambda}
+\def\for{\quad \text{for} \quad} 
+\def\foral{\quad \text{for all} \quad}
+\def\ra{\rightarrow}
+\def\lr{\leftrightarrow}
+\def\eps{\epsilon}
+\def\:{\colon}
+\def\sub{\subseteq}
+\newcommand{\dist} {\operatorname{dist}}
+\renewcommand{\Re} {\text{Re}}
+\renewcommand{\Im} {\text{Im}}
+\begin{document}
+\thispagestyle{empty}
+\pagestyle{empty}
+\noindent 
+\textsl{Math 245A  \hfill Nakul Khambhati}
+
+\bigskip\bigskip
+\centerline {\textbf{Homework 7} (due: Mo, Dec.~4) }
+
+ 
+ \bigskip
+\noindent
+
+
+
+\bigskip
+\noindent
+\textbf{Problem 1*:} 
+a) Since we are working with $\P(\N)$ every function $f: \N \to \C$ is integrable as for all $B \subset \C$ we have
+$f^{-1}(B) \subset \N$ so it is in $\P\left( \N \right)$. If an arbitrary $f$ preimages all subsets of $\C$ to measurable sets, it certainly preimages measurable sets to measurable and is therefore measure.
+
+I claim that $f$ is integrable if and only if $$\sum_{n=1}^{\infty} |f(n)| < \infty.$$ To prove integrability we need to show that 
+$\int |f| d\mu < \infty$ so it suffices to show that $$\int |f| d\mu = \sum_{n=1}^{\infty} |f(n)|.$$ To this end, define $$g_n = \sum_{i=1}^{n} |f(i)| \1_{\{i\} }.$$ It is clear that $g_n \nearrow |f|$ and each $g_n$ is simple therefore measurable and has finite integral.  By the monotone convergence theorem, it follows that $$\int |f| d\mu = \int \left(\lim_{n \to \infty} g_n\right) d\mu = \lim_{n \to \infty}
+\int g_n d\mu = \lim_{n \to \infty} \sum_{i=1}^{n} |f(i)| = \sum_{n=1}^{\infty} |f(n)|$$ as required. 
+    
+
+\smallskip
+  b) A complex valued function $f$ has integral equal to  $$\int Re(f) + i \int Im(f).$$ and each of these can be split further into the positive negative parts as $$
+  \int Re(f)^+ - \int Re(f)^- + i \int Im(f)^+ - i \int Im(f)^-.$$  From part a) we can rewrite positive integrals as sums so we get $$ \sum_{n=1}^{\infty}  Re(f)^+ - \sum_{n=1}^{\infty}  Re(f)^- + i \sum_{n=1}^{\infty}  Im(f)^+ - i \sum_{n=1}^{\infty}  Im(f)^-.$$ 
+  
+\smallskip
+c) For $n \ge 2$ consider the functions $f_n: \N \to \C$ such that $f_n(k) = k^{-n}$ for  $k \ge 2$ and $f_n(1) = 0$. Then from part b)  $$
+\int f_n d\mu = \sum_{k=2}^{\infty} k^{-n}.$$ They are all measurable from part a) and are dominated by $g= f_2(k) = k^{-2}$. The function $g$ has finite integral as  $$\sum_{k=1}^{\infty}k^{-2} = \frac{\pi^2}{6} < \infty.$$ Also, the pointwise limit of $f_n$ exists and is $0$ as for  $k \ge 2$, $\lim_{n \to \infty} k^{-n} = 0$. By Lebesgue Dominated Convergence it follows that $$\lim_{n \to \infty} \sum_{k=2}^{\infty} k^{-n} = \lim_{n \to \infty} \int f_n d\mu = \int \left( \lim_{n \to \infty} f_n \right) d\mu = \int 0 d\mu = 0$$ as required.   
+  
+
+  
+\bigskip
+\noindent
+\textbf{Problem 3*:} Let $(X, \mathcal{A},\mu)$ be a measure space.
+
+\smallskip
+a) By definition of the infimum, each of the sets $$A_n := \{x \in  X: |f(x)| > \Vert f \Vert_{\infty} + 1/n\}$$ has measure zero. Then the set $A = \bigcup_{n \in \N} A_n$ also has measure 0 by countable subadditivity or continuity from below. In fact $$A = 
+\{x \in  X: |f(x)| > \Vert f \Vert_{\infty}\}$$ and so the infimum is achieved as a minimum for $\lambda = \Vert f \Vert_\infty$. Since $f$ is measurable, all  $A_n$ are measurable as they are preimages of Borel (in fact open) sets and so $A$ is measurable. By definition,  $|f(x)| \le \Vert f \Vert_\infty$ on $A^c$ and since  $\mu(A) = 0$ this means that $|f(x)| \le \Vert f \Vert_\infty$ a.e.
+
+\smallskip
+b) For measurable functions $f,g\: X \ra \C$ we write $f\sim g$ if $f=g$ a.e.
+
+First we show that addition and scalar mulitplication are well defined i.e. To show that $[f] + [g] = [f+g]$ is well-defined, let $f \sim f'$ and  $g \sim g'$. We need to show that  $f+g \sim f' + g'$. By assumption, there exist null sets $N$ and  $M$ such that  $f=f'$ on $N^c$ and $g = g'$ on $M^c$. It is clear that $f+g = f' + g'$ on $\left( N \cup M \right)^c$ and $N \cup M$ has measure zero by finite subadditivity so $f + g = f' + g'$ a.e. which means that $f+g \sim f' + g'$ as required. Similarly we need to show that $c[f]= [cf]$. We show that if $f \sim f'$ then  $cf \sim cf'$. Let  $f \sim f'$ so  $f = f'$ on $N^c$ where  $\mu(N) = 0$. Then clearly $cf = cf'$ on  $N^c$ so  $cf \sim cf'$.
+
+Next we simultaneously show that $L^\infty$ is a vector space and $\Vert f \Vert_\infty$ is a norm on this space. 
+\begin{enumerate}
+	\item Let $f, g \in L^\infty$. We will show that $\|f + g\|_\infty \le  \|f\|_\infty + \|g\|_\infty < \infty $ so in particular $f+g \in L^\infty$ which shows triangle inequality for the norm and closure under addition for the vector space. For all $x \in X$ it is true that $$|f(x) + g(x)| \le  |f(x)| + |g(x)| \le \|f\|_\infty
+		+ \|g\|_\infty$$ where the first inequality is just the triangle inequality for absolute value and the second inequality is from part a). From this it follows that $$\|f + g\|_\infty \le  \|f\|_\infty + \|g\|_\infty < \infty$$. 
+	\item Let $f \in L^\infty$ and $c \in \C$. We show that $\|cf\|_\infty = |c| \|f\|_\infty < \infty$ so $cf \in L^\infty$ which shows that the norm is absolutely homgenous and the vector space is closed under scalar multiplication.
+		\begin{align*}
+			\|cf\|_\infty &= \inf\{\lambda: \mu\{cf > \lambda\} = 0 \} \\
+				      &= \inf\{|c|\lambda: \mu\{cf > |c|\lambda\} = 0 \} \\
+				      &= |c| \inf\{\lambda: \mu\{f > \lambda\} = 0 \} \\
+				      &= |c| \|f\|_\infty.
+		\end{align*}
+		
+	\item It is clear from the definition that $\|f\|_\infty \ge 0$ so we show that $\|f\|_\infty = 0$ implies that $f = 0$ a.e. From part a) this means that 
+		$$0 \le  |f(x)| \le  \|f\|_\infty = 0 \quad \text{a.e.}$$ so $f = 0$ a.e. 
+\end{enumerate}
+
+
+\smallskip
+c) Show that $L^\infty$ with this norm is complete: if $\{f_n\}$ is a Cauchy sequence in $L^\infty$, then there exists 
+a function $f\in L^\infty$ such that $\Vert f_n-f\Vert_\infty\to 0$ as $n\to \infty$. 
+
+First we will show that $\|f_n - f\|_\infty \to 0$ if and only if there exists a measurable set $E$ with $\mu(E) = 0$ and $f_n \to f$ uniformly on $E^c$. Assume that the LHS is true. 
+Then for any  $\epsilon>0$ there exists $N \in \N$ such that for $n\ge N$ $$|f_n(x) - f(x)| \le \|f_n - f\|_\infty < \epsilon \quad a.e.$$ Let $M_n$ denote $\|f_n - f\|_\infty$ and set 
+$$A_n = \{x \in X: |f_n(x) - f(x)| > M_n\}$$ so that $\mu(A_n) = 0$. Setting $E = \bigcup_{n \ge N} A_n$ gives us what is required. Clearly $\mu(E) = 0$ by countably subadditivity and on $E^c$ we have  $$|f_n(x) - f(x)| \le  \|f_n - f\|_\infty < \epsilon \quad \forall n \ge N$$ so $f_n \to f$ uniformly on $E^c$. 
+Conversely, assume  there exists $E$ such that $\mu(E) = 0$ and $f_n \to  f$ uniformly on $E^c$. Then for each $\epsilon > 0$ there exists $N \in \N$ such that for $n \ge  N$ and on $E^c$ 
+ $$|f_n(x) - f(x)| < \epsilon$$ which means that it holds almost everywhere. Then, by definition, $\|f_n - f\| < \epsilon$.
+
+ We now proceed with the proof. Let $\{f_n\}_{n \in \N}$ be Cauchy in $L^\infty$ so for each $\epsilon>0$ there exists $N \in \N$ such that $$\forall m,n \ge  N \quad \|f_m - f_n\|_\infty
+ < \epsilon.$$ For each $m,n \in \N$ define $$E_{m,n} = \{x \in X: |f_m(x) - f_n(x) > \|f_m - f_n\|_\infty|\} $$ so that $\mu(E_{m,n}) = 0$. Taking $E = \bigcup_{m,n \in \N} E_{m,n}$ we get that $\mu(E) = 0$ by countable subadditivity and $$E^c = \{x \in X: \forall m,n \in \N |f_m(x) - f_n(x)| \le  \|f_m - f_n\|_\infty\}.$$ Note that on $E^c$ and for  $m,n \ge N$ $$
+ |f_m(x) - f_n(x)| \le  \|f_n - f_m\|_\infty < \epsilon$$ so on $E^c$, $\{f_n\}_{n \in \N}$ is Cauchy in $\C$ and by completeness, it's pointwise limit exists call it  $f(x)$ and is measurable. Recall that $$|f_m(x) - f_n(x)| < \epsilon$$  and taking $n \to \infty$ we get $$|f_m(x) - f(x)| \le  \epsilon$$ so for $m \ge  N$ $$\|f_m(x) - f(x)\|_\infty \le  \epsilon$$ which shows that $f_m \to f$ in $L^\infty$. Finally, by the triangle inequality for $m \ge N$ $$
+ \|f\|_\infty \le \|f_m\|_\infty + \|f_m - f\|_\infty \le  \|f_m\|_\infty + \epsilon < \infty$$ so $f \in L^\infty$. 
+
+
+
+
+
+  
+  \bigskip
+\noindent
+\textbf{Problem 4*:} 
+\smallskip
+a) Let $1\le p< r<q < \infty$ and let $f \in L^p\cap L^q$ so $\|f\|_p < \infty$ and $\|f\|_q < \infty$. We want to show that $\|f\|_r < \infty$. 
+\begin{align*}
+	\|f\|_r &= \left( \int |f|^r \right)^{1/r} \\
+		&= \left( \int |f|^{\lambda r} |f|^{(1-\lambda)r} \right)^{1/r}
+\end{align*}
+where $\lambda \in [0,1]$ is such that  $$\frac{\lambda r}{p} + \frac{(1-\lambda) r}{q} = 1$$ so we can apply Holder's inequality to get 
+\begin{align*}
+	\|f\|_r & \le  \left( \|f^{\lambda r}\|_p \cdot \|f^{(1-\lambda)r}\|_q \right)^{1/r} \\
+		& \le   \|f\|_p^{\lambda} \cdot \|f\|_q^{1-\lambda} < \infty
+\end{align*}
+as required. 
+
+For $q = \infty$ we simply write $$ \int |f|^r = \int |f|^p |f|^{r-p} \le \|f\|^{r-p}_\infty \int|f|^p< \infty$$ so $f \in L^p \cap L^\infty \Rightarrow f \in L^r$.
+
+\smallskip
+b) Let $f \in L^q$ where $q < \infty$. We will write $f^p$ as  $\1_{X}\cdot f^p$ and apply Holder's inequality with  $$\frac{q-p}{q} + \frac{p}{q} = 1.$$ This gives us $$
+\|\1_X \cdot f^p\| \le \|\1_X\|_{\frac{q}{q-p}}\cdot\|f^p\|_{q/p}
+$$ which can be rewritten as $$\int f^p d\mu \le \mu(X)^{\frac{q-p}{q}} \left( \int f^q \right)^{p/q}. 
+$$ Taking the $p^{th}$ root on both sides gives us $$\|f\|_p \le  \mu(X)^{\frac{q-p}{pq}} \|f\|_q < \infty$$ as $f \in L^p$ and $\mu(X) < \infty$ so $f \in L^p$.
+
+We again deal with $q = \infty$ separately. Assume $\|f\|_\infty < \infty$. Recall from 3a that $$|f(x)| \le \|f\|_\infty \quad a.e.$$ so we write $$
+\int |f|^p d\mu \le  \|f\|_\infty^p \int d\mu = \|f\|_\infty \mu(X) < \infty.$$ 
+
+ \smallskip
+ c) Consider the Lebesgue $\sigma$-algebra and Lebesgue measure on $[1,\infty]$ induced by the Lebesgue measure on $\mathbb{R}$. Denote $f_p(x) = x^{-1/p}$. We show that it belongs to  $L^q \setminus L^p$ given $p < q$. First we show that $f_p \in L^q$ i.e. $\int f^q d\mu < \infty$. By the equivalence of the Riemann and Lebesgue integral we get $$\int f_p^q d\mu = \int x^{-q/p} d\mu = \int_1^{\infty} x^{-q/p} dx = \frac{p}{q-p} < \infty$$ assuming that $p < q$. On the other hand $ f \notin L^p$ as  $\int_1^\infty \frac{1}{x} dx = \infty$. In more detail, using the Monotone Convergence Theorem and equivalence of Riemann and Lebesgue integrals
+\begin{align*}
+	\int f^p d\mu &= \int \frac{1}{x}d\mu= \int \lim_{n \to \infty} \left(\frac{1}{x}\cdot \1_{[1,n]}\right)d\mu = \lim_{n \to \infty} \int \frac{1}{x}\cdot \1_{[1,n]}d\mu \\
+ &= \lim_{n \to \infty} \int_1^n \frac{1}{x} dx  = \lim_{n \to \infty} \ln\left( n \right) = \infty.
+\end{align*}
+
+  
+
+\bigskip
+\noindent
+\textbf{Problem 5*:} Let $\mathcal{I}$ denote the set of all intervals $(a,b)$ on  $\R$ with rational endpoints i.e. $a<b$ and  $a,b \in \Q$. This set is countable. Now consider the vector space $V$ over $\Q$  generated by $\1_I, I \in \mathcal{I}$. In other words, elements of  $V$ are linear combinations of characteristic functions on intervals in  $\mathcal{I}$ with rational scalars. This set is also countable and I claim that it is dense in $L^p(\R)$. Let $f \in L^p(\R)$ and recall that $C_c\left( \R \right)$ the set of condtinuous functions with compact support is dense in $L^p(\R)$.  Let $\epsilon > 0$. Then there exists $f_1 \in C_c\left( \R \right)$ with $\|f - f_1\|_p < \epsilon/2$. Since $f_1$ is bounded,  let $I \in \mathcal{I}$ be such that it contains the support of $f_1$. For any $\delta > 0$ we can pick  $f_2 \in V$ such that $\|f_2 - f_1\|_\infty < \delta$ which follows from density of rationals and continuity of $f_1$. This is done as follows: by continuity of $f_1$ we can choose a partition of  $I= I_1 \cup \ldots\cup I_n$ such that the oscillation of $f_1$ on each  of the subintervals $\sup_{I_i}f - \inf_{I_i}f < \delta$. Then pick $q_i \in (\sup_{I_i}f , \inf_{I_i}) \cap \Q$ and define $f_2 = \sum_{i=1}^{n} q_i \1_{I_1} \in V$. By construction, it is clear that in each interval $I_i$, the distance between  $q_i$ and  $f_1$ is less than  $\delta$ so $\|f_1 - f_2\|_\infty < \delta$. We can set $\delta$ such that $|I|^{1/p}\delta < \epsilon/2$ Then 
+\begin{align*}
+	\|f_1 - f_2\|_p &= \left( \int_I |f_1 - f_2|^p \right) ^{1/p} \\
+			&\le  \left( \int_I \|f_1 - f_2\|_\infty^p \right) ^{1/p} \\
+			& \le |I|^{1/p}\cdot \|f_1 - f_2\|_\infty \\
+			& \le  |I|^{1/p}\delta < \epsilon/2.
+\end{align*}
+
+Finally, from the triangle inequality in $L^p\left( \R \right) $ it follows that $\|f - f_2\|\le \|f-f_1\| +  \|f_1 - f_2\| < \epsilon/2 + \epsilon/2 = \epsilon$ so $V$ is a countable dense subset and  $L^p(\R)$ is separable. 
+   
+
+
+
+
+
+
+\vfill 
+ 
+\end{document}

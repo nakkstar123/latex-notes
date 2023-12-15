@@ -1,0 +1,1668 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{graphicx}
+\usepackage[parfill]{parskip}
+\usepackage{textcmds}
+\usepackage[makeroom]{cancel}
+
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\Ha{\ensuremath{\mathbb{H}}}
+\newcommand\pr{\stackrel{+}{\sim}}
+\newcommand\mr{\stackrel{\cdot}{\sim}}
+\newcommand\cont{\Rightarrow\!\Leftarrow}
+
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Maps}{Maps}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Hol}{Hol}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Fit}{Fitt}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\Der}{Der}
+\DeclareMathOperator{\PDer}{PDer}
+\DeclareMathOperator{\ps}{\mathcal{P}}
+\DeclareMathOperator{\T}{\mathcal{T}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{axiom}{Axiom}[subsection]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[subsection]
+\newtheorem{eg}{Example}[subsection]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\theoremstyle{plain}
+\newtheorem{prop}{Proposition}[subsection]
+
+\title{Math 131AH lecture notes}
+\author{Nakul Khambhati}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+
+\subsection{Propositional logic}
+
+We can define the following operations on propositions: $\lnot, \land, \lor, \implies, \iff$ via truth tables. They correspond to \texttt{NOT, AND, OR, IMPLIES, EQUIVALENCE} respectively. Now I will be using some shortcuts like
+
+\begin{eg}
+$P \implies Q$
+\begin{table}[h]
+\begin{tabular}{|l|l|c|}
+\hline
+P & Q & P $\implies$ Q \\ \hline
+0 & 0 & 1                           \\ \hline
+0 & 1 & 1                           \\ \hline
+1 & 0 & 0                           \\ \hline
+1 & 1 & 1                           \\ \hline
+\end{tabular}
+\end{table}
+\\
+$P \implies Q$ is only false when $P$ is true and $Q$ is false. In other words, $P \implies Q$ is true when $P$ is false or $Q$ is true. Therefore, we can write $P \implies Q = \lnot P \lor Q$.
+\end{eg}
+
+De Morgan's laws tell us how to distribute negation over an expression.
+
+\begin{enumerate}
+    \item $\lnot(P\land Q) = \lnot P \lor \lnot Q$
+    \item $\lnot(P\lor Q) = \lnot P \land \lnot Q$
+\end{enumerate}
+
+\begin{remark}
+As a corollary, we can write $\land$ using only $\lnot$ and $\lor$: $P \land Q = \lnot (\lnot P \lor \lnot Q)$.
+\end{remark}
+
+\begin{prop}
+Implications are not associative. 
+\end{prop}
+\begin{proof}
+Let $P, Q, R$ be propositions. Consider $(P \implies Q) \implies R$ and $P \implies (Q \implies R)$. For $(P, Q, R) = (0, 1, 0)$, the former is 0 while the latter is 1. 
+\end{proof}
+
+\begin{definition}
+A predicate is a proposition that depends on a parameter. For example, $P(x)$ where the truth value is dependent on $x$.
+\end{definition}
+
+We introduce the universal quantifier $\forall x : P(x)$ and the existential quantifier $\exists x : P(x)$. The former is true if $P(x)$ is true over the entire domain $X$ whereas the latter is true if there exists some $x_0 \in X$ such that $P(x_0)$ is true. 
+
+\begin{eg}
+    \begin{enumerate}
+        \item $\lnot (\forall x : P(x)) = \exists x : \lnot P(x)$
+        \item $\lnot (\exists x : P(x)) = \forall x : \lnot P(x)$
+    \end{enumerate}
+\end{eg}
+
+The two examples above are very important while proving implications. Some concrete examples are:
+\begin{enumerate}
+    \item $\lnot (\forall n \in \N : 2|n^2 \implies 2|n) = \exists n \in \N : 2|n^2 \land 2 \nmid n$
+    \item $\lnot (\forall \epsilon > 0 \; \exists N \in \N \; \forall n \geq N : |a_n - a) < \epsilon = \exists \epsilon > 0 \; \forall N \in \N \; \exists n \geq N : |a_n - a| \geq \epsilon$
+\end{enumerate}
+
+\begin{lemma}
+$\forall x \forall y: P(x,y) = \forall y \forall x : P(x,y)$
+\end{lemma}
+
+\begin{lemma}[proof by contraposition]
+    $P \implies Q = \lnot Q \implies \lnot P$
+\end{lemma}
+
+\begin{lemma}[proof by contradiction]
+    $P \implies Q = \lnot (\lnot Q \land P)$
+\end{lemma}
+
+\subsection{Set theory}
+
+\begin{definition}[naive set theory]
+    
+    Formally, we define all objects to be sets. We use capital letters $A,B,C\ldots$ to denote sets. $A \in B := A$ is an element of $B. $ The negation is $ A\notin B := \lnot(A\in B)$.  
+
+\end{definition}
+
+We now need a tool to buid more sets out of existing sets. 
+
+\begin{axiom}[comprehension principle]
+    For every logical proposition $P(X)$, $\{X: P(X)\}$ is a set. It is the set of all $X$ such that $P(X) = \texttt{TRUE}$.
+\end{axiom}
+
+We can then construct the following sets:
+\begin{enumerate}
+    \item $\O := \{X : \texttt{FALSE} \}$ is the empty set
+    \item $A^c := \{X:X\notin A\}$ complement of $A$
+    \item $A\cup B := \{X:X\in A \lor X \in B\}$ union
+    \item $A\cap B := \{X: X \in A \land X \in B\}$ intersection
+    \item $A\setminus B := \{X: X \in A \land X \notin B \}$ set difference
+    \item $A \Delta B := (A\setminus B)\cup(B\setminus A)$ symmetric difference 
+\end{enumerate}
+
+Moreover, we can define the following:
+
+\begin{enumerate}
+    \item \underline{singleton}: $\{A\} := \{X: X = A\} \quad A = B:= \forall X:X\in A \iff X\in B$
+    \item \underline{pairset}: $\{A,B\} := \{X:X=A \lor X = B\}$
+    \item \underline{general union}: $\bigcup A := \{X: (\exists B\in A : X\in B) \}$
+    \item \underline{power set}: $\mathcal{P}(A) := \left\{ X: X \subset A \right\}$, $A\subset B := \forall X: X\in A \implies X \in B $ 
+    \item \underline{infinite set}: $I := \left\{ \O, \left\{ \O \right\}, \left\{ \O, \left\{ \O \right\}  \right\}, \cdots \right\}$
+\end{enumerate}
+
+\begin{theorem}[Russel, 1902]
+    Assuming the comprehension principle, $\left\{ X : X \notin X \right\}$ is not a set i.e. the comprehension principle fails.
+\end{theorem}
+
+\begin{proof}
+    Assume $A = \left\{ X : X \notin X \right\}$ is a set. Then $A \in A \implies A \notin A$ and $A \notin A \implies A \in A$ so $A$ cannot be a set $\cont$
+\end{proof}
+
+\begin{corollary}
+    The comprehension principle is inconsistent.
+\end{corollary}
+
+To get around this, we replace the comprehension principle with Zermelo's separation axiom. 
+
+\begin{axiom}(separation axiom)
+    For every set $B$ and logical proposition $P(X)$, $\left\{ X: X \in B \land P(X) \right\}$ is a set. For brevity, we will write it as $\left\{ X \in B : P(X) \right\}$.
+\end{axiom}
+
+\begin{remark}
+    It is then easy to verify that Russel's paradox disappears. If we define $A:= \left\{X\in B: X \notin X  \right\}$ then $B \notin A$.
+\end{remark}
+
+\subsection{Zermelo's axioms}
+
+\begin{enumerate}
+    \item \textbf{Axiom of Extensionality}: \(\forall A,B: A=B \iff \forall x: x\in A \iff x \in B\)
+    \item \textbf{Axiom of Separation}: \(\forall A \forall P(x):\left\{ X\in A : P(X) \right\}\) is a set. 
+    \item \textbf{Emptyset Axiom}: \(\exists \O : \forall X: X \notin \O\)
+    \item \textbf{Pairset Axiom}: \(\forall X, Y \exists A \forall Z: Z \in A \iff (Z=X \lor Z = Y)\). It follows from (1) that $A$ is unique and we denote it as \(\left\{ X,Y \right\}\)
+    \item \textbf{Axiom of Union}: \(\forall A \exists B \forall X: X \in B\iff (\exists C \in B: X \in C)\). Again, by uniqueness, we will denote it as \(\bigcup A\).
+    \item \textbf{Powerset Axiom}: \(\forall A \exists B \forall C: C \subset A \iff C\in B\), denoted \(\mathcal{P}(X)\).
+    \item \textbf{Axiom of Infinity}: \(\exists I : \O \in I \land (\forall X: X\in I \Rightarrow \left\{ X \right\} \in I)\). We cannot claim that this set is unique since the elements of $I$ are not explicitly listed. In fact, it is not. 
+\end{enumerate}
+
+We will also see the \textbf{Axiom of Replacement} and the \textbf{Axiom of Choice} appear later.
+
+\begin{remark}
+    Using the \textbf{Axiom of Union} we can also define the intersection \(\bigcap A = \left\{ x \in \bigcup A : (\forall B\in A: X\in B) \right\}\).
+\end{remark}
+
+\begin{definition}[caretesian product]
+    Given sets \(A, B\) define \(A\times B = \left\{ (x,y) \in \mathcal{P}(\mathcal{P}(A\cup B)) : x \in A \land y \in B \right\}\) where we have used the notation \((x,y):= \left\{ \left\{ x \right\}, \left\{ x,y \right\} \right\}\)
+\end{definition}
+
+\begin{lemma}
+    \(\forall A,B \; \forall x, x' \in A \; \forall y,y' \in B: (x,y) = (x',y') \Rightarrow (x = x' \land y = y')\)
+\end{lemma}
+
+\begin{remark}
+    If we have to iterate this process over multiple sets, there is an arbitrary choice involved. For example, we can take the caretesian product of \(A,B,C\) as \((A\times B)\times C\) or \(A\times (B\times C)\). Upon expanding, we get different expressions. It would be nice if, in some sense, these would be equal. This motivates us to introduce the concept of and functions and relations. 
+\end{remark}
+
+\section{Functions and relations}
+We start with relations and then construct functions using the concept of a relation. 
+
+\subsection{Relations}
+\begin{definition}[relation]
+    A relation on \(A, B\) is a set \(R \subset A\times B\). We introduce the notation \(xRy:= (x,y)\in R\). When \(B = A\) we call it a relation on \(A\).
+\end{definition}
+
+\begin{eg}
+    \begin{enumerate}
+        \item Subset \(\subset\) on \(\mathcal{P}(A): R = \left\{ (A,B) \in \mathcal{P}(C) \times \mathcal{P}(C): A\subset B\right\}\)
+        \item Equality = on \(A: R = \left\{ (x,x)\in A: \texttt{TRUE} \right\}\)
+    \end{enumerate}
+\end{eg}
+
+
+
+\begin{definition}[partial order]
+    We say that \(R\subset A\times A \) is:
+    \begin{enumerate}
+        \item \underline{Reflexive} if \(\forall x \in A: xRx\)
+        \item \underline{Antisymmetric} if \(\forall x,y \in A : (xRy \land yRx) \Rightarrow x = y\)
+        \item \underline{Transitive} if \(\forall x,y,z \in A : (xRy \land yRz) \Rightarrow xRz\)
+    \end{enumerate}
+
+    If (1), (2) and (3) are true, then we call \(R\) a partial order (for reasons that will be clear later).
+\end{definition}
+
+\begin{definition}[equivalence]
+    we say \(R \subset A\times A\) is (4) \underline{symmetric} if \(\forall x,y \in A: xRy \iff yRx\). If (1), (4) and (3) are true then we call \(R\) an equivalence and denote \(xRy\) as \(x\sim y\).
+\end{definition}
+
+\begin{definition}[equivalence class]
+    We define the equivalence class of \(x\in A\) as \([x]:= \left\{ y \in A: y\sim x \right\}\)
+\end{definition}
+
+\begin{lemma}
+    \(\forall x,y \in A: [x]\cap[y] = \O \lor [x] = [y]\)
+\end{lemma}
+
+\subsection{Functions}
+
+\begin{definition}(domain, range, composition, inverse)
+    Given \(R \subset A\times B\):
+    \begin{enumerate}
+        \item Dom($R$) = \(\left\{ x\in A: (\exists y\in B: xRy) \right\}\)
+        \item Ran(\(R\)) = \(\left\{ y\in B: (\exists x\in A : xRy) \right\}\)
+        \item Given \(R\subset A\times B, S\subset B\times C\), we define \(RS = \left\{ (x,z)\in A\times C: (\exists y\in B : xRy \land yRz) \right\}\) and \(R^{-1}:=\left\{ (y,x)\in B\times A: xRy \right\}\)
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[function]
+    A relation \(R\subset A\times B\) is a function if \(\forall x \in A \forall y,z\in B: (xRy \land xRz) \Rightarrow y=z\)
+\end{definition}
+
+We have defined a function in such a way that we can introduce the notation \(f(x)\) for the unique (if it exists) \(y\in B\) such that \(xRy\).
+
+\begin{definition}[image, preimage]
+    Let \(f: A\to B\) be a function.
+    \begin{enumerate}
+        \item Let  \(C\subset A\). We define the image of \(C\) as \(f(C):=\left\{ y\in B : (\exists x \in C: f(x) = y) \right\}\)
+        \item Let \(D\subset B\). We define the preimage of \(D\) as \(f^{-1}(D):=\left\{ x\in A: (\exists y\in D: f(x) = y) \right\}\)
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    The inverse of a function always exists as a relation but, in general, it will not be a function because of the asymmetry of the definition of a function.
+\end{remark}
+
+\begin{definition}[bijection]
+    A function \(f:A\to B\) is called:
+    \begin{enumerate}
+        \item Injective if \(Dom(f) = A \land \forall x,y \in A: f(x) = f(y) \Rightarrow x = y\). 
+        \item Surjective if \(Ran(f) = B\).
+        \item Bijective if it is both injective and surjective. 
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    Sets \(A,B\) are said to be equinumerous if \(\exists f:A\to B\) a bijection. 
+\end{definition}
+
+\begin{definition}
+    A set \(A\) is said to be Dedekind infinite if \(\exists f:A\to A\) injective such that \(Ran(f) \neq A\). This is equivalent to there being a bijection from \(A\) onto a proper subset of itself. 
+\end{definition}
+
+\subsection{General cartesian product}
+
+\begin{definition}
+    Let \(A, I\) be sets. A collection \(\left\{ A_{\alpha}: \alpha \in I \right\}\) of subsets \(A\) indexed by \(I\) is \(Ran(\phi)\)
+    for a function \(\phi: I \to \mathcal{P}(A)\) with \(Dom(\phi) = I\). Then, we define \(A_{\alpha} := \phi(\alpha)\).
+\end{definition}
+
+\begin{definition}
+    Given a collection \(\left\{ A_{\alpha}: \alpha \in I \right\}\) we define 
+    the general caretesian product over the collection as a set of functions \\
+    \(\bigtimes A_{\alpha} := \left\{ f \in \mathcal{P}(I\times \bigcup\limits_{\alpha \in I}A_{\alpha}): f \text{ a function} \land Dom(f) = I \land (\forall \alpha \in I: f(\alpha) \in A_{\alpha})\right\}\)\\
+    In other words, something is an element of the Cartesian product of a family of sets, indexed by I, if and
+    only if it is a family, also indexed by \(I\), whose \(i\)-th term, \(a_i\)
+    is an element of the i-th set, \(A_i\)
+    for every index point \(i\in I\).
+\end{definition}
+
+Consider the special case where \(\forall \alpha \in I: A_{\alpha} = A\)\\
+\(A^I:= \left\{ f \in \mathcal{P}(I\times A): f \text{ a function} \land Dom(f) = I \right\}\) called the cartesian power of \(A\) to the \(I\).
+
+\begin{eg}
+    \(\R^{\N} =\) set of real-valued sequences. 
+    \(\R^{\R} =\) set of functions \(\R \to \R\) with full domain. 
+\end{eg}
+
+\begin{remark}
+    It's clear that for non-empty sets \(A, B\), the cartesian product \(A\times B\) is non-empty. But this argument cannot be generalized to the generalized cartesian product. This is why we introduce the next axiom. 
+\end{remark}
+
+\textbf{Axiom of Choice}: Let \(I\) be a nonempty set and \(\left\{ A_{\alpha}: \alpha \in I \right\}\) be a collection such that \(\forall \alpha \in I: A_{\alpha} \neq \O\). 
+Then \(\exists f \in \mathcal{P}(I\times \bigcup_{\alpha \in I}A_{\alpha}):f \text{ a function} \land Dom(f) = I \land (\forall \alpha \in I: f(\alpha) \in A_{\alpha})\).
+In other words, if each set in the collection is nonempty, then the generalized cartesian product is nonempty. 
+
+\begin{remark}
+    The Axiom of Choice (AC) is called such because \(f(\alpha)\) is a \underline{choice} of a representation for \(A_{\alpha}\).
+\end{remark}
+
+If each \(A_{\alpha}\) is a singleton, then can we demonstrate that \(\bigtimes\limits_{\alpha\in I}A_{\alpha}\) is nonempty without using the axiom of choice? 
+
+\begin{lemma}
+    Let \(A_{\alpha}: \alpha \in I\) be a colletion such that \(\forall \alpha \in I \; \exists x_{\alpha}: A_{\alpha} = \left\{ x_{\alpha} \right\}\). Then \(\exists f : I \to A\) such that \(Dom(f) = I \land \forall \alpha \in I: f(\alpha) \in A_{\alpha}\) (without using AC).
+\end{lemma}
+\begin{proof}
+    Consider \(\mathcal{F} = \left\{ F \subset I\times A : \forall \alpha \in Dom(F)\forall x \in A: \alpha F x \Rightarrow x \in A_{\alpha}  \right\}\). 
+    Note that each \(F \in \mathcal{F}\) is just the graph of a function \(f: \forall \alpha \in Dom(f): f(\alpha) \in A_{\alpha}\). Every \(F\) in this family satisfies all but one of the desired properties of our function. 
+    We need to construct a function with full domain \(Dom(f) = I\). We can fulfil this by setting \(F = \bigcup \mathcal{F}\). Then, \(F \in \mathcal{F}\) since all \(f,g \in \bigcup \mathcal{F}\) must coincide on common \(\alpha \in I\).
+    From here, it is easy to argue that \(Dom(F) = I\). Let \(\alpha \in I\). Then \(\left\{ (\alpha, x) : x \in A_{\alpha} \right\} \in \mathcal{F}\) so \(\left\{ (\alpha, x) : x \in A_{\alpha} \right\} \in F\) so \(\alpha \in Dom(F)\). Therefore, \(I \subset Dom(F)\) and \(Dom(F) = I\).
+\end{proof}
+
+\begin{remark}
+    A similar arguement can be used to show that AC is equivalent to \(\exists \phi: \mathcal{P}(A)\setminus \left\{ \O \right\} \to A\) such that \(\forall B \in \mathcal{P}(A)\setminus \left\{ \O \right\}: \phi(B)\in B\).  
+\end{remark}
+
+\section{Naturals}
+\subsection{Definitions}
+
+\begin{definition}
+    A system of natruals is a triplet \((\N, 0, S)\) that satisfy the Peano Axioms:
+    \begin{enumerate}
+        \item[(P1)] \(N\) is a set, \(0 \in \N\)
+        \item[(P2)] \(S: \N \to \N\) is a function with \(Dom(S) = \N\)
+        \item[(P3)] \(\forall n \in  \N: S(n) \neq 0\) i.e. \(0 \notin Ran(S)\)
+        \item[(P4)] \(S\) is injective
+        \item[(P5)] \(\forall A \subset \N: S(A) \subset A \Rightarrow A = \N\) 
+    \end{enumerate}
+\end{definition}
+
+\subsection{Principle of induction}
+
+Let's discuss some consequences of (P5).
+
+\begin{lemma}
+    Let \((N, 0, S)\) be a system of naturals. Then \(Ran(S) = \N\setminus \left\{ 0 \right\}\).
+\end{lemma}
+\begin{proof}
+    Let \(A = \left\{ 0 \right\}\cup S(\N)\). Then \(0\in A\) by construction and \(S(A) \subset S(\N) \subset A\) so \(A = \N\). 
+    Since \(0 \notin Ran(S)\), \(S(\N) = \N\setminus \left\{ 0 \right\}\)
+\end{proof}
+
+\begin{lemma}[proof by induction]
+    Let \(\left\{ P_n: n\in \N \right\}\) be a collection of logication propositions such that \(P_0\) is \texttt{TRUE} and \(P_n \Rightarrow P_{S(n)}\).
+\end{lemma}
+\begin{proof}
+    Let \(A:= \left\{ n \in \N : P_n \texttt{ TRUE} \right\}\). Then \((1) \Rightarrow 0 \in A\) and \((2) \Rightarrow (\forall n\in \N: n\in A \Rightarrow S(n) \in A)\). So \(S(A)\subset A\). Then, by (P5) \(A = \N\).
+\end{proof}
+
+\subsection{Existence of naturals}
+
+\begin{theorem}
+    Assuming Zermelo's axioms, there is at least one system of naturals i.e. a triple 
+    \(\N, 0, S\) satisfying (P1)-(P5).
+\end{theorem}
+\begin{proof}
+    By the Axiom of Infinity, \(\exists I: \O \in I \land (X \in I \Rightarrow \left\{ X \right\} \in I \)). 
+    Intuitively, it contains a unique "minimal" element and is closed under a certain map. If we define 
+    \(0 = \O, S: X \to \left\{ X \right\}\) then \(S\) is injective by the Axiom of Extensionality and \(\O \notin Ran(S)\) 
+    as there is no set contained within the emptyset. So, \(I\) satisfies (P1)-(P4). However, we run into some difficulty 
+    trying to prove (P5). Informally, \(I\) is too large to satisfy the principle of induction. Instead, consider 
+    \(K = \left\{ J \subset I: \O \in J \land (\forall X \in J: \left\{ X \right\} \in J) \right\}\).  Clearly, \(\O \in K\) so it's non-empty. 
+    Define \(\N := \bigcap K\). It can be verified that (P1)-(P4) still hold. Want to show that (P5) also holds. Let \(A\subset \N: \O \in A \land S(A)\subset A\) i.e. \(\forall X\in A: \left\{ X \right\} \in A\). 
+    In particular, \(A \in K\) so \(\N = \bigcap K \subset A\). So, \(\N = A\). Therefore, (P5) is satisfied. 
+\end{proof}
+
+\begin{remark}
+    Informally, \(\N = \left\{  \O, \left\{ \O \right\}, \left\{ \left\{ \O \right\} \right\}, \cdots \right\}\). \(\N\) is Dedekind infinite (via \(S: \N \to \N\)).
+\end{remark}
+
+\subsection{Uniqueness of naturals}
+
+Now that we have exhibited that there exists a system satisfying the conditions we desire, we want to determine the uniqueness of such a configuration. 
+First, we must define uniquenss. 
+
+\begin{definition}
+    We say that two systems of naturals \(\N, 0, S\) and \(\N', 0', S'\) are unique if there exists a function \(\phi : \N \to \N' \) such that:
+    \begin{enumerate}
+        \item \(\phi\) is a bijection 
+        \item \(\phi(0) = 0'\)
+        \item \(\phi\) commutes with \(S\): \(\phi(S(n)) = S'(\phi(n)) \; \forall n \in \N\)
+    \end{enumerate}
+\end{definition}
+
+\begin{theorem}[recursive construction]
+    Let \((\N, 0, S)\) be a system of naturals, \(E\) a set and \(h: E \to E\)
+    a function. Then \(\forall a \in E \; \exists \left\{ x_n: n \in \N \right\} \subset E: x_0 = a \land \forall n \in \N: x_{S(n)} = h(x_n)\).
+\end{theorem}
+
+\begin{proof}
+    Let \(a \in E\). Consider the family of functions \(\mathcal{F}\) where \\
+    \(\mathcal{F} = \left\{ f \subset \N\times E : 0\in Dom(f) \land f(0) = a \land f(S(n)) = h(f(n)) \right\}\)\\
+    The motivation here is that this family consists of all functions that satisfy our desired properties except 
+    for the fact that \(Dom(f) = \N\). To do this, let's take the union of these functions, verify that it is still a function and 
+    then verify that it has full domain. 
+    \begin{enumerate}
+        \item \(\left\{ (0,a) \in \mathcal{F} \right\}\) so \(\mathcal{F}\) is nonempty.
+        \item We need to show that \(\forall f,g \in \mathcal{F}, \forall n \in Dom(f)\cap Dom(g): f(n) = g(n)\). 
+        Fix \(f,g \in \mathcal{F}\). We will first consider the subset \(A \subset \N\) where \(f(n) = g(n)\). Clearly \(0 \in A\). 
+        Assume \(n \in A\). Then, \(f(n) = g(n)\). If \(S(n) \notin Dom(f)\cap Dom(g)\) then \(S(n) \in A\) vaccuously. 
+        If \(S(n) \in Dom(f)\cap Dom(g)\) then, \(f(S(n) = h(f(n)) = h(g(n))= g(S(n)))\). Therefore, \(S(n) \in A\). By (P5) \(A = \N\).
+        \item Now we can take the union \(\tilde{f} = \bigcup\mathcal{F}\) and be sure that it is a function. Furthermore, 
+        \(\tilde{f} \in \mathcal{F}\) which can be easily verified using arguments of the form: \(\exists f\) such that \ldots and \(\tilde{f}(n) = f(n)\).
+        \item Lastly, we show \(Dom(\tilde{f}) = \N\). Let \(A = Dom(\tilde{f})\). Then \(0 \in A\). Let \(n \in A\). Assume, by contradiction, that 
+        \(S(n) \notin A\). Let \(f \in \mathcal{F}\) such that \(n \in Dom(f)\). Also, \(S(n) \notin Dom(f)\). So, we can extend \(f\) to \(g\) in a way that it still lives
+        in the family \(\mathcal{F}\). Let \(g(m) = f(m)\) if \(m \in Dom(f)\) and \( = h(f(n))\) if \(m = S(n)\). But then, \(g \in \mathcal{F}\) so \(S(n) \in Dom(g) \subset
+        Dom(\tilde{f}) = A\). This results in a contradiction so \(S(n) \in A\). Again, by (P5), \(A = \N\). \(S_{\Z} = a + 1\). 
+    \end{enumerate}
+
+    By setting \(x_n = \tilde{f}(n)\), this obeys the required relation.
+\end{proof}
+
+\begin{lemma}
+    Any two collections \(\left\{ x_n: n\in \N \right\}\) and \(\left\{ x_n': n \in \N \right\}\) satisfying the above are equal. 
+\end{lemma}
+
+\begin{proof}
+    Let \(B = \left\{ n \in \N: x_n = x_n' \right\}\). Clearly \(0 \in B\). Assume \(n \in B\). Then, \(x_{S(n)} = h(x_n) = h(x_n') = x_{S(n)}'\). So, \(S(n)\in B\). By (P5), \(B = \N\).
+\end{proof}
+
+\begin{theorem}
+    Any two systems of naturals \((\N, 0, S)\) and \((\N', 0', S')\) are unique.
+\end{theorem}
+
+\begin{proof}
+    We need to construct \(\phi: \N \to \N'\) as defined earlier and show that it satisfies the required properties.
+    We will do this by applying recursive construction with the set \(E = \N', a=0', \phi = S'\). Immediately, \(0' = \phi(0)\) and \(\phi \circ S = S'\circ \phi \). 
+    Let us show that the map is bijective. Define \(A = Ran(\phi)\). Then \(0' \in \N'\) by construction. \(S'(A) = S'\circ \phi (\N) = \phi \circ S(\N) \subset \phi(\N) = A\).
+    By (P5), \(A = \N'\). So the map is surjective. Now set \(A = \left\{ n\in \N : (\forall m \in \N : \phi(m) = \phi(n) \Rightarrow m=n) \right\}\). In a similar way, 
+    we can show that \(0 \in A\) and \(n \in A \Rightarrow S(n) \in A\). By (P5) \(A = \N\) so \(\phi\) is injective.
+\end{proof}
+
+\subsection{Addition of naturals}
+
+Define \(m+n\) recursively by \(m+0 = m\) and \(\forall n \in \N: m + S(n) = S(m+n)\). We wish to check whether \(m+n = n+m\) and whether \(m + (n+k) = (m+n)+k\) i.e. 
+whether additional of naturals is commutative and associative.
+
+We will define addition using the theorem of recursive construction. For this, let's set \(E = \N, a = m \in \N\) and \(h = S\). 
+By the theorem, \(\exists \left\{ x_n : n\in \N \right\}\) such that \(x_n = m\) and \( \forall n \in \N : x_{S(n)} = S(x_n)\). 
+Now we introduce the notation \(m+n := x_n\). So, \(m+0 = m \land S(n) = S(m+n)\).
+
+\begin{lemma}
+    \(\forall m \in \N: 0 + m = m\).
+\end{lemma}
+\begin{proof}
+    The base case \(P_0\) is trivial. Assume \(P_m\) is true. Then, \(0 + S(m) = S(0 + m) = S(m)\) so \(P_{m+1}\) is true.
+    By induction, \(P_m\) is true for all \(m \in \N\).
+\end{proof}
+
+\begin{lemma}
+    \(\forall m,n \in \N: m + S(n) = S(m) + n\).
+\end{lemma}
+\begin{proof}
+    Fix \(m \in \N\) and induct on \(n\). \(P_0\) is true as 
+    \(m + S(0) = S(m + 0) = S(m) + 0\). Assume that \(P_n\) is true. 
+    Consider \(m + S(S(n)) = S(m + S(n)) = S(S(m) + n) = S(m) + S(n)\). So,
+    \(P_{n+1}\) is true. By induction, this is true for \(n \in \N\).
+\end{proof}
+
+\begin{theorem}
+    Addition of naturals \(\N\) is commutative.
+\end{theorem}
+\begin{proof}
+    We need to prove that \(\forall m,n \in \N: m + n = n + m\). Fix \(m \in \N\) and induct on \(n\).
+    For \(n = 0\), we have \(m + 0 = 0 + m\) by Lemma 3.7. Now, assume \(P_n\). Then, \(m + S(n) = S(m) + n = S(m+n) = S(n+m) = S(n) + m\). 
+    This proves \(P_{n+1}\). By induction, this is true for all \(n \in \N\).
+    
+\end{proof}
+
+\begin{theorem}
+    Addition of naturals \(N\) is associative. 
+\end{theorem}
+\begin{proof}
+    In HW2.
+\end{proof}
+
+\begin{prop}
+    Addition by \(k \in \N\) is injective as a function. \(\forall m,n \in \N: k + m = k + n \Rightarrow m = n\).
+\end{prop}
+
+\begin{proof}
+    The statement is trivial for \(k = 0\). Assume \(P(k)\). Let \(S(k) + m = S(k) + n\). 
+    Then, \(S(k + m) = S(k+n) \Rightarrow S(m) = S(n)\). By injectivity of \(S\), we get \(m = n\). By
+    induction, this proves the statement for all \(k \in \N\).
+\end{proof}
+
+\subsection{Ordering of naturals}
+
+\begin{definition}
+    We say \(m \leq n\) if \(\exists k \in \N : n = m + k\).
+\end{definition}
+
+\begin{lemma}
+    The relation \(\leq\) is reflexive, antisymmetric and transitive. Therefore, it is a partial order.
+\end{lemma}
+\begin{proof}
+    \begin{enumerate}
+        \item Clearly \(m \leq m\) since \(m = m + 0\).
+        \item Assume \(m \leq n\) and \(n \leq m\). Then \(\exists l,k \in \N: m = n + k, n = m + l\). Therefore, 
+        by associativity, \(m = m + l + k\). By injectivity, \( 0 = k + l\) so \(k = l = 0\) and \(m = n\).
+        \item Assume \(m \leq n\) and \(n \leq k\). Therefore \(n = m + a, k = n + b\). Then, \(k = m + (a+b)\) so \(m \leq k\).
+    \end{enumerate}
+\end{proof}
+Now we will show that the naturals are totally ordered. This lets us visualize it as a discrete number line.
+
+\begin{lemma}
+    \(\leq\) is a total order i.e. \(\forall m,n \in \N: m \leq n \lor n \leq m\).
+\end{lemma}
+\begin{proof}
+    We prove this by induction on \(m\). \(P_m: \forall n \in \N: m \leq n \lor n \leq m\).
+    \(P_0\) is true. We use cases to prove \(P_m \Rightarrow P_{m+1}\).
+\end{proof}
+
+In the next class we will define multiplication recursively. We can prove the following propositions, some of them will come in the exams. 
+
+\begin{enumerate}
+    \item \(\forall m,n \in \N: mn = nm\)
+    \item \(\forall m,n,k \in \N: m(nk) = (mn)k\)
+    \item \(\forall m,n,k \in \N: (m+n)k = mk + nk\)
+    \item Define \(1 = S(0)\). Then \(\forall m \in \N : 0m = 0 \land 1m = m\).
+    \item \(\forall m,n,k \in \N: k\neq 0 \land km = kn \Rightarrow m =n\).
+\end{enumerate}
+
+\subsection{Multiplication of naturals}
+
+\begin{definition}
+    We also define multiplication on naturals as \(0 m = 0 \) and \(S(n)m = nm + m\).
+\end{definition}
+
+\begin{definition}
+    We define \(1 = S(0)\) therefore \(S(n) = S(n+0) = n + S(0) = n+1\).
+\end{definition}
+
+\begin{definition}
+    \(\forall m.n \in \N\) we define \(m^n\) recursively as: \(m^0 = 1\) and \(m^{n+1} = m\cdot m^n\).
+    We call \(m^n\) the \(n^{th}\) power of \(m\).
+\end{definition}
+
+\begin{lemma}
+    \(\forall m \in \N\setminus \left\{ 0 \right\} \; \forall r,s \in \N: m^{r+s} = m^rm^s\) and \(m^rs = (m^r)^s\).
+\end{lemma}
+\begin{definition}
+    \(0! = 1\) and \(\forall n \in \N: S(n)! = S(n)n!\) called \(n\) factorial. 
+\end{definition}
+
+\section{Integers}
+\subsection{Construction of integers}
+Recall that the function \qq{add \(k\)} is injective i.e. \(\forall m,n,k \in \N: m+k = n + k \Rightarrow m=n\). 
+However, it is not surjective. 
+
+We will achieve this by \emph{extending} the set \(\N\) to a set \(\Z\). Intuitively, we think of \(Z\) as the set of difference of 
+naturals. Define \(\pr\) on \(\N \times \N\) as \((m,n) \pr (m', n') := m + n' = m' +n\).
+
+\begin{lemma}
+    The relation \(\pr\) is an equivalence relation on \(\N\times \N\).
+\end{lemma}
+\begin{proof}
+    Trivially, \(m+n = m + n\) so \((m,n)\pr (m,n)\). Assume \((m,n) \pr (m',n')\) so
+    \(m + n' = m' + n\). So, \((m',n')\pr (m,n)\). Assume \((m,n)\pr (m', n')\) and \((m',n') \pr (m'', n'')\). Then, \(m + n' = m' + n\) and \(m' + n'' = m'' + n'\).
+    Then, \(m + n' + n'' = m' + n + n'' = m'' + n + n'\). By injectivity of \qq{add \(n'\)}: \(m + n'' = n + m''\).
+\end{proof}
+
+As a result, we can look at the set of equivalence clases of \(\pr\) over \(\N \times \N\). 
+\(\Z = \left\{ [(m,n)]:m,n \in \N \right\}\). We check that this set inherits \(+, \cdot\) from \(\N\)
+in a way that it is well-defined. It turns out that \(+\) is as expected but \([(m,n)]\cdot[(m', n')] = 
+[(mm' + nn', mn' + nm')]\).\\
+
+We will also define \(-[(m,n)] = [(n,m)]\). Further, we define the operation \(a-b = a + (-b)\).
+
+\begin{lemma}
+    \(\forall m,n,m',n' \in \N: (m',n') \pr (m,n) \land m \leq m' \iff \exists k \in \N: m' = m + k \land n' = n +k\).
+\end{lemma}
+
+\begin{remark}
+    \begin{enumerate}
+        \item \([(0,0)]\) is zero under \(+\)
+        \item \(-[(m,n)]\) is the additive inverse \([(m,n)]\) under \(+\)
+        \item \([(1,0)]\) is the unit under \(\cdot\)
+        \item \(0\cdot [(m,n)] = 0\)
+        \item \(N \cong \left\{ [(n,0)] : n \in \N \right\}\) preserved by \(+, \cdot\)
+    \end{enumerate}
+\end{remark}
+
+\begin{lemma}
+    \(\Z\) is a ring. Also, \(+\) is injective and \(\cdot\) is injective for nonzero \(c\). In other words, 
+    \(c\cdot a = c\cdot b \Rightarrow a = b\) for \(c\neq 0\).
+\end{lemma}
+
+\begin{remark}
+    Given \(\Z\), we can reconstruct \(N\) as follows. \(\N_{\Z} = \bigcap \left\{ A\subset \Z: 0 \in A \land (\forall a \in A: a+1 \in A) \right\}\)
+\end{remark}
+
+\subsection{Ordering of integers}
+
+\([(m,n)] \leq [(m',n')] := m + n' \leq m' + n\)\\
+
+\begin{prop}
+    This definition is independent of representation.
+\end{prop}
+
+\begin{prop}
+    \(\leq\) is a total ordering.
+\end{prop}
+
+\begin{prop}
+    It is preserved by addition and multiplication by non-negative element.
+\end{prop}
+
+\section{Rationals}
+
+For integers, for integers we have an injection \(ca = cb \Rightarrow a =b\) for \(c\neq 0\). However, 
+this is not a surjection. Again, we extend our system such that this is a surjection. 
+
+\subsection{Construction}
+
+Our goal is to solve \(ax = b\) for any \(x\), for all \(a \neq 0\) and for all \(b\).
+\begin{definition}
+    We define \(\mr\) on \(\Z \times (\Z \setminus \left\{ 0 \right\})\) as \((p,q) \mr (p',q'): pq' = p'q\)
+\end{definition}
+
+\begin{lemma}
+    \(\mr\) is an equivalence relation.
+\end{lemma}
+
+\begin{definition}
+    We define \(\Q\) as the set of equivalence classes under this relation. 
+\end{definition}
+
+This time, multiplication is defined in the standard way. We define addition as follows: \([(p,q)] + [(p',q')]:= [(pq' + p'q, qq')]\)
+
+\begin{remark}
+    The set \(\Z_{\Q} := \left\{ [p,1]: p \in \Z \right\}\) identifies \(\Z \subset \Q\).
+\end{remark}
+
+\subsection{Fields}
+
+\begin{definition}
+    A field is a set \(F\) with two operations \(+,\cdot\) such that:
+    \begin{enumerate}
+        \item[(F1)] \(+,\cdot\) obey commutativity, associativity and distributivity. 
+        \item[(F2)] \(\exists 0\in F: \forall a \in F: a + 0 = a\). It can be seen that this element is unique so it's given a special name. 
+        \item[(F3)] \(\exists 1 \in F: 0\neq 1 \land (\forall a \in F: 1a = 1)\).
+        \item[(F4)] \(\forall a \in F: \exists b \in F: a + b = 0\). It can be seen this \(b\) is unique so we call it \(-a\).
+        \item[(F5)] \(\forall a \in F\setminus\left\{ 0 \right\}: \exists b \in F: ab = 1\). Again, this \(b\) is unique so we call it \(a^{-1}\).
+    \end{enumerate}
+\end{definition}
+
+\begin{theorem}
+    \((\Q, +, [(0,0)], \cdot, [(1,0)])\) is a field.
+\end{theorem}
+
+\begin{eg}
+    \(F = \left\{ 0,1 \right\}\) is a field with \(1+1 = 0\). The other operations follow from
+    the axioms.
+\end{eg}
+
+\begin{prop}
+    \begin{enumerate}
+        \item \(0,1,-a,a^{-1}\) are unique.
+        \item \((-a)b = -(ab)\).
+    \end{enumerate}
+\end{prop}
+
+\begin{definition}
+    A field \((F, +, 0, \cdot, 1)\) is ordered if \(\exists\) a binary relation \(\leq \) on \(F\) such that:
+    \begin{enumerate}
+        \item[(O1)] \(\leq\) is a total order on \(F\)
+        \item[(O2)] \(\forall a,b,c \in F: a\leq b \Rightarrow a + c \leq b + c\) 
+        \item[(O3)] \(\forall a,b,c \in F: a\leq b \land 0 \leq c \Rightarrow ca \leq cb\)
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    On rationals, we define an ordering in the following way:
+    \begin{equation}
+        [(p,q)] \leq [(p',q')]:=
+        \left\{
+            \begin{array}{lr}
+                pq' \leq p'q, & \text{if } qq' \geq 0\\
+                p'q \leq pq', & \text{if } qq' \leq 0
+            \end{array}
+        \right\}
+        \end{equation}
+\end{definition}
+
+\begin{lemma}
+    \(0<1\) in any ordered field \(F\).
+\end{lemma}
+\begin{proof}
+    Assume not i.e. \(1 \leq 0\). Then, \(1-1 \leq 0-1 \iff 0 \leq -1\). Then, \(-1\) is positive so multiplying by it
+    preserves the ordering relation. In particular, \(0(-1) \leq (-1)(-1) \Rightarrow 0 \leq 1\). Then, \( 0 = 1\) which
+    contradicts (F3). Therefore, \(0 < 1\).
+\end{proof}
+
+Now that we have defined a field and exhibited that \(\Q\) is an example of an ordered field, 
+is there a way to identify \(\N\) as a subset of any ordered field?
+
+\begin{lemma}
+    Let \((F, +, 0, \cdot, 1)\) be an ordered field. Define \(\N_F = \bigcap \left\{ A\subset F: 0 \in A \land (\forall x \in A: x+1\in A) \right\}\)
+    and \(S_F(x) = x+1\). Then \((\N_F, 0, S_F)\) is a system of naturals.
+\end{lemma}
+\begin{proof}
+    \begin{enumerate}
+        \item[(P1)] Every set in the intersection contains \(0\) so \(0 \in \N_F\).
+        \item[(P2)] \(S_F\) maps \(\N_F\) to \(\N_F\) and \(Dom(S_F) = \N_F\).
+        \item[(P3)] The set \(\left\{ x \in F: 0 \leq x \right\}\) belongs to this family
+        so \(Ran(S_F)\subset \left\{ x \in F: 1 \leq x \right\}\) which does not contain \(0\).
+        \item[(P4)] \(S_F\) is injective by the injectivity of \(+\) on \(F\).
+        \item[(P5)] Consider \(A \in \N_F\) such that \(0 \in A\) and \(S_F(A) \subset A\).
+        By definition, \(A\) belongs to the family being intersected. Therefore \(\N_F \subset A\). 
+        So, \(A = \N_F\).
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}
+    A system of rationals is an ordered field \((F,+,0,\cdot,1)\) such that \(\forall x \in F: 
+    \exists r,m,n \in \N_{F}: r\neq 0 \land x = r^{-1}(m-n)\). This definition makes sense because
+    we just showed that every ordered field comes with a system of naturals. Also, it can be seen that \(\Q\)
+    that was constructed from some \(\N\) also satisfies these properties.
+\end{definition}
+
+\begin{theorem}[uniqueness of rationals]
+    Consider two systems of rationals \(F, \tilde{F}\) as defined above. Then \(\exists\) a bijection
+    \(\phi: F \to \tilde{F}\) such that 
+    \begin{enumerate}
+        \item \(\phi(a+b) = \phi(a) + \phi(b)\)
+        \item \(\phi(ab) = \phi(a)\phi(b)\)
+        \item \(\phi(0)=0, \phi(1) = 1\)
+        \item \(a \leq b \Rightarrow \phi(a) \leq \phi(b)\)
+    \end{enumerate}
+\end{theorem}
+\begin{proof}[Proof sketch]
+    We prove this by the uniqueness of naturals and hope that the properties extend in a nice way. \\
+    We know that \(\exists \phi: \N_F \to \N_{\tilde{F}}\) such that \(\phi(0) = 0\) and \(S_{\tilde{F}}\circ \phi = \phi \circ S_F\). 
+    We have proved that zero is mapped to zero and the succession property allows us to show that \(\phi(1) = \phi(S_F(0)) = S_{\tilde{F}}
+    (\phi(0)) = S_{\tilde{F}}(0) = 1\). Then, by induction it follows that \(\forall m,n: \phi(m+n) = \phi(m)+\phi(n)\) and \(\phi(mn) = \phi(m)\phi(n)\).\\
+    Next, we extend \(\phi\) from \(\N_{F}\) to \(F\) via: \(x = r^{-1}(m-n) \Rightarrow \phi(x) = \phi(r)^{-1}(\phi(m)-\phi(n))\). Then, it suffices to check that
+    this definition is independent of representation (we did not specificy uniqueness only existence), preserves the operations and ordering and \(\phi\) stays a bijection.
+\end{proof}
+
+\subsection{Deficiency of rationals}
+
+\begin{definition}[integer powers in a field]
+    Let \(F\) be a field with \(\N_F\) a set of naturals in the field. \(\forall b \in F\) we can define 
+    \(b^n\) as \(b^0 = 1\) and \(\forall n \in \N_F: b^{n+1} = bb^n\). If \(b \neq 0\) we can also define \(b^{-n} = (b^{-1})^n\).
+\end{definition}
+
+A natural question that now arises is \qq{Does every polynomial \(a_nx^n + \cdots + a_1x + a_0 = 0\) have a solution in \(F\) if all \(a_i \in F\)?}. In general, the answer is no. 
+A counterexample is provided by Euclid in the next lemma. 
+
+\begin{lemma}
+    \(\forall x \in \Q: x^2 \neq 2\)
+\end{lemma}
+\begin{proof}
+    Assume that \(\exists x \in \Q: x^2 = 2\). We can write \(x = \dfrac{\tilde{p}}{\tilde{q}}\) for \(\tilde{p}, \tilde{q} \in \Z\).
+    Now we let \(q\) be the smallest element in the set \(\left\{ \tilde{q} \in \N : (\exists \tilde{p} \in \Z: x = \dfrac{\tilde{p}}{\tilde{q}}) \right\}\).
+    By HW, every subset of \(\N\) has a smallest element so \(q\) is well defined. Let \(p\) be the corresponding \(\tilde{p}\) in the set above. We can then write
+    \(p^2 = 2q^2\). As a result, \(p^2\) is even so \(p\) is even. Write \(p = 2k\). Then, \(4k^2 = 2q^2\) so \(q^2\) is even and \(q\) is even. This contradicts the
+    minimality of the representation \(\dfrac{p}{q}\) as we can cancel out a \(2\). Therefore, no such \(x \in \Q\) exists.
+\end{proof}
+
+\begin{definition}
+    We define \(p \in \N\) as prime if \(p \neq 0,1\) and \(\forall q \in \N\setminus\left\{ 0 \right\}: q|p \Rightarrow q=p\).
+\end{definition}
+
+\begin{remark}
+    The above proof can be extended to show that no rational number solves \(x^2 = p\) where \(p\) is a prime.
+\end{remark}
+
+Since rational numbers cannot solve all polynomial equations, the ancient solution was to append to \(\Q\) all radicals that solve
+some polynomial.
+
+\begin{eg}
+    \(\sqrt{2}\) is the solution to \(x^2 = 2\). We can iterate this process, then \(\sqrt{2+ \sqrt{2}}\) is a solution to \((x^2-2)^2 = 2\).
+\end{eg}
+
+However, some polynomial solutions clearly exist as rational numbers. We are interested in knowing whether a given polynomial equation defines
+a new number. 
+
+\begin{theorem}[rational root theorem]
+    Suppose \(x \in \Q\) solves \(a^nx^2 + \cdots + a_1x + a_o = 0\). Then \(\exists p,q \in \Z\setminus\left\{ 0 \right\}: x = \dfrac{p}{q} \land
+    \gcd(p,q) = 1 \land p|a_0 \land q|a_n\).
+\end{theorem}
+
+\begin{proof}
+    The proof follows easily by replacing \(x\) with \(\dfrac{p}{q}\). We then rearrange to get \(a_np^n = -q[a_{n-1}p^{n-1} + a_{n-2}p^{n-2}q + \cdots + a_0q^{n-1}]\). 
+    Since \(\gcd(p,q) = 1\), we must have that \(a_n | q\). The other side also follows similarly to show \(p|a_0\).
+\end{proof}
+
+\begin{eg}
+    \(x^4 - 4x^2 + 2 = 0\) using the theorem, \(q = \pm 1, p = \pm 1, \pm 2 \Rightarrow x = \pm 1, \pm 2\). By substituting we see that 
+    this polynomial has no rational roots. 
+\end{eg}
+
+\begin{remark}
+    Not all radical expressions are irrational. \(\sqrt{7 + 2\sqrt{3}} = \sqrt{(2 + \sqrt{3})^2} - \sqrt{3} = 2 + \sqrt{3} - \sqrt{3} = 2\).
+\end{remark}
+
+We now need a systematic way of including rationals in our number system. Let 
+\(F = \left\{ a + b\sqrt{2}, a,b \in \Q \right\}\). We can define addition component wise and multiplication
+in the expected way: \((a+b\sqrt{2})(c + d\sqrt{2}) = (ac + 2bd) + (ad + bc)\sqrt{2}\). Similarly, the inverse
+is what we would expect after \qq{rationalizing} the denominator: \((a + b\sqrt{2})^{-1} = \dfrac{a}{a^2 - 2b^2} - \dfrac{b}{a^2 - 2b^2}\sqrt{2}\). 
+By Euclid's lemma, we never have \(a^2 - 2b^2 = 0\) so the inverse always exists.  It can be checked that this is a field. 
+
+
+\begin{definition}
+    A polynomial equation \(a_nx^n + \cdots + a_1x + a_0 = 0\) admits a solution in radicals if \(\exists m \in \N, \exists F_0, F_1, \ldots, F_m\)
+    fields such that: 
+    \begin{enumerate}
+        \item \(F_0 = \Q\)
+        \item \(\forall i = 0, \ldots, m-1: F_{i+1} = \left\{ a + bz: a,b \in F_i \right\}\) where \(z\) solves, for example, \(z^k = x\) for some \(x \in F\)
+        \item \(\exists x \in F_m\) such that \(x\) solves the above equation. In other words, \(F_m\) is a vector space over \(F_{m-1}\) not just over \(F\)
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    While there exists formulas (involving radical expressions) to solve quadratic, cubic and quartic polynomials, it was shown that \(x^5 -x -1 = 0\) has no solution in radicals.
+\end{remark}
+
+As a result, the algebraic approach to reals fails. 
+
+\section{Real numbers}
+\subsection{Supremum and infimum in posets}
+
+\begin{definition}
+    Let \((E, \leq)\) be a poset. Let \(A\subset E\). We say that \(x\in E\) is an upper bound
+    on \(A\) if \(\forall y \in A: y\leq x\). Note that this is actually two coniditions. Each \(y\) in \(A\)
+    must be comparable with \(x\) and \(x\) must compare favorably. We similarly define the lower bound on \(A\) as
+    \(z \in E\) such that \(\forall y \in A: z \leq y\).
+\end{definition}
+\begin{remark}
+    We do not require that the upper bound of the set \(A\) lies in \(A\).
+\end{remark}
+
+\begin{eg}
+    \begin{enumerate}
+        \item Let \(F\) be a set and consider \(E = \ps(F)\) ordered via inclusion. It is clear that
+        \(F\) is an upper bound and \(\O\) is a lower bound for any subset.
+        \item Let \(E = \N\setminus\left\{ 0 \right\}\) and define \(m|n := (\exists k \in E: n = k\cdot m)\). 
+        Then, \(1\) is an upper bound for any subset.
+        \item Let \(E = \Q \times \Q: (x,y) \leq (\tilde{x}, \tilde{y}):= x < \tilde{x} \lor (x = \tilde{x} \land y < \tilde{y})\). 
+        This set is not bounded. For example, \(A = \left\{ (x,y): x+y = 0 \right\}\) has no upper bound or lower bound.
+    \end{enumerate}
+\end{eg}
+
+At this point it is evident that bounds are not unique. We are interested in finding the \emph{tightest} bounds possible.
+In particular, we want to find the lowest upper bound and the greatest lower bound of a set.
+
+\begin{definition}
+    Let \(E\) be a poset and \(A \subset E\). Then \(x\in A\) is said to be:
+    \begin{enumerate}
+        \item The supremum of \(A\) if \(x\) is an upper bound and is smaller than any other upper bound. 
+        \item The infimum of \(A\) if \(x\) is a lower bound and is greater than any other lower bound.
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    In this definition, we use the article \emph{the} to define supremum and infimum. It seems like we took uniqueness for granted. 
+    This usage is justified by the next lemma. 
+\end{remark}
+
+\begin{lemma}
+    If \(\sup(A) \text{ or } \inf(A)\) exists, then it is unique.
+\end{lemma}
+\begin{proof}
+    Let \(x, \tilde{x}\) be suprema. It then follows that \(x\leq \tilde{x}\) and \(\tilde{x}\leq x\).
+    By anti-symmetry \(x = \tilde{x}\).
+\end{proof}
+
+\begin{lemma}
+    Let \(F\) be a set. Then, \(\forall A \in \ps(F): A \neq \O \Rightarrow \sup(A) = \bigcup A \land \inf(A) = \bigcap A\).
+\end{lemma}
+\begin{proof}
+    Check HW 4.
+\end{proof}
+
+\begin{lemma}
+    Let \((E, \leq)\) be a poset. Let \(A\subset E\) such that \(\inf(A), \sup(A)\) exist. Then,
+    \(A \neq \O \Rightarrow \inf(A) \leq \sup(A)\).
+\end{lemma}
+\begin{proof}
+    Since \(A \neq \O\), we can pick \(a \in A\). Then \(\inf(A) \leq a\) and \(a\leq \sup(A)\).
+    By transitivity, \(\inf(A) \leq \sup(A)\).
+\end{proof}
+
+\begin{lemma}
+    \((E, \leq)\) be posets. \(A, B \subset E\) nonempty such that \(\sup(A), \inf(B)\) exist. Then \(\forall a,b: a \leq b \iff \sup(A) \leq \inf(B)\).
+\end{lemma}
+\begin{proof}
+    \(\Leftarrow\) Assume \(\sup(A) \leq \inf(B)\). Then \(\forall a: a \leq \sup(A)\) and \(\forall b: \inf(B) \leq b\). Therefore, \(\forall a,b: a \leq b\). \\
+    \(\Rightarrow\) Assume that \(\forall a,b: a \leq b\). We are given that \(\sup(A)\) exists. Let \(b \in B\). Then \(b\) is an upper bound
+    on \(A\). Therefore, \(\sup(A) \leq b\). But this is true \(\forall b \in B\). So, \(\sup(A)\) is a lower bound on \(B\). Therefore, \(\sup(A) \leq \inf(B)\)
+\end{proof}
+
+\begin{corollary}
+    \(\sup(A) = \inf\left\{ x \in A: x \text{ is an upper bound on } A \right\}\)
+\end{corollary}
+
+\begin{lemma}
+    Let \((\N, \leq)\) be a system of naturals. Then \(\forall A \in \N: A \neq \O \Rightarrow (\inf(A) \text{ exists } \land \inf(A) \in A)\) i.e. each subset of the naturals
+    has a minimal element.
+\end{lemma}
+
+\begin{proof}
+    Check notes.
+\end{proof}
+
+\subsection{Completeness}
+
+\begin{definition}
+    An ordered field \(F\) is said to be complete if every set \(A\) with an upper bound admits 
+    \(\sup(A)\).
+\end{definition}
+
+\begin{corollary}
+    If \(F\) is a complete field, every set \(B\) with a lower bound has an infimum. 
+\end{corollary}
+\begin{proof}
+    Let \(B\) have a lower bound \(l\) i.e. \(\forall b \in B: l \leq b\). 
+    Now consider the set \(-B = \left\{ -b: b \in B \right\}\). Then, 
+    \(\forall (-b) \in -B: -b \leq -l\). Therefore, \(-l\) is an upper bound on this set. 
+    By the completeness of \(F\), \(\sup(-B)\) exists. This means that for any upper bound \(u\)
+    of \(-B\), \(\sup(-B) \leq u\). Therefore, for any lower bound \(l\) of \(B\), 
+    \( l \leq -\sup(-B)\). Therefore, \(\inf(B) = -\sup(-B)\).
+\end{proof}
+
+\begin{lemma}
+    The ordered field \(\Q\) is not complete.
+\end{lemma}
+
+To prove this lemma, we need to find a set with an upper bound
+that doesn't have a supremum. We will use the set \(A = \left\{ x: x \leq 0 \lor x^2 \leq 2 \right\}\)
+which is clearly nonempty since \(1 \in A\) and has a upper bound of \(x=2\). 
+
+\begin{lemma}[archimedian property of rationals]
+    \(\forall a \in \Q: (a > 0 \Rightarrow \exists n \in \N : na > 1)\).
+\end{lemma}
+\begin{proof}
+    From our construction of rationals, this follows almost immediately. 
+    Let \(a \in \Q\). Then, we can write \(a = \dfrac{p}{q}\) for \(p,q \geq 1\).
+    Then, \((q+1)a > p > 1\). 
+\end{proof}
+
+\begin{proof}[Proof of earlier lemma]
+    Assume that \(A\) has a supremum, call it \(c\). Since \(c \in \Q, c^2 \neq 2\).
+    First we show that \(c^2 \geq 2\). Consider \(\left( c+ \dfrac{1}{n} \right)^2 = c^2 + \dfrac{2c}{n} + \dfrac{1}{n^2}
+    \leq c^2 + \dfrac{5}{n}\). Since \(c\) was defined as \(\sup(A)\), \(c+\dfrac{1}{n} \notin A\) so \(c^2 + \dfrac{5}{n} \geq 2\) which is saying that
+    \(2 - c^2 \leq \dfrac{5}{n} \; \forall n \in \N\). Now, if \(c^2 < 2\) this is a contradiction of the Archimedian principle as we have found a positive number
+    that is \(\leq \dfrac{1}{n}\) for all \(n \in \N\). As a result, we must have that \(c^2 < 2\). We will now show that this is false. Consider \(\left( c - \dfrac{1}{n} \right)^2 = 
+    c^2 - \dfrac{2c}{n} + \dfrac{1}{n^2} \geq c^2 - \dfrac{4}{n}\). Again, since \(c = \sup(A)\), \(\left( c- \dfrac{1}{n} \right)^2 \leq 2\). This gives us \(c^2 - 2 \leq \dfrac{4}{n}\) for all 
+    \(n \in \N\) which again is a contradiction. Therefore, \(\sup(A)\) does not exist. 
+\end{proof}
+
+\subsection{Construction of reals}
+
+\begin{definition}
+    A system of reals is a complete ordered field.
+\end{definition}
+
+\begin{theorem}[Dedekind 1872]
+    There exists a system of reals. 
+\end{theorem}
+
+We will devote this section to constucting that system of reals by taking subsets of \(\Q\).
+
+\begin{definition}
+    A Dedekind cut is a set \(A \subset \Q\) such that:
+    \begin{enumerate}
+        \item[(C1)] \(A \neq 0 \land A \neq \Q\)
+        \item[(C2)] \(\forall a \in A, \forall q \in Q: q \leq a \Rightarrow q \in A\)
+        \item[(C3)] \(\forall a \in A, \exists b \in A: a < b\)
+    \end{enumerate}
+    Note that (C1) says \(A\) is a nonempty, proper subset of \(\Q\), (C2) says that if an element belongs to \(A\) 
+    then every smaller element belongs to \(A\). Finally, by (C3), for every element in \(A\) we can find another element in
+    \(A\) that is strictly bigger i.e. there is no maximal element in \(A\).
+\end{definition}
+
+\begin{definition}
+    \(\R = \left\{ A \subset Q: \text{ A is a cut } \right\}\)
+\end{definition}
+
+\begin{remark}
+    This gives us the intuition that every cut is a partition of \(Q\) into two halves.
+\end{remark}
+
+\begin{eg}
+    \(\forall a \in \Q: \left\{ b \in \Q: b < a \right\}\) is a cut. Also, \(\left\{ b \in \Q: b < 0 \land b^2 < 2 \right\}\) is a cut. 
+\end{eg}
+
+\begin{remark}
+    In the first example, it seems like \(a \in \Q\) represents the cut. In the second one, \(\sqrt{2} \notin \Q\) represents the cut. 
+    This already gives us the hope that each cut can be represented by some element in a set (\(\R\)) which also contains a \(\sqrt{2}\). 
+    We will look at this set more carefully and see whether it gives us the complete ordered field for which we are looking. 
+\end{remark}
+
+First, we verify our intuition that all cuts look like partitions \qq{bounded} by some element not in the set. 
+
+\begin{lemma}
+    \(\forall A \in \R:\)
+    \begin{enumerate}
+        \item \(\forall b \notin A, \forall q \in \Q: b \leq q \Rightarrow q \notin A\) (if an element is not in \(A\), then every bigger element is not in \(A\))
+        \item \(\forall a \in A, \forall b \notin A: a < b\) (every element in A is smaller than every element not in A)
+        \item \(\left\{ b - a: a \in A \land b \notin A \right\} = \left\{ c \in \Q: c > 0 \right\}\) (the partition allows elements on both sides to get arbitrarily close)
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Let \(b \notin A, q \in \Q: b \leq q\). Assume, by contradiction, that \(q \in A\). Then by (C2) \(b \leq q \Rightarrow b \in A\) 
+        which is a contradiction. So \(q \notin A\).
+        \item Let \(b \notin A\). Then by (1) \(\forall a \in Q: b \leq a \Rightarrow a \notin A\). By contraposition, \(a \in A \Rightarrow a < b\).
+        \item \(\subset \) is easy. Let \(a \in A, b \notin B\) then \(a < b\). Therefore, \(b-a > 0\). For \(\supset \), assume by contradiction that \(\exists c > 0\) such that
+        it cannot be written in the form \(b-a\) for \(b \notin A, a \in A\). This means that \(\forall a \in A: a + c \in A\). But by induction,
+        this means that \(\forall n \in \N: a + nc \in A\). By (C3) \(\exists b \in A\) such that \(a+nc < b\) for all \(n \in \N\) which contradicts 
+        the Archimedian property. 
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}[ordering on cuts]
+    We define \(A \leq B := A \subset B\).
+\end{definition}
+\begin{lemma}
+    \(\leq\) is a total ordering on \(\R\).
+\end{lemma}
+\begin{proof}
+    It is a partial ordering since \(\subset\) is always a partial order on sets. Assume that it isn't a total ordering so that \(\exists A,B \in \R\) such that \(\exists a \in A\setminus B, \exists b \in B\setminus A\).
+    By the above lemma, \(a \notin B, b \in B\) so \(b < a\). Similarly, \(b \notin A, a \in A\) so \(a < b\) which is a contradiction.
+\end{proof}
+
+\begin{lemma}
+    Every nonempty subset of cuts \(C \subset \R\) that has an upper bound i.e. \(\exists B \in \R : \forall A \in C: A \leq B\) has \(\cup C \in \R\) i.e. it has a supremum. In other words, \(\R\) is complete. 
+\end{lemma}
+\begin{proof}
+    We need to show that \(\cup C\) is a cut.
+    \begin{enumerate}
+        \item[(C1)] It is nonempty as it is the union of cuts. \(C\) has an upper bound \(B\). Since \(B\) is a cut, \(\exists b \notin B\). But since each \(A\subset B\), \(b \notin A \Rightarrow b \notin \cup C\).
+        \item[(C2)] Let \(a \in \cup C, q \in \Q : q \leq a\). Then there exists some cut \(A\) such that \(c \in A\) so \(q \in \cup C\)
+        \item[(C3)] Let \(a \in \cup C\), then \(a \in A\) for some cut and so \(\exists b \in A \subset \cup C\) such that \(a < b\).
+    \end{enumerate}
+\end{proof}
+
+Next, we endow \(\R\) with certain operations \(\oplus, \odot\) such that it becomes a field. These are all defined in a natural (albeit not straightforward) way. Check end of Lec 13 notes for more details. 
+
+\begin{lemma}
+    \((\R, \oplus, \underline{0}, \odot, \underline{1}, \leq)\) is an ordered field. 
+\end{lemma}
+\begin{proof}
+    Omitted. 
+\end{proof}
+
+\subsection{Uniqueness of reals}
+
+We now want to show that reals are in some sense unique (upto a certain isomorphism that we define). We have show that \(\R\) the 
+set of Dedekind cuts in \(\Q\) is a complete ordered field. We want to show that for any other complete order field, there is an order-preserving bijection \(\phi: \R \to F\).
+The idea here is that any ordered field \qq{comes} with its own naturals and rationals. Therefore, we can construct a set of reals \(\R_F\) by taking cuts of \(\Q_F\) and get a bijection by simply extending the known 
+bijection between \(\Q\) and \(\Q_F\). Now, we need to find a map to go back from \(\R_F\) to \(F\) which is a \emph{bijection}. The fact that such a map exists is at the core of the uniqueness of reals so it's reasonable to guess that
+we use completeness of reals to define a map \(\sup: \R_F \to F\). It is unclear how to show that every Dedekind cut in \(\Q\) has a supremum (so that the map is well-defined) and that we can write every Dedekind cut as \(A = \left\{ a \in
+\Q_F: a < \sup(A) \right\}\) which shows that the map is injective. However, it is clear that the map is surjective as \(\left\{ a \in \Q_F: a < b \right\}\) is a set \(\forall b \in F\).  This discussion shows us that we need to prove is the
+following lemma. 
+
+\begin{lemma}
+    \(\forall A \in \R_F: \sup(A) \text{ exists } \land A = \left\{ a \in \Q_F: a < \sup(A)\right\}\).
+\end{lemma}
+\begin{proof}
+    The wording of this statement automatically implies that there is a unique correspondence between every \(A \in \R_F\) and \(\sup(A) \in F\).\\
+    Let \(A \in \R_F\) i.e. it is a cut of \(\Q_F\). Since \(\Q_F \setminus A\) is nonempty, \(\exists b \notin A\). By the previous lemma, \(b\) 
+    is an upper bound for \(A\). Since we have defined \(\Q_F\) in way that \(\Q_F \subset F\), we have that \(A \subset F\) with an upper bound. By the completeness of \(F\), \(\sup(A)\) exists. 
+
+    Now we show that \(A = \left\{ a \in \Q_F: a < \sup(A) \right\}\). Let \(a \in A\). Then, since \(\sup(A)\) is an upper bound on \(A\), 
+    it is clear that \(a < \sup(A)\). Now assume that \(a < \sup(A)\). If \(a \notin A\) then \(\forall x \in A: x < a\) by the earlier lemma.
+    But then, \(a\) is an upper bound on \(A\) so \(\sup(A) \leq a\) which is a contradiction. So \(a \in A\). 
+
+    For all \(f \in F\), the set \(A = \left\{ x \in \Q_F: x < f \right\}\) is a cut \(\in \R_F\) and has \(\sup(A) = f\). This is because \(f\) is an upper bound on \(A\). 
+    Also, let \(u \in F\) be another upper bound on \(A\). Assume \(u < f\), then \( u\in A\). But this contradicts (C3) as there is no maximal element in \(A\). 
+    Therefore, \(f \leq u\). So \(f = \sup(A)\). Therefore \(\sup\) is surjective. 
+
+    Let \(A \neq B\) be cuts. WLOG, \(\exists b \in B\setminus A \). Then, \(b\) is an upper bound on \(A\). However, \(b \in B\) so there exists \(b' \in B: b < b'\).
+    As a result, \(\sup(A) \leq b < b' \leq \sup(B)\) so \(\sup(A) \neq \sup(B)\). Therefore \(\sup\) is injective.
+\end{proof}
+
+This proves the following theorem. 
+
+\begin{theorem}
+    Let \(F\) be a complete ordered field. Let \(\R\) be the field of Dedekind cuts over \(\Q\). Then \(\exists \phi: \R \to F\) which is an order-preserving bijection. 
+\end{theorem}
+\begin{proof}
+    We have an order preserving bijection \(\psi: \Q \to \Q_F\) which can be extended to \(\psi: \R \to \R_F\). By the above lemma, \(\phi = \sup \circ \psi : \R \to F\) 
+    is a bijection. It is straightforward to check that \(\sup\) preserves operations, which is stated in the next lemma.
+\end{proof}
+
+\begin{lemma}
+    \(\forall A,B \in \R_F\) 
+    \begin{enumerate}
+        \item \(\sup(A\oplus B)=\sup(A)+\sup(B)\)
+        \item \(\sup(A\odot B)=\sup(A)\cdot \sup(B)\)
+        \item \(\sup(\ominus A)=-\sup(A)\)
+        \item \(\sup(A^{-1}) = \sup(A)^{-1}\)
+        \item \(A \subset B \Rightarrow \sup(A) \leq \sup(B)\)
+    \end{enumerate}
+\end{lemma}
+
+\begin{remark}
+    The takeaway here is that there is only one Real Analysis. 
+\end{remark}
+
+\subsection{Consequences of completeness}
+
+\begin{lemma}[archimedian property of \(\R\)]
+    For every \(x \in \R:x > 0 \Rightarrow (\exists n \in \N: nx > 1)\)
+\end{lemma}
+
+\begin{proof}
+    Assume not. Let \(x > 0 \) such that \(\forall n \in \N: nx \leq 1\). Then the set \(X = \left\{ nx: n \in \N \right\}\) is bounded by \(1\) i.e. \(\N\) is bounded by \(\dfrac{1}{x}\).
+    By completeness, \(\sup(\N)\) exists. This means that \(\sup(\N) - 1\) is not an upper bound on \(\N\) so \(\exists n: \sup(\N) - 1 < n\) i.e. \(n+1 > \sup(\N)\) which contradicts 
+    \(\sup(\N)\) being an upper bound.
+\end{proof}
+
+\begin{theorem}[denisty of rationals in \(\R\)]
+    \(\forall x,y \in \R: x < y \Rightarrow (\exists a \in \Q : x < a \land a < y)\). In other words, between any two real numbers, we can find a rational number. 
+\end{theorem}
+
+\begin{proof}
+    WLOG let \(y > 0\). If not, we can flip signs, get an \(a\) and flip its sign. 
+
+    \(x < y \Rightarrow y-x > 0\). Therefore, \(\exists n \in \N: n(y-x) > 1\). Therefore, \(A = \left\{ k \in \N:  k\geq yn  \right\}\) is nonempty
+    so consider \(m = \inf(A)\). Then, \( yn \leq m \land m-1 < yn\). As a result, \(nx = ny + n(y-x) < ny - 1 \leq m - 1 < ny\). So, \(nx < m-1 < ny\) 
+    or \(x < \dfrac{m-1}{n} < y\).
+\end{proof}
+
+\begin{corollary}[density of irrationals in \(\R\)]
+    \(\forall x,y \in \R: x < y \Rightarrow \exists a \in \R\setminus \Q: x < a \land a < y\).
+\end{corollary}
+\begin{proof}
+    Let \(x < y\). Recall that \(\sqrt{2}\) is irrational. Consider the reals \(\dfrac{x}{\sqrt{2}} < \dfrac{y}{\sqrt{2}}\). By the density of rationals, there exists a rational 
+    \(q \in \Q\) such that \(\dfrac{x}{\sqrt{2}} < q < \dfrac{y}{\sqrt{2}}\). Therefore, 
+    \(x < q\sqrt{2} < y\) where \(q\sqrt{2}\) is irrational.
+\end{proof}
+     
+
+\begin{theorem}[general roots]
+    For all positive reals \(a \geq 0\) and \(\forall n \in \N: n \geq 1\) there exists a unique \(x \in \R: x \geq 0\) such that 
+    \(x^n = a\).
+\end{theorem}
+
+\begin{proof}
+    First we will show existence. The theorem is trivial for \(a = 0\) so let \(a > 0\).
+    Consider the set \(A = \left\{ y \in \R: y \geq 0 \land y^n \leq a \right\}\). This set is nonempty since \(0 \in A\) and 
+    \((1+a)\) is an upper bound since \((1+a)^n \geq 1 + a > a\). Assume that \(\exists y \in A\) i.e. \(y^n \leq a\) such that \((1+a) < y\). Then, \((1+a)^n < y^n \leq a\)
+    which contradicts the above. Therefore, we can now consider \(\sup(A)\) by completeness. We claim that the required \(x = \sup(A)\).\\
+
+    We first verify a lemma which will be needed to complete this proof. 
+
+    \begin{lemma}
+        \(\forall x,y \in \R, \forall m \in \N: x^{m+1} - y^{m+1} = (x-y)\sum\limits_{k = 0}^{m}x^ky^{m-k} \)
+    \end{lemma}
+    \begin{proof}[Proof of lemma]
+        We will expand and distribute the RHS here.
+        \begin{align*}
+            (x-y)\sum\limits_{k = 0}^{m}x^ky^{m-k} &= (x-y)(x^m + x^{m-1}y + \cdots + xy^{m-1} + y^m)\\
+            &= x^{m+1} + \cancel{x^{m}y} +  \cdots + \cancel{xy^{m-1}} - ( \cancel{yx^{m}} + \cdots + \cancel{y^mx} + y^{m+1})\\
+            &= x^{m+1} - y^{m+1}\\
+        \end{align*}
+        More formally we can write 
+        \begin{align*}
+            (x-y)\sum\limits_{k = 0}^{m}x^ky^{m-k} &= \sum\limits_{k=0}^{m}x^{k+1}y^{m-k} - \sum\limits_{k=0}^{m}x^{k}y^{m-k+1}\\
+            &= x^{m+1} + \sum\limits_{k = 0}^{m-1}x^{k+1}y^{m-k} - \sum\limits_{k = 1}^{m}x^ky^{m-k+1} -  y^{m+1}\\
+            &= x^{m+1} + \cancel{\sum\limits_{k = 0}^{m-1}x^{k+1}y^{m-k}} - \cancel{\sum\limits_{k = 0}^{m-1}x^{k+1}y^{m-k}} -  y^{m+1}\\
+            &= x^{m+1} - y^{m+1}
+        \end{align*}
+    \end{proof}
+    We now use this lemma to prove the following bound when \(y \leq x: n(x-y)y^{n-1} \leq x^n - y^n \leq n(x-y)x^{n-1}\). We can prove both inequalities separately. 
+    In the above lemma, set \(m = n - 1\). Then, \(n(x-y)y^{n-1} = (x-y)\sum\limits_{k=0}^{n-1}y^{n-1}\). Since \(y \leq x\) we get that \( y^{n-1} \leq x^{k}y^{n-k-1}\) for all \(k: 0\leq k \leq n-1\). Therefore, 
+    \((x-y)\sum\limits_{k=0}^{n-1}y^{n-1} \leq \sum\limits_{k = 0}^{n-1}x^{k}y^{n-k-1} = x^n - y^n\). This gives us the first inequality. Similarly, since \( x^{k}y^{n-k-1} \leq x^{n-1}\) for all \(k: 0\leq k \leq n-1\),
+    we get \(x^n - y^n = (x-y)\sum\limits_{k = 0}^{n-1}x^{k}y^{n-k-1} \leq (x-y)\sum\limits_{k=0}^{n-1}x^{n-1} = n(x-y)x^{n-1}\) which is the second inequality.\\
+
+    We have now shown that \(y \leq x \Rightarrow n(x-y)y^{n-1} \leq x^n - y^n \leq n(x-y)x^{n-1}\). We wish to show that 
+    \(x^n = a\). The upper bound helps us show that \(x^n \leq a\). Recall that \(x = \sup(A)\) so \(\forall y \in A, y \leq x\) and 
+    we cannot find a smaller upper bound. As a result, for every \(m \in \N, \exists y\in A: y \leq x \leq y + \dfrac{1}{m+1}\). This is true because otherwise
+    we would find a smaller upper bound on \(A\). Now we use the lemma: \(\forall y \in A: x^n - y^n \leq n(x-y)x^{n-1} \Rightarrow x^n \leq y^n + n(x-y)x^{n-1} \leq a + \dfrac{n}{m+1}x^{n-1}\).
+    This is true for all \(m \in \N\) so the Archimedian property rules out \(x^n > a\). Therefore, \(x^n \leq a\). To show equality, 
+    assume that \(x^n < a\). Then \(a-x^n > 0\) and we can use the Archimedian property to find an \(l \in \N\) such that \((l+1)(a-x^n) > n(2+a)^{n-1}\) and set \(y = x + \dfrac{1}{l+1}\). 
+    Recall that \(1+a\) was an upper bound on \(A\) so \(x \leq 1 + a \Rightarrow y \leq 2+a\). Now, since \(y > x\), \(y^n \leq x^n + n(x-y)y^{n-1} \leq x^n + \dfrac{n(2+a)^{n-1}}{l+1} < x^n + (a-x^n) = a\). 
+    But then \(y \in A\) which is a contradiction since \(y> x\) and \(x = \sup(A)\). Therefore, \(x^n = a\). \\
+    Uniqueness of this \(x\) easily follows from the fact that if there is another such \(y\neq x\) then \(y^n \neq x^n\).
+\end{proof}
+
+\section{Cardinality}
+
+\begin{definition}
+    We call a set finite if \(\exists n \in \N : \exists f: [0,n) \to A\) a bijection. We call a set infinite if it is not finite.
+\end{definition}
+\begin{eg}
+    \(A = \O\) is finite with \(n=0\), \(A = \left\{ x \right\}\) is finite with \(n = 1\) and so on.
+\end{eg}
+
+\begin{lemma}
+    \(\forall m,n \in \N: \forall f: [0,n) \to [0, m)\):
+    \begin{enumerate}
+        \item \(f\) is injective \(\Rightarrow n \leq m\) 
+        \item \(f\) is surjective \(\Rightarrow m \leq n\)
+        \item \(f\) is bijective \(\Rightarrow m = n \)
+    \end{enumerate}
+    \begin{proof}
+        HW
+    \end{proof}
+\end{lemma}
+
+\begin{remark}
+    Therefore, the \(n\) mentioned in the definition must be unique. We can then call this the
+    cardinality of \(A\) denoted \(|A|\)
+\end{remark}
+
+\begin{lemma}
+    For \(A,B\) finite:
+    \begin{enumerate}
+        \item \(B \subset A \Rightarrow |B| \leq |A|\)
+        \item \(|A\cup B| \leq |A| + |B|\)
+        \item \(|A\times B| = |A|\cdot|B|\)
+    \end{enumerate}
+\end{lemma}
+
+\begin{definition}[Dedekind infinite]
+    A set \(A\) is called Dedekind infinite if \(\exists f: A \to A\) that is injective but not surjective.
+\end{definition}
+
+\begin{lemma}
+    \(A\) is Dedekind infinite \(\Rightarrow\) \(A\) is infinite. 
+\end{lemma}
+\begin{proof}
+    Assume, by contradiction, that \(A\) is finite. Then, we have a bijection \(f: [0,n) \mapsto A\) for some
+    \(n \in \N\). But since \(A\) is Dedekind infinite, we also have an injection (and not surjection) \(h: A \to A\). 
+    Then, we have an injection, not surjection, \(f^{-1}\circ h\circ f:[0,n) \mapsto [0,n)\) which is a contradiction of the lemma.
+\end{proof}
+
+The converse is not true in general but it is true within \(\N\). 
+
+\begin{lemma}
+    \(\forall A \subset \N: A \text{ Dedekind infinite} \iff A\text{ unbounded} \iff A\text{ infinite}\).
+\end{lemma}
+\begin{proof}
+    First double implication in HW, second one omitted.
+\end{proof}
+
+\begin{definition}
+    An infinite set \(A\) is uncountable if \(\exists f: \N \to A\) a bijection. If a set is not countable, we say it is uncountable.
+\end{definition}
+
+\begin{lemma}
+    Let \(A\) be countable. Then \(\forall B \subset A: B \text{ infinite} \Rightarrow B \text{ countable}\).
+\end{lemma}
+
+\begin{proof}
+    Let \(h: \N \to A\) be a bijection. Therefore, we can identify \(A = \N\) and prove the statement for \(B \subset \N\).
+    We can prove this using recursive construction. The intuition here is that if \(B\) is infinite then we can keep removing elements from it 
+    (in particular the unique infimum of the modified set) and we are left with an infinite set at every step (prove using induction). As a result, we get a chain of subsets \(B_n\) of \(B\) indexed by \(\N\) where
+    each is infinite and we also have a unique element \(\inf(B_n)\) in each. Then, we can define the map \(f: \N \to B\) with \(f(n) = \inf(B_n)\). It injective 
+    since at each step we are removing the old infimum and replacing it with a new one. To prove that it is surjective, we note that every \(b \in B\) is in every \(B_n\) uptil some \(B_k\) and then
+    \(b \notin B_{k+1}\). It must be that \(b = \inf(B_k)\). The details can be filled in using a lot of elementary proofs by induction. (Check Lec 15 notes.)
+\end{proof}
+    
+\begin{definition}
+    An \(A\)-valued sequence \(\left\{ x_n : n \in \N \right\}\) is a map \(f: \N \to A\) with full domain. We write 
+    \(\left\{ x_n: n \in \N \right\}\) for \(Ran(f)\).
+\end{definition}
+
+\begin{corollary}
+    Let \(A\) be an infinite countable set. Then \(\forall B \subset A\) infinite, we can write \(B = \left\{ x_n: n \in \N \right\}\).
+\end{corollary}
+
+\begin{corollary}
+    \(\forall B: B\) is finite or countable \(\iff \exists f: B \to \N\) an injection.
+\end{corollary}
+
+\begin{lemma}
+    \(\forall A,B\) countable, \(A\times B\) is countable. 
+\end{lemma}
+\begin{proof}
+    We have bijections \(f: A \to \N\) and \(g: B \to N\). So we have a bijection \(h: A\times B \to \N \times \N\) where \(h(a,b) = (f(a), g(a))\). We need to show that there exists 
+    a bijection \(\phi: \N \times \N \to \N\). Check picture from Feb 13 lecture.
+\end{proof}
+
+\begin{corollary}
+    \(\Q\) is countable.
+\end{corollary}
+\begin{proof}
+    It suffices to find an injection \(\Q \to \N \times \N\). Let \(a \in \Q\). We can write it in a relatively prime form \(a = \frac{p}{q}\)
+    chosen minimally we can define a function \(h: \Q \to \N \times \N\) where \(h(a) = (2p, q)\) if \(p \geq 0\) and \(h(a) = (1-2p, q)\) if \(p< 0\).
+    The parity is used to distinguish between the sign of the denominator here. It is easily checked that this is an injection. 
+\end{proof}
+
+\begin{corollary}
+    Let \(\left\{ A_n: n \in \N \right\}\) be a (countable) collection of sets such that each \(A_n\) is finite or countable. Then \(\cup A_n\) is also finite or countable. 
+\end{corollary}
+\begin{proof}
+    Invoking the Axiom of Choice, we choose a collection of injections \(f_i: A_i \to \N\).
+    Let \(a \in \cup A_n\) and define \(n(a)\) as the smallest index of a set to which it belongs (well defined
+    since a subset of naturals has a minimal element). Then, map \(h(a) = (n(a), f_{n(a)}(a))\) which is an injection since
+    \(h(a) = h(b) \Rightarrow n(a) = n(b)\) so by injectivity of each \(f_n\), \(a = b\).
+\end{proof}
+
+\begin{corollary}[Dedekind, Cantor]
+    The set of algebraic reals is countable.
+\end{corollary}
+\begin{proof}
+    Omitted. Check HW 6 for alternate proof. 
+\end{proof}
+
+\subsection{Uncountable sets}
+
+\begin{theorem}[Cantor, 1891]
+    The set \(\left\{ 0,1 \right\}^{\N}\) is uncountable.
+\end{theorem}
+\begin{proof}
+    Assume it is countable so we have a surjection \(f_n: \N \to \left\{ 0,1 \right\}^{\N}\). Consider the function that sends a natural to 
+    the function it represents and then evaluates that function on that same natural, which we write as \(f_n(n)\). Define \(h(n) = 1 - f_n(n)\) which is another
+    function \(\N \to \left\{ 0,1 \right\}\). By surjectivity, we can write \(h(n) = f_m\) for some \(m \in \N\). Then if we evaluate it on \(m\) we get a contradiction.
+\end{proof}
+
+\begin{theorem}
+    The unit interval \([0,1] = \left\{ x \in \R: 0 \leq x \leq 1 \right\}\) is uncountable.
+\end{theorem}
+\begin{proof}
+    Lec 16
+\end{proof}
+
+\begin{corollary}
+    The set \(\R\) is uncountable. 
+\end{corollary}
+
+\begin{corollary}
+    There are uncountably many non-algebraic reals. 
+\end{corollary}
+
+\begin{remark}
+    We define \(A \cong B := (\exists f: A \to B)\) a bijection. This is an equivalence relation. 
+\end{remark}
+
+\begin{definition}
+    The cardinality of \(A\) is the equivalence class \([A]\). Therefore, \([\N]\) is the class of countable sets.
+\end{definition}
+
+\begin{theorem}[Cantor, 1891]
+    \(\forall A\) set, there is no surjection \(A \to \ps(A)\). In particular, \([A] \neq [\ps(A)]\).
+\end{theorem}
+\begin{proof}
+    Lec 16
+\end{proof}
+
+\begin{definition}
+    We define \(A \lesssim B\) as (\(\exists f: A \to B\) injection). This is not a partial order as it is not antisymmetric. 
+\end{definition}
+
+\begin{theorem}[Cantor/Schoder-Berstein]
+    \(\forall A,B\) sets \(A \lesssim B \land B \lesssim A \Rightarrow A \cong B\). In words, \(\lesssim\) is an equivalence relation upto isomorphism.
+\end{theorem}
+
+\begin{eg}
+    \begin{enumerate}
+        \item \(\left\{ 0,1 \right\}^{\N} \leq [0,1] \leq \R\)
+        \item \(\ps(\N) \cong \left\{ 0,1 \right\}^{\N}\)
+        \item \(\ps(\Q) \cong \ps(\N)\)
+        \item \(\R \lesssim \ps(\Q)\) via Dedekind cuts. 
+    \end{enumerate}
+\end{eg}
+
+\begin{remark}
+    It is not known (and in fact undecidable) whether there is an equivalence class in between \([\N]\) and \([\R]\). We assume that there is none, which we call the continuum hypothesis.
+\end{remark}
+
+\section{Convergence of sequences}
+
+We start with real-valued sequences. 
+
+
+\begin{eg}
+    Define \(\left\{ a_n \right\}_{n \in \N}\) by \(a_0 = 1 \land \forall n \in \N: a_{n+1} = 3 - \dfrac{1}{a_n}\).
+    \begin{lemma}
+        \(\forall n \in \N: 1 \leq a_n \leq 3\).
+    \end{lemma}
+    \begin{proof}
+        By induction. Omitted. Check Lec 17.
+    \end{proof}
+\end{eg}
+
+\begin{definition}
+    Cauchy and convergent sequences. Skipped. 
+\end{definition}
+
+\begin{prop}
+    The above sequence is Cauchy. 
+\end{prop}
+\begin{proof}
+    Omitted. 
+\end{proof}
+
+\begin{prop}
+    The above sequence has limit \(L = \dfrac{1+ \sqrt{5}}{2}\).
+\end{prop}
+\begin{proof}
+    Omitted. 
+\end{proof}
+
+The stated definitions of convergence also generalize to an arbitrary metric space. 
+
+\subsection{Metric spaces}
+
+\begin{definition}
+    We call \((X, \rho)\) a metric space if \(X\neq \O\) and we \(\rho: X\times X \to \R\) is a function (called metric) such that \(\forall x,y,z \in X\):
+    \begin{enumerate}
+        \item \(\rho(x,y) \geq 0 \land (\rho(x,y) = 0 \iff x = y)\)
+        \item \(\rho(x,y) = \rho(y,x)\)
+        \item \(\rho(x,y)\leq \rho(x,z) + \rho(z,y)\)
+    \end{enumerate}
+\end{definition}
+
+\begin{eg}
+    \(X = \R\) has a metric \(\rho(x,y) = |x-y|\).
+\end{eg}
+
+More examples can be found in HW 6. An important class of metrics on \(\R^d\) is Minkowski's \(p\)-metrics: 
+\(\rho_p(x,y) = (\sum\limits_{i = 1}^d |x_i - y_i|^p)^{1/p}\) and we also define \(\rho_{\infty}\) to be the max of all segments. 
+
+\begin{definition}
+    Let \(V\) be a vector space over a field \(F = \C\) or \(\R\). We can define a norm \(\|\cdot \|: V \to \R \) such that for al \(x,y \in V\):
+    \begin{enumerate}
+        \item \(\| x \| \geq 0 \land (\| x \| = 0 \iff x = 0)\)
+        \item \(\forall \lambda \in F: \|\lambda x \| = |\lambda| \| x\| \)
+        \item \(\|x+y\| \leq \|x\| + \|y\|\)
+    \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+    Let \(\|\cdot\|\) be a norm over a vector space \(V\). Then \(\rho: V \times V \to \R\) defined by \(\rho(x,y) = \|x-y\|\) is a metric.
+\end{lemma}
+\begin{proof}
+    Lec 18
+\end{proof}
+\begin{prop}
+    \(\forall p \geq 1, \forall d \in \N\setminus \left\{ 0 \right\}\) we have that \(\|x \|_p = (\sum\limits_{i =1}^d |x_i|^p)^{1/p}\) is a norm on \(\R^d\).
+\end{prop}
+\begin{proof}
+    Omitted. 
+\end{proof}
+
+\begin{definition}
+    Let \(X\) be a nonempty set, \(\rho(x,y) = \delta_{xy}\) is called the discrete metric on \(X\).
+\end{definition}
+
+\begin{definition}
+    Modified definition of convergent and cauchy sequences on arbitrary metric space. 
+\end{definition}
+
+\begin{lemma}
+    Any convergent sequence has a unique limit.
+\end{lemma}
+\begin{proof}
+    Lec 18
+\end{proof}
+
+\begin{lemma}
+    Every convergent sequence is Cauchy. 
+\end{lemma}
+\begin{proof}
+    Omitted. 
+\end{proof}
+\begin{remark}
+    The converse is not true. 
+\end{remark}
+
+\begin{lemma}
+    When \(\rho\) is the discrete metric on \(X\), all Cauchy sequences are convergent. 
+\end{lemma}
+\begin{proof}
+    Omitted. 
+\end{proof}
+
+\begin{definition}
+    Given a sequence \(\left\{ x_n \right\}_{n \in \N}\), its subsequence is any sequence of the form \(\left\{ x_{n_k} \right\}_{n,k \in \N}\) where 
+    \(\forall k,l \in \N: k < l \Rightarrow n_k < n_l\).
+\end{definition}
+
+\begin{lemma}
+    If \(\left\{ x_n \right\}\) is a Cauchy sequence and it admits a convergent subsequence, then it is convergent. 
+\end{lemma}
+\begin{proof}
+    Check HW 6
+\end{proof}
+
+\section{Topology on metric spaces}
+
+Let \((X,\rho)\) be a metric space. 
+
+\begin{definition}[open ball]
+    \(\forall x \in X: \forall r > 0: B(x,r):=\left\{ y \in X: \rho(x,y) < r \right\}\). Here, \(B\) is the open ball of radius \(r\) centered at \(x\).
+\end{definition}
+
+\begin{eg}
+    On the discrete metric, \(B(x,r) = \left\{ x \right\}\) if \( 0 < r \leq 1\) and \(X\) if \(r > 1\).
+\end{eg}
+\begin{eg}
+    Let \(X = \R\) with \(\rho(x,y) = |x-y|\) then \(B(x,r) = (x-r, x+r)\).
+\end{eg}
+\begin{eg}
+    Let \(X \ \R^d\) and \(\rho = \rho_p\) where the corresponding open ball is denoted \(B_i(x,r)\). Then \(B_2(x,r)\) is the usual ball, \(B_{\infty}(x,r) = \bigtimes\limits_{i = 1}^d (x_i - r, x_i + r)\). 
+    \(B_1(x,r)\) looks like a diamond and for every other \(p\), \(B_p(x,r)\) lies somewhere in the middle.
+\end{eg}
+
+\subsection{Open sets}
+
+\begin{definition}
+    Let \(A\subset X\). We say that \(A\) is open if \(\forall x \in A, \exists r > 0: B(x,r) \subset A\) i.e. \(A\) is open if every element of \(A\) can be surrounded by an open ball 
+    completely within \(A\). Intuitively, \(A\) cannot have any boundary points. We say that \(A\) is closed if \(A^c\) is open. 
+\end{definition}
+
+\begin{lemma}
+    Both \(X\) and \(\O\) are open and closed. 
+\end{lemma}
+
+\begin{lemma}
+    \(\forall x \in X, \left\{ x \right\}\) is closed. 
+\end{lemma}
+\begin{proof}
+    We need to show that every \(y \in X\setminus \left\{ x \right\}\) can be surrounded by an open ball. But since \(y \neq x\) we set 
+    \(r = \rho(x,y) \neq 0\) and consider the ball \(B(y,r)\). We need to show that this ball does not contain \(x\). Let \(z \in B(y,r)\) then \(\rho(x,z) \geq \rho(x,y) - \rho(y,z) = r - \rho(y,z) > 0 \)
+    so \(z \neq x\).
+\end{proof}
+
+\begin{lemma}
+    Every open ball \(B(x,r)\) is open. 
+\end{lemma}
+\begin{proof}
+    We need to show that every \(y \in B(x,r)\) is contained within some other ball which is contained within this ball. 
+    Let \(y \in B(x,r)\), then by definition \(\rho(x,y) < r\). So we can set \(\epsilon = r - \rho(x,y) > 0\) and consider the ball
+    \(B(y,\epsilon)\). This is contained within \(B(x,r)\) since if \(z \in B(y,\epsilon)\) then \(\rho(y,z) < \epsilon = r - \rho(x,y)\) so \(\rho(x,z) < r\). 
+\end{proof}
+
+\begin{lemma}
+    Let \(\T = \left\{ O \subset X: O \text{ is open } \right\}\). Then:
+    \begin{enumerate}
+        \item \(\O, X \in \T\)
+        \item \(\T\) is closed under arbitrary union.
+        \item \(\T\) is closed under finite intersection.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Trivial. Need finiteness to get minimal radius of ball. 
+\end{proof}
+
+\begin{definition}
+    A set \(\T \subset \ps(X)\) satisfying (1-3) above is called a topology on the set \(X\).
+\end{definition}
+
+\begin{remark}
+    The concept of sets in which every element is contained within a smaller ball, defined over a metric space, defines a topology. We call this the metric toplogy on \(X\)  with respect to \(\rho\).
+\end{remark}
+
+\begin{eg}
+    For any nonempty set \(X\) we have two \qq{extreme} topologies:
+    \begin{enumerate}
+        \item \(\T = \left\{ \O, X \right\}\) is called the trivial or coarsest topology. 
+        \item \(\T = \ps(X)\) is called the discrete (finest) topology. 
+    \end{enumerate}
+\end{eg}
+
+\begin{lemma}
+    With respect to the discrete metric on \(X\), all subsets are open and closed.
+\end{lemma}
+\begin{proof}
+    \(B(x,\frac{1}{2}) = \left\{ x \right\}\). 
+\end{proof}
+
+\begin{lemma}
+    Closed sets are closed under arbitrary intersection and finite unions.
+\end{lemma}
+\begin{proof}
+    De Morgan's laws. 
+\end{proof}
+
+\begin{definition}
+    Given a topology \(\T\) on \(X\) and any subset \(A \subset X\), we define:
+    \begin{enumerate}
+        \item \(int(A)\) or the interior of \(A\) as the union of all open sets contained within \(A\).
+        \item \(\overline{A}\) or the closure of \(A\) as the intersection of all closed sets containing \(A\).
+    \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+    \(int(A) \subset A \subset \overline{A}\)
+\end{lemma}
+\begin{lemma}
+    \(int(A)\) is open, \(\overline{A}\) is closed.
+\end{lemma}
+
+\begin{definition}
+    \(\partial A := \overline{A} \setminus int(A)\) is called the topological boundary of \(A\).
+\end{definition}
+
+\begin{lemma}
+    For all \(A\subset X\):
+    \begin{enumerate}
+        \item \(A\) is open \(\iff\) \(A = int(A)\)
+        \item \(A\) is closed \(\iff\) \(A = \overline{A}\)
+        \item \(\partial A\) is closed.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    (3) \(\partial A = \overline{A}\cup (X \setminus int(A))\)
+\end{proof}
+
+\begin{eg}
+    Let \(X = \R\) with \(\rho(x,y) = |x-y|\). Let \(A = \N\). Then \(int(\N) = \O\) and \(\overline{\N} = \N\) so
+    \(\partial \N = \N\). Similarly for \(A = \Q\), we get \(int(\Q) = \O, \overline{\Q} = \R\) so \(\partial \Q = \R\).
+\end{eg}
+
+\begin{eg}
+    For \(X\) with a discrete metric \(p\), for all \(A\subset X: \overline{A} = A, int(A) = A, \partial A = \O\).
+\end{eg}
+
+\begin{remark}
+    We call \(B'(x,r) := \left\{ y \in X: \rho(x,y) \leq r \right\}\) is called the closed ball. It is a closed set and contains the open ball. It is clear that
+    the closure of the open ball is a subset of the closed ball but they are not necessarily equal. 
+\end{remark}
+
+\begin{remark}
+    Different metrics on a set can have the same topologies but still have distinct Cauchy sequencs. This is a deficiency in our approach.
+\end{remark}
+
+\end{document}

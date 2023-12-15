@@ -1,0 +1,151 @@
+\documentclass[12pt]{amsart} %% AMS artstyle at 12pt size,loads amsmath
+%\includeonly{}
+\addtolength{\headheight}{1.15pt}
+\addtolength{\textwidth}{2cm}
+\addtolength{\oddsidemargin}{-1cm}
+\addtolength{\evensidemargin}{-1cm}
+\pagestyle{plain}
+\usepackage{amsmath}
+\usepackage{amscd}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{bbold}
+%\usepackage{showkeys}
+\usepackage{amsmath}
+\usepackage{amscd}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathabx}
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
+\def\R{\mathbb{R}}
+\def\D{\mathbb{D}}
+\def\C{\mathbb{C}}
+\def\la{\lambda}
+\def\for{\quad \text{for} \quad} 
+\def\foral{\quad \text{for all} \quad}
+\def\ra{\rightarrow}
+\def\lr{\leftrightarrow}
+\def\eps{\epsilon}
+\def\:{\colon}
+\def\sub{\subseteq}
+\def\1{\mathbb{1}}
+\def\A{\mathcal{A}}
+\def\AA{\widetilde  {\mathcal{A}}}
+\def\P{\mathcal{P}}
+\def\F{\mathcal{F}}
+\newcommand{\dist} {\operatorname{dist}}
+\renewcommand{\Re} {\text{Re}}
+\renewcommand{\Im} {\text{Im}}
+\begin{document}
+\thispagestyle{empty}
+\pagestyle{empty}
+\noindent 
+\textsl{Math 245A  \hfill Nakul Khambhati}
+
+\bigskip\bigskip
+\centerline {\textbf{Homework 6} (due: Fr, Nov.~17) }
+
+\bigskip
+\noindent
+\textbf{Problem 2*:}  a) We will prove something stronger: If $\A$ is an algebra on $X$ then for $S \subset  X$ the collection $\A|_S := \{A \cap S: A \in \A\}$ is an algebra on $S$. 
+\begin{enumerate}
+	\item Clearly $S = S \cap X \in \A|_S$ and $\emptyset = \emptyset \cap S \in \A|_S$.
+	\item Let $A \cap S \in \A|_S$ then $ S \backslash (A \cap S) = A^c \cap S \in \A|_S$.
+	\item Let $A \cap S, B \cap S \in \A|_S$. Then $(A \cap S) \cup (B \cap S) = (A \cup B) \cap S \in \A|_S$. 
+\end{enumerate}
+
+This implies part a) as $\AA = \A|_{\Q}$ and $\Q \subset \R$ so $\AA$ is an algebra on  $\Q$.
+
+\smallskip
+b) Let $q \in \Q$. Then $$\{q\} = \bigcap_{n \in \N}  (q - 1/n, q] \in \sigma(\AA).$$ We can write any arbitrary $Q \in  \P(\Q)$ as $$Q = \bigcup\{q \in Q\} \in \sigma(\AA)$$ since $\Q$ is countable so any subset of it is countable as well. Therefore, $\sigma(\AA) = \P(\Q)$.  
+
+\smallskip
+c) By definition $\nu\left( \emptyset \right) = 0$ and $\nu$ takes values in $[0,\infty]$. Let $A_n \in \AA$ such that $\bigcup_{n \in \N}A_n \in \AA$. If all $A_n = \emptyset$ then  $\bigcup_{n \in \N}A_n = \emptyset$  so $$\nu\left( \bigcup_{n \in \N} A_n \right) = \nu\left(\emptyset \right) = 0 =  \sum_{n=1}^{\infty} \nu(\emptyset) = \sum_{n=1}^{\infty} \nu(A_n).$$ On the other hand, if at least one of the $A_n \neq \emptyset $ then $\bigcup_{n \in \N} A_n \neq \emptyset$ so $$\nu\left(\bigcup_{n \in \N}A_n\right) = \infty = \sum_{n=1}^{\infty} \nu(A_n)$$ as required. 
+
+ \smallskip
+ d) We set $\mu_1(Q) = |Q|$ and $\mu_2(Q) = 2|Q|$ i.e. $\mu_1$ is the counting measure and $\mu_2$ is two times the counting measure. They are clearly measures as the cardinality of the empty set is $0$, the cardinality takes non-negative values and for disjoint  sets  $A_n \in \P(\Q)$ $$|\bigcup_{n \in \N}A_n| = \sum_{n=1}^{\infty} |A_n|$$ and similarly $$2|\bigcup_{n \in \N}A_n| = 2\sum_{n=1}^{\infty} |A_n| =\sum_{n=1}^{\infty}2|A_n|.$$ They are distinct as $\mu_1(\{1\}) = 1$ while $\mu_2(\{1\}) = 2$. It remains to show that they extend $\nu$. We need to show that for $A \in \AA, A \neq \emptyset$ we get $ \mu_1(A) = |A| = \infty = \nu(A)$. It follows that $\mu_2(A) = \infty$. Let $A \in \AA$ nonempty so it contains a set of the form $(a,b] \cap \Q$ where $a < b$ and $a,b \in \R$. But by the density of rationals in the real numbers, there exist countably infinite rationals in  $(a,b] \cap \Q$. Therefore, by monotonicity of $\mu_1$ we get $$\mu_1(A) \geq \mu_1\left( (a,b] \cap \Q \right) =|(a,b] \cap \Q| = \infty$$ as required. 
+
+
+
+
+ \bigskip
+\noindent
+\textbf{Problem 3*:} a) $h(x)$ is non-decreasing and continuous while $x$ is strictly increasing and continuous. Therefore, $g(x) = h(x) + x$ is strictly increasing and continuous. Since it is a bijection, it has an inverse $g^{-1}$. Moreover, since increasing continuous functions map open intervals to open intervals, $g^{-1}$ preimages open intervals to open intervals and is therefore continuous. In summary, $g$ is continuous with a continuous inverse so it is a homeomorphism. 
+   
+\smallskip
+b) Since $g$ is continuous, it maps compact sets to compact sets. Since $J_n$ is compact, so is  $g(J_n)$ therefore it is closed so Borel. Note $g(0) = 0$ and  $g(1) = 2$. Since  $g$ is continuous and  $[0,1]$ is compact, by the intermediate value theorem $[0,2] \subset g\left( [0,1] \right)$. But since $g$ is monotonous,  $g\left( [0,1] \right) = [0,2]$. By finite additivity and since $g(x) = x$ on  $[0,1]\backslash J_n$, $$\lambda(g(J_n)) = 2- \lambda(g([0,1]\backslash J_n)) = 2-\lambda\left( [0,1]\backslash J_n \right) = 2 - (1-\lambda(J_n)) = 1 + \lambda(J_n) \geq 1 $$ as required. 
+
+\smallskip
+c) As in part b), since $C$ is compact from the previous HW, $g(C)$ is compact as well because $g$ is continuous and therefore measurable. Also $g(0) = 0$ and  $g(1) = 2$ so by the IVT  $g(C) = [0,2]$ as in part b) so $\lambda(g(C))=2>0$. 
+
+ \smallskip
+ d) From part a) $f = g^{-1}$ is continuous so it preimages open intervals to open intervals and therefore to Borel sets. Since open intervals generate  $\mathcal{B}_{\R}$, $f$ preimages Borel sets to Borel sets and is therefore Borel measurable. By part c) $g(C)$ is measurable and  $\lambda(g(C)) > 0$. Then by Problem 1 there exists a set $A \subset g(C)$ such that $A$ is not measurable. Consider  $f(A) \subset f(g(C)) = C$. I claim that $f(A)$ is the required $M$. Clearly $f^{-1}(M) = A$ is not measurable by construction. Also $M = f(A)$ is measurable by completeness of $\lambda$ since it is a subset of $C$ a  $\lambda$-null set.
+
+\bigskip
+\noindent
+\textbf{Problem 4*:}  a) Assume $f\: X\ra \overline \R$ is measurable and $g\: X\ra \overline \R$ is a function such that $f=g$ $\mu$-almost everywhere. Let $B \subset \overline{\R}$ be Borel. We need to show that $g^{-1}(B) \in \A$. Since $f = g$ a.e. we know there exists  $N \in \A$ such that $\mu(N) = 0$ and $f=g$ on  $N^c$ i.e.  $f\cdot \1_{N^c} = g \cdot \1_{N^c}$. Note that as a result we get $f^{-1}(B) \cap N^c = g^{-1}(B) \cap N^c$. In more detail, $x \in f^{-1}(B) \cap N^c$ iff $x \in N^c$ and $f(x) \in B$ iff $x \in N^c$ and $g(x) \in B$ (by $f(x) = g(x)$ on  $N^c$) iff $x \in g^{-1}(B) \cap N^c$. We are now almost done as $$g^{-1}(B) = \left( g^{-1}(B) \cap N \right) \cup \left( g^{-1}(B) \cap N^c \right) = \left( g^{-1}(B) \cap N \right) \cup \left( f^{-1}(B) \cap N^c \right).$$ Since $f$ is measurable by assumption, $f^{-1}(B) \in \A$ so $f^{-1}(B) \cap N^c \in \A$. Further, $\A$ is complete and  $N$ is a  $\mu$-null set so $g^{-1}(B) \cap N \subset N$ is also measurable. Finally, by closure under union, $g^{-1}(B) \in \A$ as required.  
+
+\smallskip
+b) Define $f' =f \cdot \1_{N^c}$. We will show that $f'$ is measurable and conclude that  $f$ is measurable by part a). Also define $f'_n = f_n \cdot \1_{N^c}$. Then $f' = \lim_{n \to \infty} f'_n$ pointwise. This is because for for $x \in N^c$, $f' = f$  and $f_n' = f_n$ and for $x \in N^c$ both the LHS and RHS are 0. Each $f_n'$ is measurable since it is the product of two measurable maps and  $f'$ is measurable since it is the pointwise limit of measurable maps. By construction $f = f'$ a.e. so if  $f'$ is measurable then by part a) even  $f$ is measurable as required.  
+
+\bigskip
+\noindent
+\textbf{Problem 5*:} We follow the hint and first show that $\chi_{{}_{A}}\in \mathcal{F}$ for each $A\in \mathcal{A}$. For convenience, from now on I will denote the indicator function on the set $A$ as  $\1_A$ rather than $\chi_{{}_{A}}$.
+
+Let $\A' \subset \A$ denote the collections of set $A$ such that  $\1_A \in 
+ \F$. By definition $\P \subset \A'$. Since $\sigma(\P) = \A$, to show that $\A' = \A$, it suffices to show that  $\A'$ is a  $\sigma$-algebra. But note that $\P$ is a  $\pi$-system so by the Dynkin-$\pi$-$\lambda$ Theorem, it suffices to show  that $\A'$ is a  $\lambda$-system. 
+ \begin{enumerate}
+	 \item $X \in \P \subset \A'$ by assumption.
+	 \item Let $A, B \in \A'$ such that $A \subset B$. Then $\1_A$ and  $\1_B$ are in  $\F$. By (ii)  $$\1_{B\backslash A} = \1_B - \1_A \in \F$$ so $B\backslash A \in \A'$. The equality is true because $(\1_B - \1_A)(x) = 1$ if $x \in B$ and $x \notin A$ i.e. $x \in B \backslash A$. Else, it is equal to $0$. We don't need to worry about this being negative as  $x \in A \Rightarrow x \in B$ since $A \subset B$ by assumption.
+	 \item Let $A_n \in \A'$ such that $A_n \nearrow A$. Then  $\1_{A_n} \in \F$ and $\1_{A_n} \nearrow \1_{A}$ since $$x \in A \iff \exists N: \forall n \ge N \quad x \in A_n$$ by monotonicity. So if $x \in A$ then $\lim_{n \to \infty} \1_{A_n}(x) = 1$ else the limit is $0$. But by (iii) this means that  $\1_A \in \F$ so $A \in \A'$.	
+ \end{enumerate}
+
+ This proves that $\A'$ is a  $\lambda$-system so $\A' = \A$ or in other words  $\1_A \in \F$ for all $A \in \A$. We can take this further to show that any simple function $s = \sum_{i=1}^{n} \alpha_i \1_{A_i}$ for $A_i \in \A$ is in $\F$ by (ii) since it is closed under linear combinations. 
+
+ Now let $f: \left( X, \A \right) \to \R$ be measurable. We write it as $f = f^+ - f^-$ where both $f^+ = \max(f,0)$ and  $f^- = -\min(f,0)$ are positive measurable maps. Then from Theorem 6.9 of the lecture notes, there exist simple functions $s_n: X \to [0, \infty)$ and $t_n: X \to [0, \infty)$ such that $s_n \nearrow f^+$ and  $t_n \nearrow f^-$. We just showed that simple functions are in  $\F$ so by (iii) $f^+, f^- \in \F$. Then again by (ii)  $f = f^+ - f^- \in \F$ as required. 
+
+
+
+
+
+
+ 
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\vfill 
+ 
+\end{document}

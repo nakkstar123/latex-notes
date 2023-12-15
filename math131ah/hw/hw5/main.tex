@@ -1,0 +1,293 @@
+\documentclass[fleqn]{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath, amssymb}
+\usepackage[makeroom]{cancel}
+
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\setlength{\mathindent}{1cm}
+
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\Ha{\ensuremath{\mathbb{H}}}
+\newcommand\J{\ensuremath{\mathbb{J}}}
+\newcommand\K{\ensuremath{\mathbb{K}}}
+\newcommand\cont{\Rightarrow\!\Leftarrow}
+\newcommand\tf{\therefore}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#5}
+\newcommand{\hmwkDueDate}{February 16, 2023}
+\newcommand{\hmwkClass}{Math 131AH}
+\newcommand{\hmwkClassTime}{131AH}
+\newcommand{\hmwkClassInstructor}{Professor Marek Biskup}
+\newcommand{\hmwkAuthorName}{\textbf{Nakul Khambhati}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+% New commands added by Nakul for 131AH
+\newcommand{\ps}{\mathcal{P}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+    Let \(A \in \R_F\) i.e. it is a cut of \(\Q_F\). Since \(\Q_F \setminus A\) is nonempty, \(\exists b \notin A\). By the previous lemma, \(b\) 
+    is an upper bound for \(A\). Since we have defined \(\Q_F\) in way that \(\Q_F \subset F\), we have that \(A \subset F\) with an upper bound. By the completeness of \(F\), \(\sup(A)\) exists. 
+
+    Now we show that \(A = \left\{ a \in \Q_F: a < \sup(A) \right\}\). Let \(a \in A\). Then, since \(\sup(A)\) is an upper bound on \(A\), 
+    it is clear that \(a < \sup(A)\). Now assume that \(a < \sup(A)\). If \(a \notin A\) then \(\forall x \in A: x < a\) by the earlier lemma.
+    But then, \(a\) is an upper bound on \(A\) so \(\sup(A) \leq a\) which is a contradiction. So \(a \in A\). 
+
+    For all \(f \in F\), the set \(A = \left\{ x \in \Q_F: x < f \right\}\) is a cut \(\in \R_F\) and has \(\sup(A) = f\). This is because \(f\) is an upper bound on \(A\). 
+    Also, let \(u \in F\) be another upper bound on \(A\). Assume \(u < f\), then \( u\in A\). But this contradicts (C3) as there is no maximal element in \(A\). 
+    Therefore, \(f \leq u\). So \(f = \sup(A)\). Therefore \(\sup\) is surjective. 
+
+    Let \(A \neq B\) be cuts. WLOG, \(\exists b \in B\setminus A \). Then, \(b\) is an upper bound on \(A\). However, \(b \in B\) so there exists \(b' \in B: b < b'\).
+    As a result, \(\sup(A) \leq b < b' \leq \sup(B)\) so \(\sup(A) \neq \sup(B)\). Therefore \(\sup\) is injective.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Let \(x < y\). Recall that \(\sqrt{2}\) is irrational. Consider the reals \(\dfrac{x}{\sqrt{2}} < \dfrac{y}{\sqrt{2}}\). By the density of rationals, there exists a rational 
+\(q \in \Q\) such that \(\dfrac{x}{\sqrt{2}} < q < \dfrac{y}{\sqrt{2}}\). Therefore, 
+\(x < q\sqrt{2} < y\) where \(q\sqrt{2}\) is irrational.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    We will expand and distribute the RHS here.
+        \begin{align*}
+            (x-y)\sum\limits_{k = 0}^{m}x^ky^{m-k} &= (x-y)(x^m + x^{m-1}y + \cdots + xy^{m-1} + y^m)\\
+            &= x^{m+1} + \cancel{x^{m}y} +  \cdots + \cancel{xy^{m-1}} - ( \cancel{yx^{m}} + \cdots + \cancel{y^mx} + y^{m+1})\\
+            &= x^{m+1} - y^{m+1}\\
+        \end{align*}
+        More formally we can write 
+        \begin{align*}
+            (x-y)\sum\limits_{k = 0}^{m}x^ky^{m-k} &= \sum\limits_{k=0}^{m}x^{k+1}y^{m-k} - \sum\limits_{k=0}^{m}x^{k}y^{m-k+1}\\
+            &= x^{m+1} + \sum\limits_{k = 0}^{m-1}x^{k+1}y^{m-k} - \sum\limits_{k = 1}^{m}x^ky^{m-k+1} -  y^{m+1}\\
+            &= x^{m+1} + \cancel{\sum\limits_{k = 0}^{m-1}x^{k+1}y^{m-k}} - \cancel{\sum\limits_{k = 0}^{m-1}x^{k+1}y^{m-k}} -  y^{m+1}\\
+            &= x^{m+1} - y^{m+1}
+        \end{align*}
+        We now use this to prove the following bound when \(y \leq x: n(x-y)y^{n-1} \leq x^n - y^n \leq n(x-y)x^{n-1}\). We can prove both inequalities separately. 
+        In the above, set \(m = n - 1\). Then, \(n(x-y)y^{n-1} = (x-y)\sum\limits_{k=0}^{n-1}y^{n-1}\). Since \(y \leq x\) we get that \( y^{n-1} \leq x^{k}y^{n-k-1}\) for all \(k: 0\leq k \leq n-1\). Therefore, 
+        \((x-y)\sum\limits_{k=0}^{n-1}y^{n-1} \leq \sum\limits_{k = 0}^{n-1}x^{k}y^{n-k-1} = x^n - y^n\). This gives us the first inequality. Similarly, since \( x^{k}y^{n-k-1} \leq x^{n-1}\) for all \(k: 0\leq k \leq n-1\),
+        we get \(x^n - y^n = (x-y)\sum\limits_{k = 0}^{n-1}x^{k}y^{n-k-1} \leq (x-y)\sum\limits_{k=0}^{n-1}x^{n-1} = n(x-y)x^{n-1}\) which is the second inequality.
+\end{homeworkProblem}
+    
+\begin{homeworkProblem}
+    
+\end{homeworkProblem}
+We construct a well-defined exponential function for the real numbers. 
+For this part, we will use the fact that given \(a \geq 0\), for all 
+non-zero naturals \(n \in \N\) there exists a unique \(x\geq 0 \) such that
+\(x^n = a\). Since this is unique, we will denote it as \(x = \sqrt[n]{a}\).
+\begin{enumerate}
+    \item Fix \(b \geq 1\). Let \(r = p/q = m/n\) i.e. \(np = qm\). By definition, \((b^{m})^{1/n}\) is the unique
+    real \(x\) that solves \(x^n = b^m\). But also, \((b^{p})^{1/q}\) is the unique real \(y\) that solves \(y^q = b^p\). We need to show 
+    that \(x = y\).
+    Recall that \((x^a)^b = (x^b)^a\) for integers \(a,b\). Therefore, \((x^n)^p = (b^m)^p = (b^p)^m = (y^q)^m\). We know that \(np = qm\)
+    and we just showed that \(x^{np} = y^{qm}\) so, by the root theorem, we deduce that \(x = y\). Hence, it makes sense to define \(b^r = (b^m)^{1/n}\).
+    \item Let \(r = m/n, s = p/q\). We need to show that \(b^{m/n + p/q} = b^{m/n}b^{p/q}\) i.e \((b^{mq+np})^{1/nq} = (b^m)^{1/n}(b^p)^{1/q}\). Let
+    \(z^{nq} = b^{mq + np}, x^n = b^m, y^q = b^p\) where \(x,y,z\) are unique reals (by the root theorem). We need to show that \(z = xy\). By looking at the powers of
+    \(b\) we can see that we have the following relation between \(x,y,z: b^{mq + np} = z^{nq} = (x^n)^q (y^{q})^n\). Therefore, \(z^{nq} = x^{nq}y^{nq} = (xy)^{nq}\). By 
+    the root theorem we conclude that \(z = xy\).
+    \item Let \(r \in \Q\) and define \(B(r) = \left\{ b^t : t \in \Q, t \leq r \right\}\). We need to show that \(b^r\) is the smallest upper bound for this set. Let 
+    \(b^t \in B(r)\), then \(t \leq r\) so we can write \(r = t+s\) for some \(s\in \Q, s\geq 0\). From the previous part, \(b^r = b^tb^s \geq b^t\) since \(s \geq 0 \Rightarrow b^s \geq 1\).
+    This proves that \(b^r\) is an upper bound. Now assume that we have some other upper bound \(b^u\) where \( b^u < b^r \iff u < r\).  We can find a rational \(\dfrac{u+r}{2}\) that is in \(B(r)\)
+    and is bigger than \(b^u\) which contradicts \(b^u\) being an upper bound. Therefore, we must have \(b^r \leq b^u\). We can extend this construction to real numbers which are all cuts of the form \(B(x)\) for \(x \in \R\).
+    \item We need to check that for \(B(x)\) defined as above, \(\sup B(x+y) = \sup B(x)\sup B(y)\). It straightforward to check that \(\sup B(x) \sup B(y)\) is the least upper bound on 
+    \(\sup B(x+y)\). It is clearly an upper bound since \(\forall z \leq x + y : b^{z} \leq b^{x+y} = b^{x}b^{y} =\sup B(x) \sup B(y)\). Let \(b^u\) be another upper bound on \(B(x+y)\). If 
+    \(u < \sup B(x) \sup B(y)\) then it contradicts the minimality of either \(\sup B(x)\) or \(\sup B(y)\). Therefore \(\sup B(x) \sup B(y) \leq u\). This proves that \(b^{x+y} = b^x b^y\).
+    
+    
+\end{enumerate}
+\begin{homeworkProblem}
+    \begin{enumerate}
+        \item Let \(b > 1\). By a previous problem, we have that \(n(b-1)1^{n-1} = n(b-1)\leq 
+        b^n - 1\).
+        \item This follows by replacing \(b \) with \( b^{1/n}\) and the ordering is preserved since \(b > 1 \Rightarrow b^{1/n} > 1\) as \(a \leq 0 \Rightarrow a^n \leq 0\).
+        \item Let \(t > 1\) and \(n > (b-1)/(t-1)\). Then, \(b - 1 > (b-1)/(t-1) (b^{1/n}-1)\) so \(t-1 > b^{1/n} - 1 \Rightarrow t > b^{1/n}\).
+        \item Let \(w\) be such that \(b^w < y\) then we can set \(t = yb^{-w}\) so that \(t>1\) and we can apply the previous part to get \(yb^{-w} > b^{1/n} \iff b^{w + 1/n}
+        < y\) for all \(n > (b-1)/(yb^{-w} - 1)\) i.e. sufficiently large \(n\).
+        \item We repeat the previous part with the assumption that \(b^w > y\) and the same \(t = b^{w}/y\) to get \(b^{w}/y > b^{1/n} \iff b^{w - 1/n} > y\) for sufficiently large \(n\).
+        \item Let \(A\) be the set of all \(w\) such that \(b^w < y\) and consider \(x = \sup(A)\). By definition, it is an upper bound. 
+        Assume that \(b^x > y\). Then by the previous part, \(\exists n: b^{x - 1/n} > y\). As a result, \(x-1/n\) is also an upper bound on \(A\) and it is smaller than \(x\)
+        which contradicts the minimality of \(x\). Now assume that \(b^x < y\). Then, \(x \in A\). By a previous part, \(\exists n: b^{x+ 1/n}< y\). So, \(x + 1/n \in A\) and we have found a bigger element in the set
+        which contradicts \(x\) being an upper bound. Therefore, the only possibility is that \(y = b^x\).
+        \item Assume that \(x' \neq x\). Then WLOG \(x < x'\) so \(x' = x + \epsilon\) for \(\epsilon > 0\). Then, \(b^{x'} b^{x+\epsilon} = b^xb^{\epsilon} > b^x\). Therefore, \(b^{x'} \neq b^x\)
+        which proves uniqueness of the logarithm. 
+    \end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    To prove that the lexicographic order on \(\C\) makes it an ordered set, we use the fact that \(\leq\) on \(R\) is a total ordering.
+    Let \(z = a+bi, w = c+di \in \C\). Since \(a,b,c,d \in \R\), we have that \(a < b, a > b\) or \(a = b\). If either of the first two are true, we get
+    \( z < w \lor w < z\). Otherwise, if \(a = c\), then the ordering between \(z, w\) is determined by the ordering between \(b,d \in \R\). Therefore, \(C\)
+    is totally ordered. \\
+    Let \(A = \left\{z \in \C: z = a + bi, a,b \in \R, a < 0 \right\}\), then \(a + bi\) is an upper bound for \(A\) \(\iff a \geq 0\). Let \(a = 0\). However, we cannot fix a least upper bound on \(b\) since \(0 + bi\) is an upper bound on \(A\) for all 
+    \(b \in \R\) and \(\R\) does not have a lower bound.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Recall that \(|A|\) of a finite set \(A\) is the unique \(n \in \N: \exists f: A \to [0,n)\) a bijection. 
+    \begin{enumerate}
+        \item Let \(B \subset A\). There are bijections \(f_A: A \to [0, |A|)\), \(f_B: B \to [0, |B|)\). Since \(B \subset A\), we have an 
+        injection \(i: B \to A\) that acts as the identity on \(B\). Therefore, we have an injection \(f_A^{-1} \circ i \circ f_B: [0, |B|) \to [0, |A|)\).
+        By the lemma from an earlier HW, the existence of such an injection implies that \(|B| \leq |A|\).
+        \item Consider the set \(A\coprod B\) defined as \((A\times \left\{ 0 \right\})\cup (B\times\left\{ 1 \right\})\) known as the disjoint union. We have an injection \(i: A\cup B \to A\coprod B\)
+        that maps elements in the following way: \(\forall x \in A\cup B: x \in A \Rightarrow x \mapsto (x,0), x \notin A \Rightarrow x \mapsto (x,1)\). This map is well-defined and injective. 
+        Therefore, \(|A\cup B| \leq |A\coprod B|\). We now express \(|A\coprod B|\) in terms of \(|A|, |B|\). First, note that we have a bijection \(f: A \to A\times \left\{ 0 \right\}\) where \(a\mapsto (a,0)\). Similarly, 
+        we have a bijection \(g: B \to B\times \left\{ 1 \right\}\) where \(B\mapsto (b,1)\). Therefore, \(|A| = |A \times \left\{ 0 \right\}| \) and \(|B| = |B \times \left\{ 1 \right\}|\). It now suffices to show that 
+        for two sets \(A,B\) disjoint, \(|A\cup B| = |A| + |B|\). For conciseness, we will denote \(\N_{k} = [0,k)\) and \(|A| = n, |B| = m\). We have bijections \(f: \N_{n} \to A\) and \(g: \N_{m}\to B\). We can always construct a bijection
+        \(\N_{n}\to \N_{n+m}\setminus \N_{m}\) given by \(h(i) = i + m\). Then, the composition, \(f\circ h^{-1}: \N_{n+m}\setminus \N_{m} \to A\) is a bijection. As a result, we can "glue" together this map with \(g\) to get a bijection 
+        \(\phi: \N_{n+m}\setminus \N_{m}\cup \N_{m}\ \to A \cup B\) which follows from the fact that \(A\) and \(B\) are disjoint. This is a bijection \(\phi: \N_{n+m}\to A\cup B\) so \(|A\cup B| = |A| + |B|\) when \(A,B\) are disjoint.\\
+        In summary, for the general case, \(|A\cup B| \leq |(A\times\left\{ 0 \right\})\cup (B \times \left\{ 1 \right\})| = |A| + |B|\). 
+        \item Let \(|A| = m, |B| = n\). We will prove this via induction on \(n\). Let \(n = 0\). Then \(B = \O\) and \(A\times \O = \O\) so
+        \(|A \times B| = 0\). Assume \(P_n\). We try to prove \(P_{n+1}\). Let \(B\) such that \(|B| = n+1\). Choose some element \(b \in B\) and consider \(B' = B\setminus \left\{ b \right\}\). It is easily verified that
+        \(|B'| = |B| - 1 = n\). Also, \(A\times B = (A \times B')\cup (A \times \left\{ b \right\})\) where the two sets being unioned are disjoint. By the above part, \(|A\times B| = |A\times B'| + |A \times \left\{ b \right\}|\).
+        By the inductive hypothesis, \(|A\times B'| = mn \). Also, using the same argument as the previous part \(|A\times\left\{ b \right\}| = |A| = m\). So, \(|A\times B| = mn + m = m(n+1)\) which proves \(P_{n+1}\). 
+        This proves the statement \(\forall n,m \in \N\).
+    \end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    One way to construct these intervals is to partition \((0,1)\) into a countable number of disjoint subsets of the form \([\dfrac{1}{n+1}, \dfrac{1}{n})\). However, we will use a slightly different method where we shift the reciprocals of naturals while preserving the bijection. 
+    \begin{enumerate}
+        \item Let \(f: [0,1) \to (0,1)\) be such that \(f(0) = 1/2, f(1/n) = 1/(n+1)\) for \(n\geq 2\) and \(f(x) = x\) otherwise. This is injective 
+        as it is injective on each interval that it is defined. It is surjective since every reciprocal integer is mapped onto and every other real is mapped via the identity. The idea here is that we shift every integer reciprocal to the right (and we have an extra \(0\) in the domain to map to \(\dfrac{1}{2}\)).
+        \item We define \(f: [0,1] \to (0,1)\) in a similar way. We first map \(0\mapsto \dfrac{1}{2}, 1 \mapsto \dfrac{1}{3}\) and other reciprocal integers are shifted two to the right \(\dfrac{1}{n}\mapsto \dfrac{1}{n+2}\) to preserve the injection. Again for all other reals, \(f(x) = x\). This is injective on each interval
+        and surjective using the same reasoning as the previous part. 
+        \item We have the bijection \(\tan(x): (-\pi/2 , \pi/2) \mapsto \R\) therefore \(\tan(\pi (x - 1/2)): (0,1) \to \R\) is a bijection. We can precompose this with \(f\) from the previous problem to get \(\tan(\pi (x - 1/2)) \circ f: [0,1]\to \R\) a bijection. 
+    \end{enumerate}
+\end{homeworkProblem}
+
+
+\end{document}

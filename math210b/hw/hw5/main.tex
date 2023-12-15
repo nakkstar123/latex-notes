@@ -1,0 +1,238 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tikz-cd}
+
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\Ha{\ensuremath{\mathbb{H}}}
+\newcommand\cont{\Rightarrow\!\Leftarrow}
+\newcommand{\tp}[2]{#1 \otimes_R #2}
+
+\usetikzlibrary{automata,positioning}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[]{Lemma}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#5}
+\newcommand{\hmwkDueDate}{February 16, 2023}
+\newcommand{\hmwkClass}{Math 210B}
+\newcommand{\hmwkClassTime}{210B}
+\newcommand{\hmwkClassInstructor}{Professor Alexander Merkurjev}
+\newcommand{\hmwkAuthorName}{\textbf{Nakul Khambhati}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+    
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Recall that we defined \(f \otimes g: \tp{R^{(M)}}{R^{(N)}} \to \tp{M}{N}\) where \((f\otimes g) (m\otimes n) = f(m)\otimes g(n) = m \otimes n\). This map is surjective as 
+    each of \(f\) and \(g\) are surjective and taking the tensor preserves the surjectivity. A corollary of this is that we can write every element in \(\tp{M}{N}\) as a linear combination of
+    elements that are mapped onto by the corresponding set map \(M \times N \mapsto \tp{M}{N}\) which are exactly those of the form \((m\otimes n)\). In other words, element of this form generate 
+    \(\tp{M}{N}\).
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Fix \(A\) an abelian group and 
+    consider \(Bil(\tp{M}{N}, P; A)\) where we use the fact that \(\tp{M}{N}\) and \(P\) can be treated as \(S\)-modules. Then we have a bijection \(Bil(\tp{M}{N}, P; A) \cong Bil(M, N \otimes_S P; A)\) where the latter uses
+    the fact that \(M\) and \(N \otimes_S P\) are both \(R\)-modules. Finally, by definition, we can write \(Bil(M, N \otimes_S P; A) \cong Hom(\tp{M}{(N \otimes_{S} P)}, A)\). Since this is true for arbitrary \(A \in AbGroups\), we have that
+    \((\tp{M}{N}) \otimes_S P \cong \tp{M}{(N \otimes_{S} P)} \).
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Recall that we have the injection \(i: R \to S^{-1}R\). Then, \(i\) acts as a pullback so that \(Hom_{S^{-1}R}(\tp{M}{S^{-1}R}, P)\) is naturally isomorphic to \(Hom_R(M,P)\) for any
+    \(P_{S^{-1}R}\). Then, using the morphism \(f\mapsto ((m,s) \mapsto f(m))\) we get \(Hom_R(M,P) \cong Hom_{S^{-1}R}(S^{-1}M, P)\). As a result, \(Hom_{S^{-1}R}(\tp{M}{S^{-1}R}, P) \cong Hom_{S^{-1}R}(S^{-1}M, P)\).
+    By the Yoneda lemma, \(\tp{M}{S^{-1}R}\) and \(S^{-1}M\) so we are done. 
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    We will prove the contrapositive. Let \(R\) be a domain that is not a field. Then, there exists a proper ideal \(I \subset R\). But then \(R/I\) is an \(R\)-module. 
+    It is not free since \(ann(R/I) = I \neq 0\). 
+\end{homeworkProblem}
+
+
+\begin{homeworkProblem}
+    
+    Here we use the fact that if \(M_1, M_2\) are two maximal ideals in a domain \(R\) and \(M_1M_2\) is a principal ideal, 
+    then \(M_1\) and \(M_2\) are projective modules (via the isomorphism \(M_1 \oplus M_2 \cong M_1M_2 \oplus R\)). 
+    In this particular case, let \(M_1 = \langle 2, 1 + \sqrt{5} \rangle \) and \(M_2 = \langle 2, 1 - \sqrt{5} \rangle\). We
+    know that both \(M_1, M_2\) are maximal in \(\Z[\sqrt{-5}]\) as \(R/M_1 \cong R/M_2 \cong \Z/2\Z\). Also, \(M_1M_2 = (2)\). It follows that each
+    is projective. However, they cannot be free as we saw in the previous HW that these ideals are not principal.
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    We need to endow \(A\) with the structure of a \(\Z[i]\) module. Scalar multiplication by \(i\) 
+    can be defined as \(ia = f(a)\) since this allows associativity \(i(i(a)) = f(f(a)) = -a = (ii)a\). This can be
+    extended to all gaussian integers \(m+ni\) by setting \((m+ni)a = ma + nf(a)\). Again, associativity will follow naturally. 
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Let \(F\) be free with finite rank over a PID \(R\). Then \(N \subset F\) is also free with smaller rank. Let \(\left\{ x_1, \ldots, x_n \right\}\) be a basis for \(F\) and 
+    \(\left\{ y_1, \ldots y_k \right\}\) a basis for \(N\) where \(k \leq n\). Then, we can construct a surjective \(R\)-linear map \(f\) such that
+    \(f(x_i) = y_i\) for \(1\leq i \leq k\) and \(f(x_i) = 0\) for \(k+1 \leq i \leq n\). 
+    \begin{tikzcd}
+        0 \arrow[r] & ker(f) \arrow[r, "i"] & F \arrow[r, "f"] & N \arrow[r] & 0
+    \end{tikzcd}
+    This gives us an exact sequence if and only if \(\forall a: N\cap aF = aN\) which then splits since \(N\) is free so \(F = \ker(f)\oplus N\)
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    
+    \begin{enumerate}
+        \item We will first prove that free modules are flat. Since the definition given to us is functorial, it will then follow that since projective modules are direct summands of free modules, they too must be flat.
+        Recall that every free module \(F \cong R^{(X)}\) for some set \(X\). Also, recall that the identity functor is exact. If a family of functors \((F_x)_{x \in X}\) is exact, then so is \(\oplus F_x\). 
+        The functor \(R\otimes - \) is exact (as it is the identity functor) and so \(R^{(X)}\otimes -\) is also exact as \(R^{X} = \oplus R_x \). So, for every free module \(F\) the functor \(F \otimes -\) is exact so every
+        free module is flat. 
+        \item This follows as a corollary from the next problem with \(R = \Z\) and \(S = \Z \setminus \left\{ 0 \right\}\) so that \(S^{-1}R = \Q\). We have shown in lecture that \(\Q\)
+        is not free. 
+    \end{enumerate}
+
+    
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Recall from the previous HW that the localization functor is exact. This means that it sends exact sequences to exact sequences. 
+    Also, for any \(R\)-module \(M\) there is an isomorphism \(\tp{S^{-1}R}{M}\cong S^{-1}M\) of \(S^{-1}R\) modules. As a result, whenever we have a homomorphism
+    \(f: M \to N\) the morphism \(S^{-1}f\) is also injective and since the isomorphism earlier is natural, \(\tp{id}{f}\) will also be injective proving that
+    \(S^{-1}R\) is flat. 
+\end{homeworkProblem}
+
+\end{document}

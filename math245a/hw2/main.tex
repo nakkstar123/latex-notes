@@ -1,0 +1,227 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\Ha{\ensuremath{\mathbb{H}}}
+\newcommand\cont{\Rightarrow\!\Leftarrow}
+
+
+% macros for 245A
+\newcommand\A{\mathcal{A}}
+\newcommand\F{\mathcal{F}}
+\renewcommand\S{\mathcal{S}}
+\newcommand\D{\mathcal{D}}
+
+
+\usetikzlibrary{automata,positioning}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[]{Lemma}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#2}
+\newcommand{\hmwkDueDate}{October 13, 2023}
+\newcommand{\hmwkClass}{Math 245A - Real Analysis}
+\newcommand{\hmwkClassTime}{245A}
+\newcommand{\hmwkClassInstructor}{Professor Mario Bonk}
+\newcommand{\hmwkAuthorName}{\textbf{Nakul Khambhati}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+
+
+
+\begin{homeworkProblem}
+	\begin{enumerate}
+		\item[(a)] We are required to show that for all $m < \mu(M)$ there exists $U \in \A$ such that $m < \mu\left( U\right) \le  \mu\left( M \right)$ and $\overline{U} \subset M$. Let $M \in \A$ so we can write it as $M = \bigsqcup_{i \in  [n]} (a_i, b_i]$. Let $m = \mu(M) = \sum_{i=1}^{n} (b_i - a_i)$. Set $U = \bigsqcup_{i \in  [n]} (a_i-\epsilon, b_i] \in \A$ so that $\overline{U} = \bigsqcup_{i \in  [n]} [a_i-\epsilon, b_i] \subset M$. Then $\mu(U) = \sum_{i=1}^{n} (b_i - a_i) - \epsilon n$. By setting $\epsilon < \frac{\mu(M) - m}{n}$ we get that $\mu(M) > m$ as required.\\
+			Next we show that for each $\epsilon > 0$ there exists $V \in \A$ such that $\mu(V) \le  \mu(M) + \epsilon$ and $M \subset int\left( V \right) $. Again we let $M \in \A$ arbitrary so we can write it as above. We set $V = \bigsqcup_{i \in  [n]} (a_i, b_i + \epsilon/2^n] \in \A$ so clearly $M \subset int(V) = \bigsqcup_{i \in  [n]} (a_i, b_i + \epsilon/2^n)$. We calculate $\mu(V) = \sum_{i=1}^{n} (b_i - a_i) + \epsilon \sum_{i=1}^{n} 2^{-n} < \mu(M) + \sum_{i=1}^{\infty} 2^{-n} = \mu(M) + \epsilon$ as required. (In hindsight, any $\epsilon' < \epsilon/n$ would have worked.)   	\item[(b)] We use the facts from part (a) along with a covering argument to show that $\mu$ is countably additive, proving that it is a premeasure. We will show the equality by proving two inequalities. We start with the harder one i.e. $\mu(A) \le \sum_{i=1}^{\infty} \mu\left( A_i \right)$.\\
+			Let  $\epsilon > 0$. By part $(a)$, we can find  $U_{\epsilon}$ such that $\overline{U_{\epsilon}} \subset A$ and $\mu\left( A \right) \le \frac{\epsilon}{2} + \mu(U_{\epsilon})$. Similarly, for each $n \in \N$, we can find $V_n \in \A$ such that  $A_n \subset int\left( V_n \right)$ and $\mu\left( V_n \right) \le  \mu\left( A_n \right) +\frac{\epsilon}{2} 2^{-n}$. By the transitivity of inclusion note that $\overline{U_{\epsilon}} \subset \bigcup_{n \in \N} int(V_n)$. We have an open covering of a compact set so we can find a finite subcovering $int(V_{n_1}), \ldots, int(V_{n_k})$ so that $ U_{\epsilon} \subset  \overline{U_{\epsilon}} \subset \bigcup_{i \in [k]} int\left( V_{n_i} \right) \subset \bigcup_{i \in [k]} V_{n_i} $. Finite additivity and monotonicty from HW1 Q4 gives us subadditivity of $\mu$ therefore $\mu(U_{\epsilon}) \le  \sum_{i=1}^{k} \mu  (V_{n_i}) \leq \sum_{i=1}^{\infty} \mu\left( V_i \right) \le  \sum_{i=1}^{\infty}\mu(A_i) + \frac{\epsilon}{2}$. Combining this with the inequality on the first line of this paragraph, we get $\mu(A) \leq \sum_{i=1}^{\infty}\mu(A_i) + \epsilon$. Let $\epsilon \to 0$ gives us the required inequality. \\
+			The other side is easy to see. By finite additivity and monotonicity of $\mu$, for all $n \in \N$ we have $\sum_{i=1}^{n} \mu(A_i) = \mu\left( \bigsqcup_{i = 1}^n A_i \right) \le  \mu\left( \bigsqcup_{i = 1}^{\infty}A_i  \right)$. Then taking $n \to \infty$ gives us the desired inequality. 
+	\end{enumerate}	
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	\begin{enumerate}
+		\item[(a)] Define $\lambda(\S) = \bigcap_{\F \supset \S} \F$ where $\F$ is a  $\lambda$-system. If this is a $\lambda$-system then clearly it is the smallest such as it contains every other $\lambda$-system that contains $\S$. Checking that it is a  $\lambda$-system is straightforward: 
+			\begin{enumerate}
+				\item[(i)] Since $X \in \F$ for each $\lambda$-system $\F$ containing $\S$, we get that  $X \in \bigcap_{\F \supset \S} \F$. 
+				\item[(ii)] Let $A,B \in \bigcap_{\F \supset \S} \F$ such that $B \subset A$ so $A\backslash B \in \F$ for each $\lambda$-system $\F$ containing $\S$ so  $A \backslash B \in \bigcap_{\F \supset \S} \F$.
+				\item[(iii)] Let $\{A_n\}_{n \in \N} \in \bigcap_{\F \supset \S} \F$ with $A_n \nearrow$ so  $\bigcup_{n \in \N}A_n \in \F$ for each $\lambda$-system $F$ containing $\S$ so  $\bigcup_{n \in \N} A_n \in \bigcap_{\F \supset \S} \F$. 
+			\end{enumerate}
+		\item[(b)] We have to show that $\lambda(\S)$ is a $\pi$-system i.e. it is closed under intersections. For any $T \in  \lambda(\S)$ we define $\D_T = \{A \in \lambda(S): A \cap T \in \lambda(\S)\}$ so it is the subset of elements whose intersection with $T$ stays in  $\lambda(\S)$. Clearly if for all $T \in \lambda(\S)$ we get that $\lambda(\S) \subset  \D_T$ then  $\lambda(S)$ is a $\pi$-system. Note that is suffices to check that $\D_T$ is a $\lambda$-system that contains $\S$ as then, by definition, it contains $\lambda(\S)$ the smallest $\lambda$-system containing $\S$. Fix $T \in \lambda(\S)$. Checking that $\D_T$ is a  $\lambda$-system:  
+			\begin{enumerate}
+				\item[(i)] Then $X \in \D_T$ as $X\cap T = T \in \lambda(S)$. 
+				\item[(ii)] Let $A,B \in \D_T$ so $A\cap T, B \cap T \in \lambda(\S)$. Since $\lambda(\S)$ is a $\lambda$-system,  $(A\cap T) \backslash  (B \cap T) = \left( A \backslash B \right) \cap T \in \lambda(\S)$ so $A \backslash B \in \D_T$.
+				\item[(iii)] Let $\{A_n\}_{n \in \N} \in \D_T$ so for each $n \in \N$ $A_n \cap T \in \lambda(\S)$. Then by $\lambda(\S)$ being a $\lambda$-system, $\bigcup_{n \in \N}(A_n \cap T)  = (\bigcup_{n \in \N} A_n) \cap T \in \lambda(\S)$ so $\bigcup_{n \in \N}A_n \in \D_T$. 
+
+			\end{enumerate}
+			We are left to show that each $\D_T$ contains  $\S$. It is clear that $D_S$ contains  $\S$ for each  $S \in \S$ since $\S$ is a  $\pi$-system. So $T \cap S \in \lambda(\S)$ for $T \in \lambda(S), S  \in \S$. Therefore, $S \in \D_T$ for $S \in \S$ so $\S \in \D_T$.
+		\item[(c)] One inclusion is clear: $\lambda(\S) \subset \sigma(\S)$ since the conditions for being a $\lambda$ system are weaker than those required for being a $\sigma$-algebra. In particular, every $\sigma$-algebra containing $\S$ is also a  $\lambda$-system so $\sigma(\S)$ is a  $\lambda$ system and then the inclusion is clear. Given that $\S$ is a  $\pi$-system, we need to show that $\lambda(\S) \supset \sigma\left( \S \right)$. We will prove that for $\lambda$-systems, it is equivalent to be a $\pi$-system and a $\sigma$-algebra. Then, since we saw in part (a) that $\lambda(\S)$ is a $\pi$-system and (by definition) it is a $\lambda$-system it follows that it is a $\sigma$-algebra containing $\S$ from which we conclude that it must contain the smallest  $\sigma$-algebra containing $\S$. we proceed to show that if $\A \subset 2^X$ is a $\lambda$ system, then $\A$ is a  $\pi$-system $\iff$ $\A$ is a  $\sigma$-algebra. $\Leftarrow$ is obvious because an algebra is closed under intersection. To check $\Rightarrow$, assume that  $\A$ is both a  $\pi$ and $\lambda$-system and check the conditions for being a $\sigma$-algebra. 
+			\begin{enumerate}
+				\item[(i)] Clearly $X \in \A$
+				\item[(ii)] Let $A \in  \A$. Then $A^c = X \backslash A \in \A$ by closure under differences of subsets of a $\lambda$-system. 
+				\item[(iii)] First note that the set is closed under finite unions since for $A,B \in \A$, $A  \cup B = \left( A^c\cap B^c \right)^c$ and the system is closed under complements and intersections. Let $\{B_n\}_{n \in \N} \in \A$ and construct $A_n = \bigcup_{i \in [n]}B_i \in \A$. Clearly, $B_n \nearrow$ so  $\bigcup_{n \in  \N}B_n = \bigcup_{n \in \N}A_n \in \A$. 
+			\end{enumerate}
+		\end{enumerate}
+	\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	From the previous question recall that $\A = \lambda(\S)$. We will directly prove part (b) which subsumes part (a) since we can take $S_1 = X$ and  $S_i = \O$ for $i > 1$ which reduces part (b) to part (a). We proceed in 2 steps. First, we show that for all $A \in \A$ and for any $S \in \S$, $\mu(A\cap S) = \nu(A \cap S)$. Then, we lift this property to all $A \in \A$ using the $S_i \in \S$.\\
+	As we did in the previous problem, for a fixed $S \in \S$ consider the set $\D_S = \{A \in \A: \mu(A \cap S) = \nu(A\cap S)\}$. Then the goal is to show that for all $S \in \S$,  $\A \subset \D_S$. Since $\A = \lambda(S)$ and $S \subset \D_S$, it suffices to show that $\D_S$ is a $\lambda$-system.
+	\begin{enumerate}
+		\item[(a)] Clearly $X \in \D_S$. 
+		\item[(b)] Let $A,B \in \D_S$ such that $B \subset A$. Then $\mu\left( (A \backslash B) \cap S \right) = \mu(A \cap S) - \mu(B \cap S) = \nu(A \cap S) - \nu(B \cap S) = \nu\left( (A \backslash B) \cap S \right)$ so $A\backslash B \in \D_S$.
+		\item[(c)] Let $A_n \in \D_S, A_n \nearrow A$ so that $A_n \cap S \nearrow A\cap S$. Then  $\mu(A\cap S) = \sum_{n=1}^{\infty}\mu(A_n\cap S) = \sum_{n=1}^{\infty}\nu(A_n\cap S) = \nu(A\cap S)$.
+	\end{enumerate}
+	Next, we show that this equality holds on all $A \in \A$. Define $T_n = \bigcup_{i \in  [n]} S_n$. Then we can write $T_n = \bigsqcup_{i \in  [n]} S_i \backslash T_{i-1} =  \bigsqcup_{i \in  [n]} T_{i-1}^c \cap S_i$. Therefore $\mu(A \cap T_n) = \sum_{i=1}^{n}  \mu( (A \cap T_{i-1}^c) \cap S_i) = \sum_{i=1}^{n} \nu(( A \cap T_{i-1}^c) \cap S_i) = \nu(A \cap T_n).$ Finally since $T_n \nearrow X$ and by lower semicontinuity of  $\mu$ and $\nu$, by taking $n \to \infty$ we get that $\mu(A) = \nu(A)$. 
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	 \begin{enumerate}
+		\item[(a)] We verify the 3 conditions for $\A$ to be an algebra: 
+			 \begin{enumerate}
+				 \item[(i)] Let $\epsilon > 0$. Let $U = \R^n$ and let  $K = \overline{B}_N\left( 0 \right)$ so $K \subset X \subset U$. Then for large enough $N$, since  $\mu(\R^n) < \infty$, we get that $\mu\left( U \backslash K \right) = \mu(U) - \mu(K) < \epsilon$. This shows that $X \in \A$. 
+				\item[(ii)] Next we show closure under complement. Let $A \in \A$ so there exists a compact  $K$ and an open  $U$ such that  $K \subset A \subset U$ and $\mu(U\backslash K) < \epsilon$. Then $U^c \subset A^c \subset K^c$ and $\mu\left( K^c \backslash U^c \right) = \mu\left( U \backslash K \right) < \epsilon$. This satisfies the conditions as $U^c$ is closed (and bounded) so it is compact and  $K^c$ is open. 
+				\item[(iii)] Finally, we show closure under union. Let $A_1, A_2\in \A$ so there exists $U_1, U_2$ open and  $K_1, K_2$ compact such that $K_i \subset A_i \subset U_i$ and $\mu\left( U_i \backslash K_i \right) < \epsilon/2$ for $i=1,2$. Then $K_1 \cup K_2 \subset  A_1 \cup A_2 \subset U_1 \cup U_2$ and $\mu\left( (U_1 \cup U_2) \backslash (K_1 \cup K_2)\right) = \mu((U_1 \backslash K_1)\cup\left( U_2 \backslash K_2\right)) < \epsilon/2 + \epsilon/2 = \epsilon$.  
+			\end{enumerate}
+		\item[(b)] Let $A_n \nearrow A$ and  $A_n \in \A$. Therefore for each $n$ we have  $K_n \subset A_n \subset U_n$ as above with $\mu(U_n \backslash K_n) < \epsilon/2^n$. Then $U= \bigcup_{n \in \N} U_n$ is an open set and $K = \bigcap_{n \in \N} K_n$ is compact and we can write $K\subset A \subset U$ with $\mu(U\backslash K) = \mu\left( \bigcup_{n \in \N} U_n \backslash K_n \right) \leq \sum_{n=1}^{\infty} \epsilon/2^n = \epsilon$. Therefore, $A \in \A$.
+		\item[(c)] Recall that the Borel algebra on $\R^n$ is generated by $R$ tbe set of rectangles in  $\R^n$. Since we have already shown that  $\A$ is a  $\sigma$-algebra, in order to show that $\sigma(R) \subset \A$, it suffices to show $R \subset \A$. Let $A = [a,b]$ be an arbitrary rectangle where  $a_i < b_i$ for all  $i \in [n]$. Let $\epsilon > 0$. Consider $K = A$ which is compact and  $U = (a-\epsilon/3n, b + \epsilon/3n)$ where this notation means that the buffer $\epsilon/3n$ is added to each coordinate. Then $K \subset A \subset U$ with $U$ open and  $\mu(U\backslash K) = \frac{2\epsilon}{3} < \epsilon$.   
+	\end{enumerate}
+\end{homeworkProblem}
+
+
+\end{document}

@@ -1,0 +1,54 @@
+\newtheoremstyle{myplain}      {10pt}{10pt}{\itshape}{}{\scshape}{.}{.5em}{}
+\newtheoremstyle{mydefinition} {10pt}{10pt}{}{}{\scshape}{.}{.5em}{}
+\newtheoremstyle{myremark}     {10pt}{10pt}{}{}{\scshape}{.}{.5em}{}
+
+\renewcommand{\qedsymbol}{\leavevmode
+  \hbox to.77778em{%
+  \hfil\vrule
+  \vbox to.875em{\hrule width.35em\vfil\hrule}%
+  \vrule\hfil}}
+
+\theoremstyle{myplain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}         [theorem]{Lemma}
+\newtheorem{proposition}   [theorem]{Proposition}
+\newtheorem{corollary}     [theorem]{Corollary}
+\newtheorem{claim}         [theorem]{Claim}
+\newtheorem{fact}          [theorem]{Fact}
+
+\theoremstyle{mydefinition}
+\newtheorem{definition}    [theorem]{Definition}
+\newtheorem{example}       [theorem]{Example}
+\newtheorem{assumption}    [theorem]{Assumption}
+\newtheorem{openproblem}   [theorem]{Open Problem}
+\newtheorem{problem}       [theorem]{Problem}
+
+\theoremstyle{myremark}
+\newtheorem{remark}        [theorem]{Remark}
+\newtheorem{conjecture}    [theorem]{Conjecture}
+
+\renewcommand{\fnum@figure}{\textsc{Figure~\thefigure}}
+\renewcommand{\fnum@table}{\textsc{Table~\thetable}}
+
+
+
+\newcommand{\makeheader}[2]{
+\noindent
+\parbox{8cm}{
+	University of California, Los Angeles\\
+	CS 281 Computability and Complexity\\
+	\rule{0mm}{6mm}%
+	#1
+}
+\hfill
+
+\vspace{15mm}
+
+\begin{center}
+{\bf\Large #2 Exam}\\
+\end{center}
+
+\vspace{2cm}
+\thispagestyle{empty}
+}
+

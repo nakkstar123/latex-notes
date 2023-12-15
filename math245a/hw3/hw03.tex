@@ -1,0 +1,141 @@
+\documentclass[12pt]{amsart} %% AMS artstyle at 12pt size,loads amsmath
+%\includeonly{}
+\addtolength{\headheight}{1.15pt}
+\addtolength{\textwidth}{2cm}
+\addtolength{\oddsidemargin}{-1cm}
+\addtolength{\evensidemargin}{-1cm}
+\pagestyle{plain}
+\usepackage{amsmath}
+\usepackage{amscd}
+\usepackage{amsthm}
+\usepackage{amssymb}
+%\usepackage{showkeys}
+\usepackage{amsmath}
+\usepackage{amscd}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathabx}
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\Ha{\ensuremath{\mathbb{H}}}
+\newcommand\cont{\Rightarrow\!\Leftarrow}
+
+
+% macros for 245A
+\newcommand\A{\mathcal{A}}
+\newcommand\F{\mathcal{F}}
+\renewcommand\S{\mathcal{S}}
+\newcommand\D{\mathcal{D}}
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
+\def\R{\mathbb{R}}
+\def\D{\mathbb{D}}
+\def\C{\mathbb{C}}
+\def\la{\lambda}
+\def\for{\quad \text{for} \quad} 
+\def\foral{\quad \text{for all} \quad}
+\def\ra{\rightarrow}
+\def\lr{\leftrightarrow}
+\def\eps{\epsilon}
+\def\:{\colon}
+\def\sub{\subseteq}
+\newcommand{\dist} {\operatorname{dist}}
+\renewcommand{\Re} {\text{Re}}
+\renewcommand{\Im} {\text{Im}}
+\begin{document}
+\thispagestyle{empty}
+\pagestyle{empty}
+\noindent 
+\textsl{Math 245A  \hfill Fall  2023}
+
+\bigskip
+\centerline {\textbf{Nakul Khambhati}}
+\bigskip
+\centerline {Homework 3 (due: Fr, Oct.~20) }
+
+ 
+
+\bigskip
+\noindent
+
+% change everything to @mu*
+
+\textbf{Problem 2*:}
+a) By monotonicity we know that for each $n \in \N$, $\mu^*(T \cap U_n) \le \mu^*(T \cap U)$ so the sequence $\{\mu^*(T\cap U_n)\}_{n \in \N}$ is bounded above. Further since $U_n \subset U_{n+1}$ this sequence is also non-decreasing, again by monotonicity. Since real-valued bounded monotone sequences convergence, the sequence convergences and its limit is bounded above by $\mu^*(U \cap T) < \infty$.\\ 
+ 
+b) Note that $ \left( T \cap U_{n+2} \backslash (T \cap U_{n+1}) \right) \subset  T \cap U_{n+1}^c$ and we estbalished in Problem 1 that  $\dist\left( U_n, U_{n+1}^c \right) > 0$ so by the condition given to us (which we shall call separated additivity) we get $\mu^*\left( (T \cap U_n) \cup \left( T \cap U_{n+2} \backslash (T \cap U_{n+1}) \right)  \right) =  \mu^*(T \cap U_n) + \mu^*\left( T \cap U_{n+2} \backslash (T \cap U_{n+1}) \right)$. Observe also that $(T \cap U_n) \cup \left( T \cap U_{n+2} \backslash (T \cap U_{n+1}) \right)  \subset T \cap U_{n+2}$ so by monotonicity $ \mu^*(T \cap U_n) + \mu^*\left( T \cap U_{n+2} \backslash (T \cap U_{n+1}) \right) \le  \mu^*(T \cap U_{n+2})$ as required.  \\ 
+
+c) First note that $\bigcup_{n \in \N} C_n = T \cap U$. We then rewrite $\sum_{n \in \N} \mu^*(C_n) = \sum_{k \in \N} \mu^*(C_{2k-1}) + \sum_{k \in \N} \mu^*(C_{2k})$. Note that $\dist(C_{n-1}, C_{n+1}) > 0$ as $C_{n-1} \subset U_n$ and $C_{n+1} \subset U_{n+1}^c$. Then by monotonicity and separated additivity, for all $N \in \N$ we can write $\sum_{k = 1}^N  \mu^*(C_{2k-1}) + \sum_{k = 1}^N  \mu^*(C_{2k}) = \mu^*(\bigcup_{k = 1}^N C_{2k-1}) \mu^*(\bigcup_{k = 1}^N C_{2k}) \le \mu^*(T \cup U) + \mu^*(T \cup U)$. Taking the limit $N \to \infty$ gives us that $\sum_{n \in \N} \mu^*(C_n) \le  2 \mu^*(T \cap U) < \infty$. \\
+
+d) By definition, for all $n \in \N$, $T \cap U = (T \cap U_n) \cup (\bigcup_{k \ge n}C_k)$. Then, by countable subadditivity of $\mu^*$ it follows that  $\mu^*(T \cap U) \le \mu^*(T \cap U_n) + \sum_{k \geq n}\mu^*(C_k)$. \\
+
+e) One equality follows from parts c) and d). Since the sum of $\mu^*(C_k)$ converges, it must be that  $\lim_{n \to \infty} \sum_{k=n}^{\infty} \mu^*(C_k) = 0$. Then taking the limit $n \to \infty$ in part d) gives us that $\mu^*(T \cap U) \le \lim_{n \to \infty} \mu^*(T\cap U_n)$. The other inequality is seen in part a) which gives us the desired equality.\\ 
+
+f) For each $n \in \N$, construct $U_n$ as in Problem 1. So clearly, $\dist(U_n, U^c) > 0$. Also,  $(T \cap U_n) \cup (T \cap U^c) \subset T$. Then by monotonicity and separated additivity of $\mu^*$, we get the inequality $\mu^*(T \cap U_n) + \mu^*(T \cap U^c) \leq \mu^*(T)$. Since $U_n \nearrow U$, by lower semicontinuity of the outer measure we get that $\lim_{n \to  \infty}\mu^*(T \cap U_n) + \mu^*(T \cap U^c) \leq \mu^*(T)$ which by part e) is the same $\mu^*(T)\ge \mu^*(T\cap U)+\mu^*(T\cap U^c).$ \\
+
+g)  Recall that for an outer measure $\mu^*$, the set of $\mu^*$-measurable sets $\mathcal{M}$ is a $\sigma$-algebra. Therefore, to show $\mathcal{B}_{\R} = \sigma(\mathcal{O}) \subset \mathcal{M}$ it suffices to show that $\mathcal{O} \subset \mathcal{M}$ i.e. every open set is $\mu^*$-measurable. But this is exactly what part f) shows as the other inequality is always true by finite subadditivity.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+\bigskip
+\noindent
+\textbf{Problem 3*:} a) We will show (i) $\Rightarrow$ (ii), (ii) $\Rightarrow$ (iii), (iii) $\Rightarrow$ (ii) and (ii) $\Rightarrow$ (i) is obvious as cubes are rectangles. 
+\begin{enumerate}
+	\item Let $M \subset \R^n$ and let $\epsilon > 0$. Assume that we can cover $M$ with a countable collection of rectangles $\{R_k\}_{k \in \N} $ such that the sum of their content is less than $\epsilon/2$. Furthermore, by density of rationals and continuity of the finite product, we can expand the end points of each interval of each rectangle $R_k$ by some amount less than $\epsilon/(n 2^{k+1})$ so we get a new rectangle $R_k'$ with rational endpoints, with  $R_k \subset R_k'$ and $|R_k'| < |R_k| + \epsilon/2^{k+1}$. Each such rectangle $R_k'$ can be covered exactly with finitely many cubes  $Q_{k1}, Q_{k2}, \ldots, Q_{km_k}$ so the sum of their contents equals $|R_k'|$. Then $M \subset \bigcup_{k \in \N} \bigcup_{i \in [m_k]} Q_{ki}$ and $ \sum_{k \in \N} \sum_{i \in [m_k]} |Q_{ki}| = \sum_{k \in \N} |R_k'| \leq \sum_{k \in \N} |R_k| + \epsilon/2 < \epsilon$.
+\item For each cube $Q_k$, we can cover it with a ball at the center of the cube and radius  $\sqrt{n}(b_1 - a_1)$. Its ``volume'' is $(n^{1/2})^n (b_1 - a_1)^n$ which is a factor of $n^{n/2}$ greater than the cube. Let $\epsilon > 0$ and $M \subset \R^n$ arbitrary that can be covered with cubes whose sum of content is less than $\epsilon/n^{n/2}$. Cover each cube $Q_k$ with a ball with center at the center of the cube and radius $r_k = b_1^{(k)} - a_1^{(k)}$. Clearly the balls also cover $M$ and $\sum_{k \in \N} r_k^n < n^{n/2} \sum_{k \in \N} |Q_k| < \epsilon$.
+\item We can repeat a similar argument but instead, here we cover balls with cubes. We use a side length of $2r$ so that the ``volume'' scales up by a factor of  $2^n$ but we can repeat the same trick by first getting (by assumption) a cover with balls of total volume less than  $\epsilon/2^n$. Then we can expand the balls to cubes with total volume still less than $\epsilon$. 
+
+\end{enumerate}
+ 
+
+\smallskip
+b) $\Rightarrow$ Let $\epsilon > 0$ and assume that $M$ is a set of measure zero so it has a cover of open balls  $M \subset \bigcup_{k \in \N} B_k$ such that $\sum_{k \in \N}r_k^n < \epsilon$. Set $B = \bigcup_{k \in \N}B_k$ itself, which is a Borel set as it is a countable union of open sets. This set has measure zero as it is covered by itself. $\Leftarrow$ Now assume that $M$ is such that there exists a borel set $B$ of measure zero such that  $M \subset B$. For each $\epsilon > 0$, we simply use the cover by balls of $B$ for $M$ which shows that  $M$ is also of measure zero.\\ 
+
+
+c) Let $\epsilon > 0$ so for each $M_k$ there exists a collection of open balls $\{B_{kj}\}_{j \in \N}$ such that $\sum_{j=1}^{\infty} r_{kj}^n < \epsilon/2^k$. Then $\bigcup_{k \in \N} \bigcup_{j \in \N} B_{kj}$ is a countable cover (countable union of countable sets is countable) of $M$ and  $\sum_{k \in \N} \sum_{j \in \N} r_{jk}^n < \sum_{k \in \N} \epsilon/2^k = \epsilon$. Therefore, $M$ is a set of measure zero. 
+
+
+
+\bigskip
+\noindent
+\textbf{Problem 4*:}  a) First we assume that $N$ is bounded so that  $f$ is Lipschitz continuous on  $V$ with constant  $L$. Let $\epsilon > 0$. Since $N$ is of measure zero, there exists a countable cover of cubes $\{Q_k\}_{k \in \N}$ of $N$ such that  $\sum_{k \in \N} |Q_k| < \epsilon/L^n$. Denote $Q_k = [a_1^{(k)}, b_1^{(k)}] \times \cdots \times [a_n^{(k)}, b_n^{(k)}]$. By Lipschitz continuity, for each $j \in [n]$, $|f(b_j^{(k)}) - f( a_j^{(k)} )| \le L |b_j^{(k)} -  a_j^{(k)} |$ and so $f(Q_k) \subset Q_k'$ where $Q_k'$ is some cube with  $|Q_k'| \le  L^n |Q_k|$. Then, $f(N) \subset \bigcup_{k \in \N} Q_k'$ and $\sum_{k  \in \N} |Q_k'| \le  L^n\sum_{k  \in \N} |Q_k| < \epsilon$ so $f(N)$ is of measure zero. If $N$ is not bounded, we can cover it by a countable union of bounded sets $N_i$ for  $i \in \N$, each of measure zero and then $f(N) \subset \bigcup_{i \in \N} f(N_i)$ where each $f(N_i)$ has measure zero and therefore by part c) of the previous problem  $f(N)$ has measure zero.    
+
+\medskip
+b) Let $\epsilon > 0$. By the previous part, it suffices to show that the set $A$ of points with  $n$-th coordinate equal to  $0$ is of measure zero as this is homeomorphic to the affine hyperplane being considered. Furthermore, it suffices to show that $B = A \cap [0,1]^n$ is of measure zero because  $A$  is a countable unions of translated copies of $B$ and we can then use Problem 3 part c). But now this is easy as we can just cover $A$ with the rectangle $ R = [0,1]^{n-1} \times [-\epsilon/3, \epsilon/3]$ which has $|R| = 2\epsilon/3 < \epsilon$ and so we are done. \\ 
+
+\bigskip
+\noindent
+\textbf{Problem 5*:} Let $\mathcal{R}_k$ denote the family of $k$-dimensional open rectangles. Recall that $\mathcal{B}_k = \sigma(\mathcal{R}_k)$. It suffices to show that $\mathcal{R}_k \otimes \mathcal{R}_n = \mathcal{R}_{k+n}$. We will show this by two inclusions. Let $R_1 \in \mathcal{R}_k, R_2 \in \mathcal{R}_n $ so we can write $R_1 = (a_1, b_1) \times \cdots \times (a_k, b_k)$ and  $R_2 =  (a_{k+1}, b_{k+1}) \times \cdots \times (a_{k+n}, b_{k+n})$ so then $R_1 \times R_2 \in \mathcal{R}_k \otimes \mathcal{R}_n$ equals $ (a_1, b_1) \times \cdots \times (a_{k+n}, b_{k+n}) \in \mathcal{R}_{k+n}$.Therefore, $\mathcal{R}_k \otimes \mathcal{R}_n \subset \mathcal{R}_{k+n}$. The other inclusion follows identically as we can write an arbitrary element $ (a_1, b_1) \times \cdots \times (a_{k+n}, b_{k+n}) \in \mathcal{R}_{k+n}$ as a product of the two elements $(a_1, b_1) \times \cdots \times (a_k, b_k) \in \mathcal{R}_k$ and $ (a_{k+1}, b_{k+1}) \times \cdots \times (a_{k+n}, b_{k+n}) \in \mathcal{R}_{n}$.
+
+% expand on why it suffices to show this
+
+
+
+
+  \vfill 
+ 
+\end{document}

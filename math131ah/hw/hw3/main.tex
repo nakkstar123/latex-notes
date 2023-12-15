@@ -1,0 +1,253 @@
+\documentclass[fleqn]{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath, amssymb}
+
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\setlength{\mathindent}{1cm}
+
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\Ha{\ensuremath{\mathbb{H}}}
+\newcommand\J{\ensuremath{\mathbb{J}}}
+\newcommand\K{\ensuremath{\mathbb{K}}}
+\newcommand\cont{\Rightarrow\!\Leftarrow}
+\newcommand\tf{\therefore}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#3}
+\newcommand{\hmwkDueDate}{February 1, 2022}
+\newcommand{\hmwkClass}{Math 131AH}
+\newcommand{\hmwkClassTime}{131AH}
+\newcommand{\hmwkClassInstructor}{Professor Marek Biskup}
+\newcommand{\hmwkAuthorName}{\textbf{Nakul Khambhati}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+    Recall \(\forall m,n \in \N\) we define \(m^0 = 1\) and \(m^{S(n)} = mm^{n}\).
+    \begin{enumerate}
+        \item Fix \(s \in \N\). We will prove the statement by induction on \(r\).
+        \(P_0: m^{0+s} = m^{s} = 1m^{s} = m^0m^s\). Assume \(P_r\). Let's prove \(P_{r+1}\):
+        \(m^{S(r)+s} = m^{S(r+s)} = mm^{r+s}=mm^rm^s = m^{S(r)}m^s\). By induction, the 
+        statement follows for all \(r \in \N\).
+        \item Now, fix \(r\) and proceed by induction on \(s\). \(P_0: m^{r0} = m^{0} = 1 = (m^{r})^0\). 
+        Assume \(P_s\) and prove \(P_{s+1}: m^{rS(s)} = m^{rs + r} = m^{rs}m^r = (m^r)^sm^r = (m^{r})^{S(s)}\). 
+        By induction, the result follows for all \(s \in \N\).
+    \end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    We will prove this by proposing some fact about \(A\) which we will prove for all \(n \in \N\).
+    Let \(P_n\) be the statement: If \(A\) contains an integer \(k\) where \(0 \leq k \leq n\) then, \(A\) has a minimal element. 
+    \(P_0\) is clear as if \(0 \in A\) then \(0\) is the minimal element. Now assume \(P_n\). We show \(P_{n+1}\). Assume \(A\) contains
+    some \(k\) such that \(0 \leq k \leq n+1\). We now deal with cases: If there does not exist any \(a \in A \text{ such that } 0 \leq a \leq n\) then we must
+    have \(k = n+1\) which would then be the minimal element in \(A\). On the other hand, if \(\exists a: 0 \leq a \leq n \) then by the inductive hypothesis, \(A\)
+    has a minimal element. By induction we have proved \(P_n\) for all \(n \in \N\). Since we are given that \(A\) is nonempty, we can say that \(A\) contains some
+    integer \(k: 0\leq k \leq m\) for some \(m \in \N\). As a result, \(A\) has a minimal element.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    We will use slightly different notation to prove that this relation is well defined. 
+    Assume that \([(m,n)]\sim [(m',n')]\) and \([(k,l)]\sim [(k', l')]\). 
+    Further assume that \([(m,n)]\leq [(k,l)]\). We are required to show that \([(m',n')]\leq [(k', l')]\).\\
+
+    First let's summarize our assumptions: \(m + n' = m' + n, k + l' = k' +l\) and \(m+l \leq n+k\). We need to show
+    \(m' + l' \leq n' + k'\). In other word, there exists some \(a \in \N\) such that \(n + k = m + l + a\). We need to
+    construct some \(a' \in \N: n' + k' = m' + l' + a'\). By adding some of the above equations, we get \(n+k+m+n'+k'+l = m+l+a+m'+n + k + l'\).
+    Injectivity of addition allows us to cancel \(k,l,m,n\) from both sides leaving us with \(n' + k' = m' + l' + a\). So in fact, the required \(a'\)
+    is \(a\) and this makes the relation well defined. \\
+
+    First we show that the relation is a partial order:
+    \begin{enumerate}
+        \item By commutativity, \(m + n = n + m = n + m + 0\) so \([(m,n)]\leq [(m,n)]\).
+        \item Assume that \([(m,n)]\leq [(m',n')]\) and \([(m',n')]\leq [(m,n)]\). Then, \(m + n' = m' + n + k\) and \(m' + n = m' + n + l\) for some \(k,l \in \N\).
+        So, \(m + n' = m + n' + k + l\). By injectivity of addition, \(k+l = 0\) and \(k = l = 0\). So, \(m+n' = n+m' \Rightarrow [(m,n)]\sim [(m',n')]\). Therefore, the 
+        relation is antisymmetric.
+        \item Assume that \([(m,n)]\leq [(m',n')]\) and \([(m',n')]\leq [(m'',n'')]\). Then, \(m + n' = m' + n + k\) and \(m' + n'' = m'' + n' + l\) for some \(k,l \in \N\).
+        When we add the two, we get \(m + n' + m' + n'' = m' + n + k + m'' + n' + l\). By cancellation, we cancel out \(m',n'\) from both sides and by commutativity we rearrange
+        to get \(m + n'' = m'' + n + k+l\). So \([(m,n)]\leq [(m'',n'')]\) and the relation is transitive. 
+    \end{enumerate}
+
+    Now we need to show that for any two \([(m,n)], [(k,l)]\) either \([(m,n)] \leq [(k,l)]\) or \([(k,l)] \leq [(m,n)]\).\\
+    We will prove this by using the total ordering of naturals. Given \([(m,n)]\) and \([(k,l)]\), either \(m+l \leq n+k \Rightarrow [(m,n)] \leq [(k,l)]\)
+    or \(n+k \leq m+l \stackrel{comm}{\Rightarrow} k+n \leq l+m \Rightarrow [(k,l)] \leq [(m,n)]\). 
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Again, we switch notation a bit to show that addition is well-defined. Let \([(p,q)]\sim [(p',q')]\) and \([(r,s)]\sim [(r',s')]\). Then, \(pq' = p'q\) and \(rs' = r's\). 
+    We need to then show that \((ps +qr, qs)\sim(p's' + q'r', q's')\). LHS = \((ps + qr)(q's') = (psq's' + qrq's') = (p'qss' + r'sqq') = (p's' + q'r')(qs)\) = RHS. 
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    \begin{enumerate}
+        \item Let \(a,b \in F\). Let \(0 \leq b\). Then by (O2) \(0 + a = a \leq a + b\). Conversely, 
+        assume \(a  \leq a+b \Rightarrow a - a = 0 \leq a + b - a = b\).
+        \item Let \(a,b \in F\). Then, \(a \leq b \Rightarrow a - a - b \leq b - a - b \Rightarrow -b \leq -a\).
+        \item Let \(a,b \in F\). Assume \(0 < a \land a\leq b\). Therefore, \(a\neq 0 \land b \neq 0\). Therefore
+        \(a^{-1}, b^{-1}\) exist. Further, \( 0 < a^{-1}, 0 < b^{-1}\) because otherwise we would get \(1 < 0\). Therefore, 
+        \(aa^{-1}b^{-1} \leq ba^{-1}b^{-1} \Rightarrow b^{-1} \leq a^{-1}\).
+    \end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    These results follow from the proposition we proved in class: \(0 \leq a \iff -a \leq 0\).
+    \begin{enumerate}
+        \item If \(0 \leq a\), then \(|a| = a\) so \(0 \leq |a|\). Else, \(a < 0, |a| = -a, 0\leq |a|\).
+        \item Assume \(0 \leq a\). Then \(-a \leq a \leq a\) so \(-|a| \leq a \leq |a|\). Else, \(a < 0, |a| = -a\). Then, 
+        \(a \leq a \leq -a\) so \(-|a| \leq a \leq |a|\).
+        \item If both \(a,b \geq 0\) then \(|a+b| = |a| + |b|\). Similarly, if both \(a,b < 0\) then \(|a+b| = -(a+b) = (-a) + (-b) = |a| + |b|\).
+        If one is negative and one is positive: Assume WLOG \(0 \leq a\) and \(b < 0\). Then, \(|a+b| = |a - (-b)| \leq |a| + |b|\).
+        \item Assume both \(a,b\) are positive. Then \(ab\) is positive so \(|ab| = ab = |a||b|\). Similarly, for both negative, \(ab\) is positive 
+        so \(|ab| = ab = (-|a|)(-|b|) = |a||b|\). If only one is positive, assume WLOG \(0 \leq a\) and \(b < 0\). Then \(ab\) is negative so \(|ab| = -(ab) = -(|a|(-|b|)) = |a||b|\).
+    \end{enumerate}
+
+    Let's prove the claim by induction on \(n\). \(P_0\) is trivially true. Assume \(P_n\). Then, \(\Big|\sum\limits_{i = 0}^{n+1} a_i \Big| = \Big|\sum\limits_{i = 0}^{n}a_i + a_{n+1}\Big| \leq 
+    \Big|\sum\limits_{i = 0}^{n}a_i \Big| + | a_{n+1}| \leq \sum\limits_{i = 0}^{n}|a_i| + |a_{n+1}| = \sum\limits_{i = 0}^{n+1}|a_i|\). By induction, the claim is true for all \(n \in \N\).
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    \begin{enumerate}
+        \item The radical expression \(\sqrt[3]{5 - \sqrt{3}}\) solves some polynomial equation. Let's use \(\alpha\) to denote the radical expression. Then, \(5 - \sqrt{3} = \alpha^3 \Rightarrow
+        (5-\alpha^3)^2 = 3\). So \(\alpha\) is a root of the polynomial \(p(x) = x^6 - 10x^3 + 22\). By the rational root theorem, the only possible rational roots
+        of \(p(x)\) are \(\pm 1, \pm 2, \pm 11, \pm 22\). Substituting each, we see that none of them make the polynomial equal zero. Therefore \(\alpha\) cannot be expressed as a rational number. 
+        \item We can rewrite this radical as \(\sqrt{3 + 2\sqrt{2}} - \sqrt{2} = \sqrt{(1+\sqrt{2})^2} - \sqrt{2} = 1 + \sqrt{2} - \sqrt{2} = 1\) which is rational.
+        \item By the rational root theorem, the only possible roots for this polynomial are \(\pm 1\). We check that \(p(1) = 4, \; p(-1) = 0\). Therefore, \(-1\) is the only rational root of the
+        polynomial. 
+    \end{enumerate}
+\end{homeworkProblem}
+
+\end{document}
